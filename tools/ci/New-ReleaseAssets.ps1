@@ -1,25 +1,28 @@
 <#
 .SYNOPSIS
-    Builds the files of a GitHub release: both zips, SHA256SUMS.txt and the release notes (docs/RELEASING.md).
+    Builds the files of a GitHub release: the setup, SHA256SUMS.txt and the release notes (docs/RELEASING.md).
 
 .DESCRIPTION
-    Runs tools/publish/publish.ps1 twice and collects the results in <Output>\assets:
+    Runs tools/publish/publish.ps1 and collects the results in <Output>\assets:
 
-        HolidayLights-<version>-win-x64.zip                        self-contained: the .NET runtime is included, so
-                                                                   it runs on any Windows 11 PC (the download for most people)
-        HolidayLights-<version>-win-x64-framework-dependent.zip    smaller; needs the .NET 10 Desktop Runtime (x64)
-        SHA256SUMS.txt                                             SHA-256 of both zips (sha256sum format)
+        HolidayLights-<version>-Setup.exe    the one download: unpacks itself and runs the per-user installer, which
+                                             installs Holiday Lights or updates the installed version
+        SHA256SUMS.txt                       SHA-256 of the setup (sha256sum format)
 
-    and writes <Output>\release-notes.md from .github/release-notes-template.md. Each zip is opened and checked
-    (program, Setup.exe, Read Me, the .NET runtime only in the self-contained one). Nothing is installed or started.
+    and writes <Output>\release-notes.md from .github/release-notes-template.md.
+
+    The setup is checked by installing it silently twice (a new installation, then installing over it) into a private
+    data root with --no-system-changes under <Output>\install-check: each time it must exit with 0 and leave the program,
+    the screen saver copy, the bundled bulbs, the .NET runtime and the install marker of this version. Nothing is
+    installed for the user, registered or started otherwise.
 
     The version comes from Directory.Build.props, as in publish.ps1. On GitHub Actions the paths are written to
     $GITHUB_OUTPUT (assets, notes) and a table of the files to the job summary.
 
 .PARAMETER Output
-    The folder for staging\, assets\ and release-notes.md. Defaults to $env:RUNNER_TEMP\release on GitHub Actions,
-    else to $env:HL_BUILD_ROOT\release or <repo>\artifacts\release. Earlier staging\, assets\ and release-notes.md
-    there are replaced; nothing else in the folder is touched.
+    The folder for staging\, install-check\, assets\ and release-notes.md. Defaults to $env:RUNNER_TEMP\release on
+    GitHub Actions, else to $env:HL_BUILD_ROOT\release or <repo>\artifacts\release. Earlier staging\, install-check\,
+    assets\ and release-notes.md there are replaced; nothing else in the folder is touched.
 
 .PARAMETER Tag
     The tag the notes name (default v<version>).
@@ -36,7 +39,6 @@ param(
 
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
-Add-Type -AssemblyName System.IO.Compression.FileSystem
 
 $repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 $publishScript = Join-Path $repo 'tools\publish\publish.ps1'
@@ -61,11 +63,12 @@ if (-not $Output) {
 
 $Output = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($Output)
 $staging = Join-Path $Output 'staging'
+$installCheck = Join-Path $Output 'install-check'
 $assets = Join-Path $Output 'assets'
 $notesPath = Join-Path $Output 'release-notes.md'
 
 # Only what this script makes is removed, never anything else in the folder.
-foreach ($previous in @($staging, $assets, $notesPath)) {
+foreach ($previous in @($staging, $installCheck, $assets, $notesPath)) {
     if (Test-Path -LiteralPath $previous) {
         Remove-Item -LiteralPath $previous -Recurse -Force
     }
@@ -75,64 +78,57 @@ New-Item -ItemType Directory -Force -Path $staging, $assets | Out-Null
 
 # publish.ps1 runs in its own PowerShell process, exactly as a developer runs it.
 $powershell = (Get-Process -Id $PID).Path
-$variants = @(
-    [pscustomobject] @{ Name = 'self-contained'; Switches = @(); Asset = "HolidayLights-$version-win-x64.zip"; HasRuntime = $true }
-    [pscustomobject] @{ Name = 'framework-dependent'; Switches = @('-FrameworkDependent'); Asset = "HolidayLights-$version-win-x64-framework-dependent.zip"; HasRuntime = $false }
-)
+Write-Host '::group::publish.ps1'
+& $powershell -NoProfile -NonInteractive -File $publishScript -Output $staging -Configuration $Configuration
+$publishExit = $LASTEXITCODE
+Write-Host '::endgroup::'
+if ($publishExit -ne 0) {
+    throw "publish.ps1 failed with exit code $publishExit."
+}
 
-foreach ($variant in $variants) {
-    $variantOutput = Join-Path $staging $variant.Name
-    $switches = @($variant.Switches)
-    Write-Host "::group::publish.ps1 ($($variant.Name))"
-    & $powershell -NoProfile -NonInteractive -File $publishScript -Output $variantOutput -Configuration $Configuration @switches
-    $publishExit = $LASTEXITCODE
-    Write-Host '::endgroup::'
-    if ($publishExit -ne 0) {
-        throw "publish.ps1 ($($variant.Name)) failed with exit code $publishExit."
+$assetName = "HolidayLights-$version-Setup.exe"
+$setup = Join-Path $staging $assetName
+if (-not (Test-Path -LiteralPath $setup)) {
+    throw "publish.ps1 did not produce $setup."
+}
+
+# Install it as users will (silently, so no window waits for a click), into a private data root, twice: the second run
+# installs over the first, as an update does.
+$program = Join-Path $installCheck 'Programs\HolidayLights'
+foreach ($run in @('new installation', 'installing over it')) {
+    Write-Host "Checking the setup: $run"
+    $arguments = @('/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART', '--data-root', "`"$installCheck`"", '--no-system-changes')
+    $process = Start-Process -FilePath $setup -ArgumentList $arguments -Wait -PassThru
+    if ($process.ExitCode -ne 0) {
+        $log = Join-Path $installCheck 'Local\Logs\HolidayLights.log'
+        $tail = if (Test-Path -LiteralPath $log) { (Get-Content -LiteralPath $log -Tail 20) -join "`n" } else { '(no log)' }
+        throw "The setup ($run) exited with code $($process.ExitCode). The end of its log:`n$tail"
     }
 
-    $zip = Join-Path $variantOutput "HolidayLights-$version-win-x64.zip"
-    if (-not (Test-Path -LiteralPath $zip)) {
-        throw "publish.ps1 ($($variant.Name)) did not produce $zip."
-    }
-
-    # The zip holds one folder, "Holiday Lights <version>", with the program, the installer and the Read Me.
-    $archive = [System.IO.Compression.ZipFile]::OpenRead($zip)
-    try {
-        $entries = @($archive.Entries | ForEach-Object { $_.FullName.Replace('\', '/') })
-    }
-    finally {
-        $archive.Dispose()
-    }
-
-    $folder = "Holiday Lights $version/"
-    foreach ($required in @('HolidayLights.exe', 'HolidayLights.dll', 'Setup.exe', 'Read Me.txt', 'Assets/BulbDocument.ico')) {
-        if ($entries -notcontains "$folder$required") {
-            throw "$($variant.Asset) is missing $folder$required."
+    foreach ($required in @('HolidayLights.exe', 'HolidayLights.dll', 'Holiday Lights.scr', 'coreclr.dll', 'Assets\BulbDocument.ico')) {
+        if (-not (Test-Path -LiteralPath (Join-Path $program $required))) {
+            throw "The setup ($run) did not install $required."
         }
     }
 
-    $bulbs = @($entries | Where-Object { $_ -like "${folder}Content/Bulbs/*.bul" }).Count
+    $bulbs = @(Get-ChildItem -LiteralPath (Join-Path $program 'Content\Bulbs') -Filter '*.bul').Count
     if ($bulbs -ne 1501) {
-        throw "$($variant.Asset) holds $bulbs bulbs instead of 1501."
+        throw "The setup ($run) installed $bulbs bulbs instead of 1501."
     }
 
-    $hasRuntime = $entries -contains "${folder}coreclr.dll"
-    if ($hasRuntime -ne $variant.HasRuntime) {
-        throw "$($variant.Asset): the .NET runtime is $(if ($hasRuntime) { 'included' } else { 'missing' }), which is wrong for a $($variant.Name) build."
+    $marker = Get-Content -Raw -LiteralPath (Join-Path $program 'HolidayLights.install.json') | ConvertFrom-Json
+    if ($marker.version -ne $version) {
+        throw "The setup ($run) installed version $($marker.version) instead of $version."
     }
-
-    Copy-Item -LiteralPath $zip -Destination (Join-Path $assets $variant.Asset)
 }
 
-$checksums = foreach ($variant in $variants) {
-    $hash = (Get-FileHash -LiteralPath (Join-Path $assets $variant.Asset) -Algorithm SHA256).Hash.ToLowerInvariant()
-    "$hash  $($variant.Asset)"
-}
+Copy-Item -LiteralPath $setup -Destination (Join-Path $assets $assetName)
+$hash = (Get-FileHash -LiteralPath (Join-Path $assets $assetName) -Algorithm SHA256).Hash.ToLowerInvariant()
+$checksum = "$hash  $assetName"
 
 # LF line endings, as sha256sum writes and reads them.
 $checksumsPath = Join-Path $assets 'SHA256SUMS.txt'
-[System.IO.File]::WriteAllText($checksumsPath, (($checksums -join "`n") + "`n"), [System.Text.UTF8Encoding]::new($false))
+[System.IO.File]::WriteAllText($checksumsPath, "$checksum`n", [System.Text.UTF8Encoding]::new($false))
 
 $repositoryUrl = if ($env:GITHUB_SERVER_URL -and $env:GITHUB_REPOSITORY) {
     "$env:GITHUB_SERVER_URL/$env:GITHUB_REPOSITORY"
@@ -153,9 +149,8 @@ else {
 $values = [ordered] @{
     '{{VERSION}}' = $version
     '{{TAG}}' = $Tag
-    '{{SELF_CONTAINED_ZIP}}' = $variants[0].Asset
-    '{{FRAMEWORK_DEPENDENT_ZIP}}' = $variants[1].Asset
-    '{{CHECKSUMS}}' = ($checksums -join "`n")
+    '{{SETUP_EXE}}' = $assetName
+    '{{CHECKSUMS}}' = $checksum
     '{{REPOSITORY_URL}}' = $repositoryUrl
     '{{COMMIT}}' = $commit
 }
@@ -172,16 +167,13 @@ if ($unknown) {
 
 [System.IO.File]::WriteAllText($notesPath, $notes.Replace("`r`n", "`n"), [System.Text.UTF8Encoding]::new($false))
 
+$file = Get-Item -LiteralPath (Join-Path $assets $assetName)
 $table = [System.Text.StringBuilder]::new()
 [void] $table.AppendLine("## Release files for $Tag")
 [void] $table.AppendLine()
 [void] $table.AppendLine('| File | Size | SHA-256 |')
 [void] $table.AppendLine('|---|---:|---|')
-foreach ($variant in $variants) {
-    $file = Get-Item -LiteralPath (Join-Path $assets $variant.Asset)
-    $hash = ($checksums | Where-Object { $_.EndsWith("  $($variant.Asset)") }).Split(' ')[0]
-    [void] $table.AppendLine(("| {0} | {1:N1} MB | ``{2}`` |" -f $variant.Asset, ($file.Length / 1MB), $hash))
-}
+[void] $table.AppendLine(("| {0} | {1:N1} MB | ``{2}`` |" -f $assetName, ($file.Length / 1MB), $hash))
 
 if ($env:GITHUB_STEP_SUMMARY) {
     Add-Content -LiteralPath $env:GITHUB_STEP_SUMMARY -Value $table.ToString() -Encoding utf8

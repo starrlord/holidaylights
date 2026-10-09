@@ -88,6 +88,9 @@ public sealed record LaunchRequest
     /// <summary><c>--no-system-changes</c>.</summary>
     public bool NoSystemChanges { get; init; }
 
+    /// <summary><c>--quiet</c>: <c>--install</c> without a window (ignored by the other commands).</summary>
+    public bool Quiet { get; init; }
+
     /// <summary>Arguments that were not understood (ignored; the caller logs them).</summary>
     public IReadOnlyList<string> UnknownArguments { get; init; } = [];
 

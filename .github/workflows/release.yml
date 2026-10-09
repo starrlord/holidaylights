@@ -19,7 +19,7 @@ on:
         type: boolean
         default: true
       create-release:
-        description: Create the GitHub release. Clear it to only build and test, and download the zips from this run.
+        description: Create the GitHub release. Clear it to only build and test, and download the setup from this run.
         required: false
         type: boolean
         default: true
@@ -99,7 +99,7 @@ jobs:
           retention-days: 14
           overwrite: true
 
-      - name: Package (self-contained and framework-dependent zips, checksums, notes)
+      - name: Package (the setup, checked by installing it; checksums; notes)
         id: package
         env:
           RELEASE_TAG: ${{ steps.version.outputs.tag }}

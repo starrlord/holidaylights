@@ -16,16 +16,19 @@ public sealed record UninstallChoices(bool RemoveDocuments, bool RemoveSettings)
 /// the program into <c>%LOCALAPPDATA%\Programs\HolidayLights\</c> with <c>Holiday Lights.scr</c> beside it, the Start menu
 /// entry, the <c>.bul</c> association and the Windows Settings &gt; Apps entry; uninstalling restores the previous screen
 /// saver, removes the Run value, the association, the shortcut and the entry, and removes user files only when asked. It
-/// never touches Holiday Lights 5.4. Under <c>--no-system-changes</c> the registry and shortcut writes are skipped and logged.
+/// never touches Holiday Lights 5.4. Installing over an installation updates it: Holiday Lights and its screen saver
+/// copies running from the program folder are closed first, and the files the previous version had but this one does not
+/// are removed. Under <c>--no-system-changes</c> the registry and shortcut writes are skipped and logged.
 /// </summary>
 public sealed class Installer
 {
     private const string LogSource = "Install";
     private static readonly TimeSpan ExitTimeout = TimeSpan.FromSeconds(15);
+    private static readonly TimeSpan CloseTimeout = TimeSpan.FromSeconds(5);
 
     private readonly IAppServices services;
     private readonly UninstallEntry entry;
-    private readonly Action<IProgress<string>?> stopRunningInstance;
+    private readonly Func<IProgress<string>?, bool> stopRunningInstance;
 
     /// <summary>Creates the installer.</summary>
     /// <param name="services">The services (paths, options, log, platform registrations).</param>
@@ -37,8 +40,11 @@ public sealed class Installer
     /// <summary>Creates the installer with its uninstall entry and the way a running Holiday Lights is ended (tests never touch a real one).</summary>
     /// <param name="services">The services.</param>
     /// <param name="entry">The Windows Settings &gt; Apps entry.</param>
-    /// <param name="stopRunningInstance">Ends a running Holiday Lights before its files change, or null for the instance pipe.</param>
-    internal Installer(IAppServices services, UninstallEntry entry, Action<IProgress<string>?>? stopRunningInstance)
+    /// <param name="stopRunningInstance">
+    /// Ends a running Holiday Lights (and the copies running from the program folder) before its files change, and tells
+    /// whether Holiday Lights was running; null for the instance pipe.
+    /// </param>
+    internal Installer(IAppServices services, UninstallEntry entry, Func<IProgress<string>?, bool>? stopRunningInstance)
     {
         ArgumentNullException.ThrowIfNull(services);
         ArgumentNullException.ThrowIfNull(entry);
@@ -56,21 +62,42 @@ public sealed class Installer
     /// <summary>The installed program.</summary>
     public string InstalledProgram => Path.Combine(TargetFolder, InstallLocations.ProgramFileName);
 
+    /// <summary>The version installed in <see cref="TargetFolder"/>, or null when the installer has not installed there.</summary>
+    public string? InstalledVersion => InstallManifest.Read(TargetFolder)?.Version;
+
+    /// <summary>What <see cref="Install"/> does to the installation that is there now.</summary>
+    public InstallKind Kind => InstallKinds.For(InstalledVersion, VersionInfo.ProgramVersion);
+
+    /// <summary>True when the last <see cref="Install"/> or <see cref="Uninstall"/> closed a running Holiday Lights.</summary>
+    public bool ClosedRunningProgram { get; private set; }
+
     /// <summary>Installs (or repairs and updates) Holiday Lights for this user.</summary>
     /// <param name="progress">Receives what is being done.</param>
     public void Install(IProgress<string>? progress = null)
     {
         string target = TargetFolder;
-        services.Log.Info(LogSource, $"Installing Holiday Lights {VersionInfo.ProgramVersion}.");
-        stopRunningInstance(progress);
+        InstallManifest? previous = InstallManifest.Read(target);
+        services.Log.Info(LogSource, previous is null
+            ? $"Installing Holiday Lights {VersionInfo.ProgramVersion}."
+            : $"Installing Holiday Lights {VersionInfo.ProgramVersion} over {previous.Version}.");
+        ClosedRunningProgram = stopRunningInstance(progress);
 
         progress?.Report("Copying files…");
         Directory.CreateDirectory(target);
         bool inPlace = string.Equals(Path.TrimEndingDirectorySeparator(Path.GetFullPath(SourceFolder)), Path.GetFullPath(target), StringComparison.OrdinalIgnoreCase);
         List<string> files = inPlace
-            ? [.. (InstallManifest.Read(target)?.Files ?? []).Where(f => !string.Equals(f, InstallLocations.ScreenSaverFileName, StringComparison.OrdinalIgnoreCase))]
+            ? [.. (previous?.Files ?? []).Where(f => !string.Equals(f, InstallLocations.ScreenSaverFileName, StringComparison.OrdinalIgnoreCase))]
             : [.. ProgramFiles.Copy(SourceFolder, target)];
         files.Add(ProgramFiles.CreateScreenSaver(target));
+        if (previous is not null && !inPlace)
+        {
+            IReadOnlyList<string> removed = ProgramFiles.DeleteLeftovers(target, previous.Files, files);
+            if (removed.Count > 0)
+            {
+                services.Log.Info(LogSource, $"Removed {removed.Count} file(s) of the previous version.");
+            }
+        }
+
         new InstallManifest { Version = VersionInfo.ProgramVersion, InstalledAt = DateTimeOffset.Now, Files = files }.Write(target);
 
         progress?.Report("Registering Holiday Lights…");
@@ -121,7 +148,7 @@ public sealed class Installer
     {
         ArgumentNullException.ThrowIfNull(choices);
         services.Log.Info(LogSource, "Uninstalling Holiday Lights.");
-        stopRunningInstance(progress);
+        ClosedRunningProgram = stopRunningInstance(progress);
 
         progress?.Report("Removing Holiday Lights from Windows…");
         RestoreScreenSaver();
@@ -155,26 +182,36 @@ public sealed class Installer
         services.Log.Info(LogSource, "Uninstalled.");
     }
 
-    /// <summary>Asks a running Holiday Lights to exit and waits for it (its files are replaced or removed next).</summary>
-    private void StopRunningInstance(IProgress<string>? progress)
+    /// <summary>
+    /// Asks a running Holiday Lights to exit and waits for it, then closes the copies still running from the program
+    /// folder, such as a screen saver preview (its files are replaced or removed next).
+    /// </summary>
+    /// <returns>True when Holiday Lights was running.</returns>
+    private bool StopRunningInstance(IProgress<string>? progress)
     {
         // With a data root only an instance on the same data root is asked to exit (InstanceNames.MutexFor).
         string? dataRoot = services.Paths.DataRoot;
-        if (!RunningInstance.IsPresent(dataRoot))
+        bool running = RunningInstance.IsPresent(dataRoot);
+        if (running)
         {
-            return;
+            progress?.Report("Closing Holiday Lights…");
+            using (var instance = new SingleInstance(services.Log, dataRoot))
+            {
+                InstanceClient.ForwardAsync(instance, InstanceCommand.Simple(InstanceCommandKind.Exit), services.Log).GetAwaiter().GetResult();
+            }
+
+            if (!RunningInstance.WaitForExit(dataRoot, ExitTimeout))
+            {
+                throw new InvalidOperationException("Holiday Lights is still running. Exit it from the red bulb in the notification area, then try again.");
+            }
         }
 
-        progress?.Report("Closing Holiday Lights…");
-        using (var instance = new SingleInstance(services.Log, dataRoot))
+        if (Directory.Exists(TargetFolder))
         {
-            InstanceClient.ForwardAsync(instance, InstanceCommand.Simple(InstanceCommandKind.Exit), services.Log).GetAwaiter().GetResult();
+            FolderPrograms.CloseAll(TargetFolder, CloseTimeout, services.Log);
         }
 
-        if (!RunningInstance.WaitForExit(dataRoot, ExitTimeout))
-        {
-            throw new InvalidOperationException("Holiday Lights is still running. Exit it from the red bulb in the notification area, then try again.");
-        }
+        return running;
     }
 
     /// <summary>When Holiday Lights is the screen saver, the one used before comes back (or none).</summary>

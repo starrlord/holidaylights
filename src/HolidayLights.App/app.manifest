@@ -5,7 +5,7 @@
      - PerMonitorV2 DPI awareness: coordinates are physical pixels on every display; WM_DPICHANGED for top-level windows.
      - asInvoker: the per-user install never needs administrator rights. -->
 <assembly manifestVersion="1.0" xmlns="urn:schemas-microsoft-com:asm.v1">
-  <assemblyIdentity version="6.0.1.0" name="HolidayLights.App"/>
+  <assemblyIdentity version="6.0.2.0" name="HolidayLights.App"/>
 
   <trustInfo xmlns="urn:schemas-microsoft-com:asm.v2">
     <security>

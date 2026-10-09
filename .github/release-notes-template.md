@@ -1,19 +1,13 @@
 Holiday Lights {{VERSION}} puts animated holiday lights around every monitor of your Windows PC: 1,550 bulbs, flash patterns that can dance to the Music Box, seasonal themes that change by themselves, and a screen saver.
 
-## Download
+## Download and install
 
-| File | Choose it when |
-|---|---|
-| **[{{SELF_CONTAINED_ZIP}}]({{REPOSITORY_URL}}/releases/download/{{TAG}}/{{SELF_CONTAINED_ZIP}})** | You want the usual download. Everything Holiday Lights needs is inside, so it works on any Windows 11 PC, even offline. |
-| [{{FRAMEWORK_DEPENDENT_ZIP}}]({{REPOSITORY_URL}}/releases/download/{{TAG}}/{{FRAMEWORK_DEPENDENT_ZIP}}) | Your PC already has the [.NET 10 Desktop Runtime (x64)](https://dotnet.microsoft.com/download/dotnet/10.0). This download is smaller. |
+1. Download **[{{SETUP_EXE}}]({{REPOSITORY_URL}}/releases/download/{{TAG}}/{{SETUP_EXE}})**.
+2. Double-click it. Holiday Lights installs for you only, in `%LOCALAPPDATA%\Programs\HolidayLights`, so no administrator rights are needed. Everything it needs is inside, so it works on any Windows 11 PC, even offline.
 
-## Install
+Already have Holiday Lights 6? Run the new setup the same way: it updates your installation and keeps your settings, themes, bulbs, songs and pictures. To remove Holiday Lights later, use **Settings > Apps > Installed apps**.
 
-1. Download the zip and extract it (right-click it, then **Extract All**).
-2. In the extracted folder, double-click **Setup.exe**. Holiday Lights installs for you only, in `%LOCALAPPDATA%\Programs\HolidayLights`, so no administrator rights are needed.
-3. To remove it later, use **Settings > Apps > Installed apps**.
-
-Holiday Lights is not code-signed, so the first time you run Setup.exe, Windows SmartScreen may say "Windows protected your PC". Choose **More info**, then **Run anyway**.
+Holiday Lights is not code-signed, so the first time you run the setup, Windows SmartScreen may say "Windows protected your PC". Choose **More info**, then **Run anyway**.
 
 Holiday Lights runs on 64-bit Windows 11. It works completely offline and never collects information about you.
 
@@ -23,7 +17,7 @@ Holiday Lights runs on 64-bit Windows 11. It works completely offline and never 
 {{CHECKSUMS}}
 ```
 
-To check a download in PowerShell, run `Get-FileHash .\{{SELF_CONTAINED_ZIP}}` and compare the hash with the line above (case does not matter). `SHA256SUMS.txt` holds the same lines for `sha256sum -c`.
+To check the download in PowerShell, run `Get-FileHash .\{{SETUP_EXE}}` and compare the hash with the line above (case does not matter). `SHA256SUMS.txt` holds the same line for `sha256sum -c`.
 
 ---
 

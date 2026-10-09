@@ -18,6 +18,7 @@ public sealed class InstallerTests : IDisposable
     private readonly string testKey = TestRegistryKeys.NewPath();
     private readonly FakeRegistrations registrations = new();
     private int stops;
+    private bool running;
 
     public InstallerTests()
     {
@@ -54,7 +55,13 @@ public sealed class InstallerTests : IDisposable
         Shell = registrations,
     };
 
-    private Installer Installer(string installFolder) => new(Services(installFolder), new UninstallEntry(Registry.CurrentUser, testKey), _ => stops++);
+    private Installer Installer(string installFolder) => new(Services(installFolder), new UninstallEntry(Registry.CurrentUser, testKey), Stop);
+
+    private bool Stop(IProgress<string>? progress)
+    {
+        stops++;
+        return running;
+    }
 
     private string ProgramFolder => Path.Combine(root.Root, "Programs", "HolidayLights");
 
@@ -102,6 +109,112 @@ public sealed class InstallerTests : IDisposable
         Assert.Equal("program 2", File.ReadAllText(Path.Combine(ProgramFolder, "HolidayLights.exe")));
         Assert.Equal("program 2", File.ReadAllText(Path.Combine(ProgramFolder, "Holiday Lights.scr")));
     }
+
+    [Fact]
+    public void UpdatingRemovesTheFilesThePreviousVersionNoLongerHas()
+    {
+        Write(@"runtimes\old\Gone.dll", "old library");
+        Write("Obsolete.dll", "old library");
+        Installer(distribution).Install();
+        File.WriteAllText(Path.Combine(ProgramFolder, "Notes.txt"), "not installed by the installer");
+
+        File.Delete(Path.Combine(distribution, @"runtimes\old\Gone.dll"));
+        File.Delete(Path.Combine(distribution, "Obsolete.dll"));
+        Write("New.dll", "new library");
+        Installer(distribution).Install();
+
+        Assert.False(File.Exists(Path.Combine(ProgramFolder, "Obsolete.dll")));
+        Assert.False(Directory.Exists(Path.Combine(ProgramFolder, "runtimes")), "A folder the update emptied is removed.");
+        Assert.True(File.Exists(Path.Combine(ProgramFolder, "New.dll")));
+        Assert.True(File.Exists(Path.Combine(ProgramFolder, "Notes.txt")), "Only files the installer installed are removed.");
+        Assert.Equal(
+            [@"Content\Bulbs\Star.bul", @"Content\Music\Song.mid", "Holiday Lights.scr", "HolidayLights.dll", "HolidayLights.exe", "New.dll"],
+            InstallManifest.Read(ProgramFolder)!.Files.Order(StringComparer.OrdinalIgnoreCase));
+    }
+
+    [Fact]
+    public void LeftoversOutsideTheProgramFolderAreNeverDeleted()
+    {
+        string outside = Path.Combine(root.Root, "outside.txt");
+        File.WriteAllText(outside, "keep");
+        Directory.CreateDirectory(ProgramFolder);
+        Assert.Empty(ProgramFiles.DeleteLeftovers(ProgramFolder, [@"..\..\outside.txt", InstallManifest.FileName], []));
+        Assert.True(File.Exists(outside));
+    }
+
+    [Fact]
+    public void TheKindFollowsTheInstalledVersion()
+    {
+        Installer installer = Installer(distribution);
+        Assert.Null(installer.InstalledVersion);
+        Assert.Equal(InstallKind.New, installer.Kind);
+
+        installer.Install();
+        Assert.Equal(VersionInfo.ProgramVersion, installer.InstalledVersion);
+        Assert.Equal(InstallKind.Reinstall, installer.Kind);
+
+        InstallManifest manifest = InstallManifest.Read(ProgramFolder)!;
+        (manifest with { Version = "6.0.0" }).Write(ProgramFolder);
+        Assert.Equal(InstallKind.Update, installer.Kind);
+        (manifest with { Version = "99.0.0" }).Write(ProgramFolder);
+        Assert.Equal(InstallKind.Downgrade, installer.Kind);
+    }
+
+    [Fact]
+    public void TheInstallerTellsWhetherItClosedHolidayLights()
+    {
+        Installer installer = Installer(distribution);
+        installer.Install();
+        Assert.False(installer.ClosedRunningProgram);
+
+        running = true;
+        installer.Install();
+        Assert.True(installer.ClosedRunningProgram);
+    }
+
+    [Fact]
+    public void AQuietInstallNeedsNoWindowAndReportsFailures()
+    {
+        Assert.Equal(0, PerUserSetup.InstallQuietly(Services(distribution)));
+        Assert.Equal("program", File.ReadAllText(Path.Combine(ProgramFolder, "Holiday Lights.scr")));
+
+        // A file where the program folder belongs: the install fails, and the exit code says so.
+        Directory.Delete(ProgramFolder, recursive: true);
+        File.WriteAllText(ProgramFolder, "in the way");
+        Assert.Equal(1, PerUserSetup.InstallQuietly(Services(distribution)));
+    }
+
+    [Fact]
+    public void TheCopiesRunningFromTheProgramFolderAreClosed()
+    {
+        // Stands in for a screen saver preview: a long-running process started from a file named like the program.
+        Directory.CreateDirectory(ProgramFolder);
+        string program = Path.Combine(ProgramFolder, "HolidayLights.exe");
+        File.Copy(Path.Combine(Environment.SystemDirectory, "PING.EXE"), program);
+        using Process preview = Process.Start(new ProcessStartInfo(program, "-n 60 127.0.0.1") { CreateNoWindow = true, UseShellExecute = false })!;
+        try
+        {
+            Assert.Equal(1, FolderPrograms.CloseAll(ProgramFolder, TimeSpan.FromSeconds(5), new RecordingLog()));
+            Assert.True(preview.HasExited);
+            Assert.Equal(0, FolderPrograms.CloseAll(ProgramFolder, TimeSpan.FromSeconds(5), new RecordingLog()));
+        }
+        finally
+        {
+            if (!preview.HasExited)
+            {
+                preview.Kill();
+            }
+        }
+    }
+
+    [Theory]
+    [InlineData(@"C:\Programs\HolidayLights\HolidayLights.exe", true)]
+    [InlineData(@"C:\Programs\HolidayLights\runtimes\a.dll", true)]
+    [InlineData(@"C:\Programs\HolidayLights2\HolidayLights.exe", false)]
+    [InlineData(@"C:\Programs\HolidayLights", false)]
+    [InlineData(null, false)]
+    public void OnlyProgramsInsideTheFolderAreClosed(string? path, bool inside) =>
+        Assert.Equal(inside, FolderPrograms.IsInside(path, @"C:\Programs\HolidayLights\"));
 
     [Fact]
     public void UninstallingRemovesTheProgramAndKeepsTheUsersFiles()
@@ -153,7 +266,7 @@ public sealed class InstallerTests : IDisposable
         registrations.RecycleBin = Path.Combine(root.Root, "Recycle Bin");
         FakeServices services = Services(ProgramFolder);
         services.Log = log;
-        new Installer(services, new UninstallEntry(Registry.CurrentUser, testKey), _ => stops++)
+        new Installer(services, new UninstallEntry(Registry.CurrentUser, testKey), Stop)
             .Uninstall(new UninstallChoices(RemoveDocuments: false, RemoveSettings: true));
 
         // What the uninstaller's host still logs afterwards ("Stopping.", "Stopped.").

@@ -273,18 +273,16 @@ Make your own bulbs from GIF animations, give them flavors (alternative pictures
 ## Download and install
 
 1. Go to the **[Releases page](https://github.com/starrlord/holidaylights/releases)** and download
-   **`HolidayLights-<version>-win-x64.zip`** from the latest release.
-2. Extract the zip (right-click it, then **Extract All**).
-3. In the extracted folder, double-click **`Setup.exe`**.
+   **`HolidayLights-<version>-Setup.exe`** from the latest release.
+2. Double-click it.
 
 Holiday Lights installs for you only, in `%LOCALAPPDATA%\Programs\HolidayLights`, so **no administrator rights** are
-needed. The usual download includes everything Holiday Lights needs, so it works on any 64-bit Windows 11 PC, even
-offline. If your PC already has the [.NET 10 Desktop Runtime (x64)](https://dotnet.microsoft.com/download/dotnet/10.0),
-you can take the smaller `HolidayLights-<version>-win-x64-framework-dependent.zip` instead. Each release lists SHA-256
-checksums for both zips.
+needed. The setup includes everything Holiday Lights needs, so it works on any 64-bit Windows 11 PC, even offline. To
+update, run the newer setup the same way: it replaces the installed version and keeps your settings, themes, bulbs,
+songs and pictures. Each release lists the setup's SHA-256 checksum.
 
 > [!NOTE]
-> Holiday Lights is not code-signed, so the first time you run `Setup.exe`, Windows SmartScreen may say "Windows
+> Holiday Lights is not code-signed, so the first time you run the setup, Windows SmartScreen may say "Windows
 > protected your PC". Choose **More info**, then **Run anyway**.
 
 **System requirements:** 64-bit Windows 11. Holiday Lights works with any number of displays, at any scaling.
@@ -387,9 +385,9 @@ private data folder:
 .\src\HolidayLights.App\bin\Release\net10.0-windows10.0.26100.0\HolidayLights.exe --data-root "$env:TEMP\hl-try" --no-system-changes
 ```
 
-`pwsh tools/publish/publish.ps1` builds the distributable folder and zip (`HolidayLights.exe`, `Setup.exe` and the
-bundled content). Releases are built by GitHub Actions when a `v*` tag is pushed; see
-[docs/RELEASING.md](docs/RELEASING.md).
+`pwsh tools/publish/publish.ps1` builds the distribution folder (`HolidayLights.exe` and the bundled content) and packs
+it into the one-file setup `HolidayLights-<version>-Setup.exe` with Inno Setup, which the script downloads the first
+time. Releases are built by GitHub Actions when a `v*` tag is pushed; see [docs/RELEASING.md](docs/RELEASING.md).
 
 | Folder | What's inside |
 |---|---|

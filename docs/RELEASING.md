@@ -7,7 +7,7 @@ GitHub release with the downloads. Both run on a GitHub-hosted Windows runner (`
 | Workflow | Runs on | What it does |
 |---|---|---|
 | CI (`.github/workflows/ci.yml`) | every push to a branch, every pull request, or by hand | restore, build `Release` with warnings as errors, run the CI tests, upload the test results (`test-results` artifact, summary on the run page) |
-| Release (`.github/workflows/release.yml`) | a pushed tag `v*`, or by hand | the same build and tests, then both zips (`tools/publish/publish.ps1`), `SHA256SUMS.txt` and the release notes, then the GitHub release |
+| Release (`.github/workflows/release.yml`) | a pushed tag `v*`, or by hand | the same build and tests, then the setup (`tools/publish/publish.ps1`, checked by installing it), `SHA256SUMS.txt` and the release notes, then the GitHub release |
 
 The scripts the workflows run live in `tools/ci` and work on your own PC too:
 
@@ -15,7 +15,7 @@ The scripts the workflows run live in `tools/ci` and work on your own PC too:
 |---|---|
 | `Test.ps1` | runs the tests CI runs (see below), writes TRX results and, on GitHub, the job summary and failure annotations |
 | `Get-ReleaseVersion.ps1 -Tag v6.0.1` | checks that a tag matches the version in `Directory.Build.props` |
-| `New-ReleaseAssets.ps1` | runs `publish.ps1` for both builds, checks the zips, writes `SHA256SUMS.txt` and `release-notes.md` |
+| `New-ReleaseAssets.ps1` | runs `publish.ps1`, installs the setup silently twice into a private data root (a new installation, then an update over it) and checks what it installed, writes `SHA256SUMS.txt` and `release-notes.md` |
 | `Publish-GitHubRelease.ps1` | creates the GitHub release with `gh` (only in the workflow; `-DryRun` prints the commands) |
 
 ## Tests on GitHub
@@ -70,9 +70,8 @@ dotnet test HolidayLights.sln -c Release --filter "Category!=Live"
 
    | File | For |
    |---|---|
-   | `HolidayLights-6.0.1-win-x64.zip` | most people (about 90 MB): self-contained, the .NET runtime is inside, so it works on any Windows 11 PC, offline, without administrator rights |
-   | `HolidayLights-6.0.1-win-x64-framework-dependent.zip` | PCs that already have the .NET 10 Desktop Runtime (x64) (about 22 MB) |
-   | `SHA256SUMS.txt` | the SHA-256 of both zips, in `sha256sum` format |
+   | `HolidayLights-6.0.1-Setup.exe` | everyone (about 65 MB): one file with the .NET runtime inside, so it works on any Windows 11 PC, offline, without administrator rights; it installs Holiday Lights or updates the installed version |
+   | `SHA256SUMS.txt` | the SHA-256 of the setup, in `sha256sum` format |
 
    The text comes from `.github/release-notes-template.md`, followed by GitHub's list of changes since the previous
    release. A tag with a pre-release suffix (`v6.1.0-beta.1`) makes a pre-release. Edit the text on the Releases page
@@ -84,7 +83,7 @@ The release workflow stops, with a message that says what to change, when:
 * `<Version>` in `Directory.Build.props` is not the tag without its `v`, or `<FileVersion>`/`<AssemblyVersion>` start
   with other numbers (a stale `app.manifest` version is only a warning);
 * a test fails, `publish.ps1` fails (it checks the bundled 1,501 bulbs, 46 songs and 11 pictures and the bundled
-  runtime), or a zip lacks the program, `Setup.exe`, the Read Me or the bulbs;
+  runtime), or installing the setup fails or leaves out the program, the screen saver, the runtime or the bulbs;
 * a release for the tag already exists, or (when run by hand from a branch) the tag already exists on another commit.
 
 ## Running the release workflow by hand
@@ -95,7 +94,7 @@ The release workflow stops, with a message that says what to change, when:
   **tag**: the tag is created on that branch's latest commit; for a draft, when you publish it).
 * **draft** (on by default): the release is created as a draft. Check it, then press **Publish release**. A pushed tag
   always publishes at once.
-* **create-release**: clear it to build, test and package only. The zips, `SHA256SUMS.txt` and `release-notes.md` are
+* **create-release**: clear it to build, test and package only. The setup, `SHA256SUMS.txt` and `release-notes.md` are
   then in the run's `release-v<version>` artifact. Use this to try the release before the first real tag.
 
 ## If something goes wrong
@@ -113,7 +112,10 @@ The release workflow stops, with a message that says what to change, when:
   the release; it runs only `gh` and `tools/ci/Publish-GitHubRelease.ps1`, none of the built code. The repository's default workflow permissions can stay read-only.
 * The actions are pinned to major versions (`actions/checkout@v7`, `actions/setup-dotnet@v6`, `actions/cache@v6`,
   `actions/upload-artifact@v7`, `actions/download-artifact@v8`); the NuGet packages are cached between runs.
-* The downloads are not code-signed, so Windows SmartScreen warns the first time `Setup.exe` runs (the release notes
-  tell people what to do). With a code-signing certificate, sign `HolidayLights.exe` and `Setup.exe` in
-  `tools/publish/publish.ps1` before it zips the folder.
+* The setup is built by Inno Setup, pinned in `tools/publish/Get-InnoSetup.ps1` (version and SHA-256 of the official
+  installer, downloaded on first use and installed portable under the build folder). To move to a newer Inno Setup,
+  change the three values there.
+* The downloads are not code-signed, so Windows SmartScreen warns the first time the setup runs (the release notes
+  tell people what to do). With a code-signing certificate, sign `HolidayLights.exe` in `tools/publish/publish.ps1`
+  before Inno Setup packs the folder, and the setup itself with Inno Setup's `SignTool` directive.
 * Optionally, protect the `v*` tags with a tag ruleset (Settings > Rules) so that only maintainers can start a release.

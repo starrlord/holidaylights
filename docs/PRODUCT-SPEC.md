@@ -2674,6 +2674,11 @@ settings with the 5.4 ones and adds 5.4 themes that are missing; existing 6.0 th
   `Content\Music` (46 songs; `reset.mid` is not shipped), `Content\Pictures` (the 11 pictures). One Start menu entry
   "Holiday Lights"; the `.bul` association; an uninstall entry under `HKCU\...\Uninstall\HolidayLights`. If 5.4 is
   running, the installer offers to close it (its Exit command). Last page: "Start Holiday Lights" (checked).
+  The download is one file, `HolidayLights-<version>-Setup.exe` (Inno Setup only unpacks the program and runs its
+  installer, `--install`; `/SILENT` and `/VERYSILENT` mean `--install --quiet`). Over an installation the installer
+  says "Update" (older version), "Reinstall" (same) or asks before an older version replaces a newer one; it closes
+  Holiday Lights and its copies running from the program folder, replaces the files, removes the previous version's
+  files that this one no longer has, and keeps settings and user files.
 * **Data**:
 
 | What | Where |

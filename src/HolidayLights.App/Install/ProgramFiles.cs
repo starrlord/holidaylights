@@ -81,6 +81,62 @@ public static class ProgramFiles
         return remaining;
     }
 
+    /// <summary>
+    /// After an update, deletes the files the previous version installed that this version no longer has, and the folders
+    /// that leaves empty, so nothing stays behind that the uninstaller would not know about.
+    /// </summary>
+    /// <param name="folder">The program folder.</param>
+    /// <param name="previous">The files of the previous installation (relative).</param>
+    /// <param name="current">The files of this installation (relative).</param>
+    /// <returns>The files that were deleted.</returns>
+    public static IReadOnlyList<string> DeleteLeftovers(string folder, IEnumerable<string> previous, IEnumerable<string> current)
+    {
+        ArgumentException.ThrowIfNullOrEmpty(folder);
+        ArgumentNullException.ThrowIfNull(previous);
+        ArgumentNullException.ThrowIfNull(current);
+        var kept = new HashSet<string>(current, StringComparer.OrdinalIgnoreCase) { InstallManifest.FileName };
+        string root = Path.TrimEndingDirectorySeparator(Path.GetFullPath(folder)) + Path.DirectorySeparatorChar;
+        var deleted = new List<string>();
+        var emptied = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (string relative in previous.Where(f => !kept.Contains(f)).Distinct(StringComparer.OrdinalIgnoreCase))
+        {
+            // Only files inside the program folder, whatever the marker says.
+            string path = Path.GetFullPath(Path.Combine(folder, relative));
+            if (!path.StartsWith(root, StringComparison.OrdinalIgnoreCase) || !File.Exists(path))
+            {
+                continue;
+            }
+
+            try
+            {
+                File.Delete(path);
+                deleted.Add(relative);
+                emptied.Add(Path.GetDirectoryName(path)!);
+            }
+            catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+            {
+                // Still in use: it stays, as an older installer would have left it.
+            }
+        }
+
+        // Deepest folders first, then up to (never including) the program folder.
+        foreach (string start in emptied.OrderByDescending(d => d.Length))
+        {
+            for (string? directory = start; directory is not null && directory.StartsWith(root, StringComparison.OrdinalIgnoreCase);
+                directory = Path.GetDirectoryName(directory))
+            {
+                if (!Directory.Exists(directory) || Directory.EnumerateFileSystemEntries(directory).Any())
+                {
+                    break;
+                }
+
+                Directory.Delete(directory);
+            }
+        }
+
+        return deleted;
+    }
+
     /// <summary>Removes the program folder now when nothing is left in it but empty folders.</summary>
     /// <param name="folder">The program folder.</param>
     /// <returns>True when the folder is gone.</returns>

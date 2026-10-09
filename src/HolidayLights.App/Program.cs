@@ -55,7 +55,7 @@ public static class Program
                 LaunchKind.ScreenSaverConfigure or LaunchKind.LegacySettings => RunSettingsOnly(paths, options, log, request, started),
                 LaunchKind.RenderTest => RunWithoutWindows(paths, options with { Session = AppSessionKind.RenderTest }, log, host => RenderTest.Run(host, request.Argument!)),
                 LaunchKind.Diagnostics => RunWithoutWindows(paths, options with { Session = AppSessionKind.RenderTest }, log, host => DiagnosticsReport.Run(host, request.Argument)),
-                LaunchKind.Install => RunSetup(paths, options, log, PerUserSetup.Install),
+                LaunchKind.Install => RunSetup(paths, options, log, request.Quiet ? PerUserSetup.InstallQuietly : PerUserSetup.Install),
                 LaunchKind.Uninstall => RunSetup(paths, options, log, PerUserSetup.Uninstall),
                 _ => RunNormal(paths, options, log, request, started),
             };

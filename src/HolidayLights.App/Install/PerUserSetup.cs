@@ -1,3 +1,5 @@
+using System.IO;
+using System.Security;
 using System.Windows;
 
 namespace HolidayLights.App.Install;
@@ -15,6 +17,34 @@ public static class PerUserSetup
     /// <param name="services">The services (paths, options, platform registrations, log).</param>
     /// <returns>The process exit code.</returns>
     public static int Install(IAppServices services) => Run(services, SetupMode.Install);
+
+    /// <summary>
+    /// <c>--install --quiet</c> (the setup's <c>/SILENT</c> and <c>/VERYSILENT</c>): installs without a window and starts
+    /// Holiday Lights again when it was running before.
+    /// </summary>
+    /// <param name="services">The services.</param>
+    /// <returns>0 when installed, 1 when it failed (the log says why).</returns>
+    public static int InstallQuietly(IAppServices services)
+    {
+        ArgumentNullException.ThrowIfNull(services);
+        var installer = new Installer(services);
+        try
+        {
+            installer.Install();
+        }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException or SecurityException or InvalidOperationException)
+        {
+            services.Log.Error("Install", "Install failed.", e);
+            return 1;
+        }
+
+        if (installer.ClosedRunningProgram)
+        {
+            installer.StartInstalledProgram();
+        }
+
+        return 0;
+    }
 
     /// <summary><c>--uninstall</c>: uninstalls this installation.</summary>
     /// <param name="services">The services.</param>

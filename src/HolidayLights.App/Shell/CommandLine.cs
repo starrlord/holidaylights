@@ -6,8 +6,8 @@ namespace HolidayLights.App.Shell;
 
 /// <summary>Parses command lines, including the 5.4 forms and the screen saver arguments (case-insensitive, '-' for '/'). Owner: app-shell.</summary>
 /// <remarks>
-/// <para>Recognized forms (PRODUCT-SPEC 6.6.3, 6.2.1): <c>--data-root &lt;dir&gt;</c> and <c>--no-system-changes</c>
-/// anywhere; then one command: the screen saver switches as <see cref="ScreenSaverArguments"/> reads them (<c>/s</c>,
+/// <para>Recognized forms (PRODUCT-SPEC 6.6.3, 6.2.1): <c>--data-root &lt;dir&gt;</c>, <c>--no-system-changes</c> and
+/// <c>--quiet</c> (for <c>--install</c>) anywhere; then one command: the screen saver switches as <see cref="ScreenSaverArguments"/> reads them (<c>/s</c>,
 /// <c>/p &lt;hwnd&gt;</c>, <c>/p:&lt;hwnd&gt;</c>, <c>/c</c>, <c>/c:&lt;hwnd&gt;</c>, <c>/a</c>); <c>--autostart</c>, <c>--settings [page]</c>, <c>--open &lt;files&gt;</c>, <c>--toggle-layer</c>,
 /// <c>--lights on|off|toggle</c>, <c>--theme &lt;name&gt;</c>, <c>--exit</c>, <c>--reset</c>,
 /// <c>--render-test &lt;dir&gt;</c>, <c>--install</c>, <c>--uninstall</c>, <c>--diagnostics [file]</c>; the 5.4 forms
@@ -37,6 +37,7 @@ public static class CommandLine
         var command = new List<string>();
         string? dataRoot = null;
         bool noSystemChanges = false;
+        bool quiet = false;
 
         for (int i = 0; i < args.Count; i++)
         {
@@ -56,6 +57,10 @@ public static class CommandLine
             {
                 noSystemChanges = true;
             }
+            else if (IsOption(argument, "--quiet"))
+            {
+                quiet = true;
+            }
             else if (argument.Length > 0)
             {
                 command.Add(argument);
@@ -63,7 +68,7 @@ public static class CommandLine
         }
 
         LaunchRequest request = ParseCommand(command, processPath, unknown);
-        return request with { DataRoot = dataRoot, NoSystemChanges = noSystemChanges, UnknownArguments = unknown };
+        return request with { DataRoot = dataRoot, NoSystemChanges = noSystemChanges, Quiet = quiet, UnknownArguments = unknown };
     }
 
     private static LaunchRequest ParseCommand(List<string> command, string? processPath, List<string> unknown)

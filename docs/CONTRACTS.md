@@ -204,8 +204,8 @@ Every type is documented in code; this section gives the map and the rules that 
 2. `--render-test <dir>`, `--diagnostics [file]`, `--install` and `--uninstall` run without the mutex. `--diagnostics`
    writes a plain-text report (version, paths, bundled content, displays, settings, scene, Windows integration, hot keys,
    MIDI output) to the file or to the parent console; it runs as a windowless `RenderTest` session and never writes
-   settings. A copy of the program named `Setup.exe` started without arguments means `--install` (the installer in the
-   distribution built by `tools/publish`). The screen saver switches are parsed once, by
+   settings. `--install --quiet` installs without a window (the setup's `/SILENT`). A copy of the program named
+   `Setup.exe` started without arguments also means `--install`. The screen saver switches are parsed once, by
    `HolidayLights.App.ScreenSaver.ScreenSaverArguments.TryParse`, which `CommandLine.Parse` calls first.
 3. `ISingleInstance.TryClaim()`; a later launch connects, sends its `InstanceCommand`, waits for `Accepted`, exits.
 4. WPF: `new App()`, `AppHost` constructs services in this order: log, `JsonSettingsStore.Load`, platform services,

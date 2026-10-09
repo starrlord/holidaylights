@@ -3,10 +3,10 @@
     Creates the GitHub release from the files New-ReleaseAssets.ps1 made (release workflow; docs/RELEASING.md).
 
 .DESCRIPTION
-    Checks the downloaded files again (both zips against SHA256SUMS.txt), refuses to touch a release that already
+    Checks the downloaded files again (the setup against SHA256SUMS.txt), refuses to touch a release that already
     exists, makes sure an existing tag points at the commit that was built, and then runs
 
-        gh release create <tag> <zips> SHA256SUMS.txt --title "Holiday Lights <version>"
+        gh release create <tag> HolidayLights-<version>-Setup.exe SHA256SUMS.txt --title "Holiday Lights <version>"
             --notes-file release-notes.md --generate-notes [--prerelease] [--draft] (--verify-tag | --target <commit>)
 
     It reads these environment variables (set by the workflow): TAG, VERSION, PRERELEASE and DRAFT (true or false),
@@ -53,15 +53,14 @@ if (-not (Test-Path -LiteralPath $notes)) {
 }
 
 $sumsPath = Join-Path $assetsFolder 'SHA256SUMS.txt'
-$expectedZips = @("HolidayLights-$version-win-x64.zip", "HolidayLights-$version-win-x64-framework-dependent.zip")
+$expectedSetup = "HolidayLights-$version-Setup.exe"
 $found = @(Get-ChildItem -LiteralPath $assetsFolder -File | ForEach-Object Name)
-$missing = @($expectedZips + 'SHA256SUMS.txt' | Where-Object { $found -notcontains $_ })
-if ($missing.Count -gt 0 -or $found.Count -ne 3) {
-    throw "Expected $($expectedZips -join ', ') and SHA256SUMS.txt in $assetsFolder; found: $($found -join ', ')."
+$missing = @($expectedSetup, 'SHA256SUMS.txt' | Where-Object { $found -notcontains $_ })
+if ($missing.Count -gt 0 -or $found.Count -ne 2) {
+    throw "Expected $expectedSetup and SHA256SUMS.txt in $assetsFolder; found: $($found -join ', ')."
 }
 
-# The self-contained zip first: it is the download for most people.
-$zips = @($expectedZips | ForEach-Object { Get-Item -LiteralPath (Join-Path $assetsFolder $_) })
+$downloads = @(Get-Item -LiteralPath (Join-Path $assetsFolder $expectedSetup))
 
 # The files crossed from one job to the other: they must still be the ones that were hashed.
 $sums = @{}
@@ -71,10 +70,10 @@ foreach ($line in [System.IO.File]::ReadAllLines($sumsPath)) {
     }
 }
 
-foreach ($zip in $zips) {
-    $actual = (Get-FileHash -LiteralPath $zip.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
-    if (-not $sums.ContainsKey($zip.Name) -or $sums[$zip.Name] -ne $actual) {
-        throw "$($zip.Name) does not match SHA256SUMS.txt."
+foreach ($download in $downloads) {
+    $actual = (Get-FileHash -LiteralPath $download.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+    if (-not $sums.ContainsKey($download.Name) -or $sums[$download.Name] -ne $actual) {
+        throw "$($download.Name) does not match SHA256SUMS.txt."
     }
 }
 
@@ -117,7 +116,7 @@ if (-not $tagPushed -and -not $DryRun) {
     }
 }
 
-$arguments = @('release', 'create', $tag) + @($zips.FullName) + @($sumsPath) + @(
+$arguments = @('release', 'create', $tag) + @($downloads.FullName) + @($sumsPath) + @(
     '--title', "Holiday Lights $version",
     '--notes-file', $notes,
     '--generate-notes'

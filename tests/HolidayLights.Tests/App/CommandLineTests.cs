@@ -186,6 +186,19 @@ public sealed class CommandLineTests
     public void SimpleCommands(string argument, LaunchKind kind) => Assert.Equal(kind, Parse(argument).Kind);
 
     [Fact]
+    public void QuietInstallIsForTheSetup()
+    {
+        LaunchRequest request = Parse("--install", "--quiet", "--data-root", @"C:\Tempoot", "--no-system-changes");
+        Assert.Equal(LaunchKind.Install, request.Kind);
+        Assert.True(request.Quiet);
+        Assert.True(request.NoSystemChanges);
+        Assert.Equal(@"C:\Tempoot", request.DataRoot);
+        Assert.Empty(request.UnknownArguments);
+        Assert.True(Parse("--QUIET", "--install").Quiet);
+        Assert.False(Parse("--install").Quiet);
+    }
+
+    [Fact]
     public void RenderTestTakesAFolder()
     {
         LaunchRequest request = Parse("--render-test", @"C:\Temp\render");

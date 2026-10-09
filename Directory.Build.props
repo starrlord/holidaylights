@@ -23,9 +23,9 @@
     <DefaultItemExcludes>$(DefaultItemExcludes);obj/**;bin/**</DefaultItemExcludes>
 
     <Product>Holiday Lights</Product>
-    <Version>6.0.0</Version>
-    <AssemblyVersion>6.0.0.0</AssemblyVersion>
-    <FileVersion>6.0.0.0</FileVersion>
+    <Version>6.0.1</Version>
+    <AssemblyVersion>6.0.1.0</AssemblyVersion>
+    <FileVersion>6.0.1.0</FileVersion>
     <Company>StarrLord</Company>
     <Authors>StarrLord</Authors>
     <Copyright>Holiday Lights 6 (c) 2026 StarrLord. Based on Holiday Lights 5.4 (c) 1993-2003 Tiger Technologies. Bulb art and music copyright their respective authors.</Copyright>

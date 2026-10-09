@@ -6,6 +6,7 @@ using HolidayLights.App.About;
 using HolidayLights.App.Controls;
 using HolidayLights.App.FirstRun;
 using HolidayLights.App.Help;
+using HolidayLights.App.Shell;
 using HolidayLights.Core.Legacy;
 using HolidayLights.Core.Seasons;
 using HolidayLights.Core.Themes;
@@ -55,7 +56,7 @@ public sealed class WindowTests : IDisposable
         Assert.Equal(640, window.Width);
         Assert.Equal(720, window.Height);
         Assert.Equal(ResizeMode.NoResize, window.ResizeMode);
-        Assert.Equal("Holiday Lights - Modern Edition, version 6.0.0", window.EditionLine.Text);
+        Assert.Equal($"Holiday Lights - Modern Edition, version {VersionInfo.ProgramVersion}", window.EditionLine.Text);
         Assert.IsType<HeritageBanner>(window.BannerHost.Content);
         Assert.Equal(credits.PrivacyNotice, window.PrivacyNotice.Text);
 

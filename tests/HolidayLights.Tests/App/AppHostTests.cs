@@ -82,7 +82,7 @@ public sealed class AppHostTests : IDisposable
             host.ShutDownNow();
         }
 
-        Assert.Contains("Version: Holiday Lights - Modern Edition 6.0.0, Windows build 26300", report);
+        Assert.Contains($"Version: Holiday Lights - Modern Edition {VersionInfo.ProgramVersion}, Windows build 26300", report);
         Assert.Contains("Bundled content: 1501 bulbs, 46 songs, 11 pictures", report);
         Assert.Contains("Display 2: 3840 x 2160 at 150 %, position -3840, 0", report);
         Assert.Contains("Pictures: unavailable (InvalidOperationException: no pictures here)", report);

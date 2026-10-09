@@ -10,7 +10,9 @@ namespace HolidayLights.App.ScreenSaver.FullScreen;
 /// One display of the full-screen saver as a DirectComposition tree on its window, in 5.4 drawing order: picture, stamped
 /// piles, animation sprites, glow, bulbs, snow on the bulbs, message (the background colour is the window's). A frame only
 /// moves sprite visuals and the message and changes bulb opacities; stamps and snow are written into virtual surfaces that
-/// allocate memory only where something was drawn.
+/// allocate memory only where something was drawn. Each virtual surface is cleared once over the whole area it can be drawn
+/// in: DirectComposition keeps the drawn area of a virtual surface as a region, and thousands of separate flake-sized updates
+/// made that region so complex that every commit took longer, until the saver stuttered after half a minute of snow.
 /// </summary>
 /// <remarks>Physical pixels of the display. Saver UI thread.</remarks>
 internal sealed class DisplayView : IDisposable
@@ -63,6 +65,8 @@ internal sealed class DisplayView : IDisposable
             stampsTop = Math.Clamp(pixels.Snap(scene.Field.Height - scene.StampReach), 0, bounds.Height - 1);
             stampPixels = new PremultipliedImage(bounds.Width, bounds.Height - stampsTop);
             stampSurface = Own(compositor.CreateVirtualSurface(stampPixels.Width, stampPixels.Height));
+            var stampArea = new RectI(0, 0, stampPixels.Width, stampPixels.Height);
+            compositor.Upload(stampSurface, stampArea, stampPixels, stampArea);
             SaverCompositor.Append(root, Own(compositor.CreateVisual(0, stampsTop, stampSurface)));
         }
 
@@ -77,6 +81,11 @@ internal sealed class DisplayView : IDisposable
             if (scene.Simulation.Module is SnowModule)
             {
                 snowSurface = Own(compositor.CreateVirtualSurface(bounds.Width, bounds.Height));
+                foreach (RectI band in SnowBands(saverBulbs, bounds))
+                {
+                    compositor.Upload(snowSurface, band, new PremultipliedImage(band.Width, band.Height), new RectI(0, 0, band.Width, band.Height));
+                }
+
                 SaverCompositor.Append(root, Own(compositor.CreateVisual(0, 0, snowSurface)));
             }
         }
@@ -246,6 +255,31 @@ internal sealed class DisplayView : IDisposable
         }
 
         compositor.Upload(surface, rect, block, new RectI(0, 0, rect.Width, rect.Height));
+    }
+
+    /// <summary>
+    /// Where snow can stick, as one rectangle per side of the frame (corners join the top and bottom), in pixels of the
+    /// display with a margin for the rounding of snow cells.
+    /// </summary>
+    private IEnumerable<RectI> SnowBands(SaverBulbs saverBulbs, RectI bounds)
+    {
+        int margin = (int)Math.Ceiling(pixels.Scale) + 1;
+        var bands = new RectI[4];
+        foreach (BulbPlacement placement in saverBulbs.Layout.Placements)
+        {
+            int side = placement.Slot switch
+            {
+                CellSlot.Top or CellSlot.TopLeft or CellSlot.TopRight => 0,
+                CellSlot.Bottom or CellSlot.BottomLeft or CellSlot.BottomRight => 1,
+                CellSlot.Left => 2,
+                _ => 3,
+            };
+            RectI rect = placement.Bounds.Offset(-bounds.Left, -bounds.Top);
+            bands[side] = bands[side].Union(new RectI(rect.Left - margin, rect.Top - margin, rect.Right + margin, rect.Bottom + margin));
+        }
+
+        var screen = new RectI(0, 0, bounds.Width, bounds.Height);
+        return bands.Select(band => band.Intersect(screen)).Where(band => !band.IsEmpty);
     }
 
     private T Own<T>(T resource)

@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- xUnit tests. One folder (and namespace HolidayLights.Tests.<Area>) per owner; see docs/CONTRACTS.md.
+       Shared\ holds test helpers (owner: contracts): repository paths, temporary data roots, golden-data readers, STA runner.
+       Golden\ (reference data, read-only) and Fixtures\ (test input files) are copied to the output folder; the App's
+       bundled content (Content\Bulbs, Content\Music, Content\Pictures) flows into the output folder through the App
+       project reference. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
+    <SupportedOSPlatformVersion>10.0.22621.0</SupportedOSPlatformVersion>
+    <UseWPF>true</UseWPF>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <NoWarn>$(NoWarn);WPF0001</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.4" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+  </ItemGroup>
+
+  <!-- UseWPF removes System.IO from the implicit usings (Path ambiguity with System.Windows.Shapes); tests want it back. -->
+  <ItemGroup>
+    <Using Include="Xunit" />
+    <Using Include="System.IO" />
+    <Using Include="HolidayLights.App.Contracts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\HolidayLights.Core\HolidayLights.Core.csproj" />
+    <ProjectReference Include="..\..\src\HolidayLights.Platform\HolidayLights.Platform.csproj" />
+    <ProjectReference Include="..\..\src\HolidayLights.Rendering\HolidayLights.Rendering.csproj" />
+    <ProjectReference Include="..\..\src\HolidayLights.Audio\HolidayLights.Audio.csproj" />
+    <ProjectReference Include="..\..\src\HolidayLights.App\HolidayLights.App.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Golden\**\*;Fixtures\**\*" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

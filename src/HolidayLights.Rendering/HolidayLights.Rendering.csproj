@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- The DirectComposition presenter ("Lights" thread): one layer window per display in the three layer modes with
+       fallback, desktop host discovery and maintenance, sprite surfaces, opacity animations, power-up wave, on-screen
+       pill, Identify, device-lost recovery. Never references WPF. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
+    <SupportedOSPlatformVersion>10.0.22621.0</SupportedOSPlatformVersion>
+    <RootNamespace>HolidayLights.Rendering</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HolidayLights.Core\HolidayLights.Core.csproj" />
+    <ProjectReference Include="..\HolidayLights.Platform\HolidayLights.Platform.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Vortice.Direct3D11" Version="3.8.3" />
+    <PackageReference Include="Vortice.DirectComposition" Version="3.8.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="HolidayLights.Tests" />
+  </ItemGroup>
+
+</Project>

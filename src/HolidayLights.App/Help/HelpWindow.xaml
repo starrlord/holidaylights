@@ -1,0 +1,57 @@
+<!--
+  Holiday Lights Help (owner: app-shell; PRODUCT-SPEC 3.10): 960 x 720 DIP, resizable, modeless. Left: the search box
+  and the Contents tree (or the search results); right: Back / Forward and the topic, rendered from Markdown with the
+  2003 help banner on top.
+-->
+<Window x:Class="HolidayLights.App.Help.HelpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Holiday Lights Help"
+        Width="960" Height="720" MinWidth="640" MinHeight="480"
+        WindowStartupLocation="CenterScreen"
+        ShowInTaskbar="True">
+    <Window.InputBindings>
+        <KeyBinding Key="Left" Modifiers="Alt" Command="{x:Static NavigationCommands.BrowseBack}" />
+        <KeyBinding Key="Right" Modifiers="Alt" Command="{x:Static NavigationCommands.BrowseForward}" />
+        <KeyBinding Key="F" Modifiers="Control" Command="{x:Static ApplicationCommands.Find}" />
+    </Window.InputBindings>
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static NavigationCommands.BrowseBack}" Executed="OnBack" CanExecute="CanGoBack" />
+        <CommandBinding Command="{x:Static NavigationCommands.BrowseForward}" Executed="OnForward" CanExecute="CanGoForward" />
+        <CommandBinding Command="{x:Static ApplicationCommands.Find}" Executed="OnFind" />
+    </Window.CommandBindings>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Margin="16,16,8,16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBox x:Name="SearchBox" AutomationProperties.Name="Search Help" ToolTip="Search titles and text (Ctrl+F)"
+                     TextChanged="OnSearchChanged" PreviewKeyDown="OnSearchKeyDown" />
+            <TreeView x:Name="ContentsTree" Grid.Row="1" Margin="0,12,0,0" AutomationProperties.Name="Contents"
+                      SelectedItemChanged="OnContentsSelected" />
+            <ListBox x:Name="ResultsList" Grid.Row="1" Margin="0,12,0,0" Visibility="Collapsed" AutomationProperties.Name="Search results"
+                     SelectionChanged="OnResultSelected" />
+        </Grid>
+
+        <Grid Grid.Column="1" Margin="0,16,16,16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{x:Static NavigationCommands.BrowseBack}" Content="&#xE72B;" FontFamily="Segoe Fluent Icons"
+                        AutomationProperties.Name="Back" ToolTip="Back (Alt+Left)" MinWidth="40" />
+                <Button Command="{x:Static NavigationCommands.BrowseForward}" Content="&#xE72A;" FontFamily="Segoe Fluent Icons" Margin="4,0,0,0"
+                        AutomationProperties.Name="Forward" ToolTip="Forward (Alt+Right)" MinWidth="40" />
+            </StackPanel>
+            <FlowDocumentScrollViewer x:Name="TopicViewer" Grid.Row="1" Margin="0,8,0,0" IsToolBarVisible="False"
+                                      VerticalScrollBarVisibility="Auto" AutomationProperties.Name="Topic" />
+        </Grid>
+    </Grid>
+</Window>

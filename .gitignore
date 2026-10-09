@@ -1,0 +1,53 @@
+# Build output (also the default HL_BUILD_ROOT-less locations)
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]64/
+artifacts/
+*.nupkg
+*.snupkg
+
+# Visual Studio / VS Code / Rider
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.rsuser
+*.DotSettings.user
+_ReSharper*/
+
+# Tests and coverage
+TestResults/
+[Tt]est[Rr]esult*/
+*.trx
+coverage*.json
+coverage*.xml
+*.coverage
+*.coveragexml
+
+# MSBuild logs and caches
+*.binlog
+*.log
+msbuild.err
+msbuild.wrn
+project.lock.json
+*.nuget.props
+*.nuget.targets
+
+# OS and editor files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+*.swp
+*~
+*.bak
+*.tmp
+*.orig

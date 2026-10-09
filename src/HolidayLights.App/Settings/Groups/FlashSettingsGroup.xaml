@@ -1,0 +1,66 @@
+<!-- "Flash Settings" (owner: settings-ui; PRODUCT-SPEC 3.2.8): the pattern, the speed and Smooth Fading, on Bulb Factory and Home. -->
+<UserControl x:Class="HolidayLights.App.Settings.Groups.FlashSettingsGroup"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:HolidayLights.App.Controls"
+             xmlns:groups="clr-namespace:HolidayLights.App.Settings.Groups"
+             xmlns:preview="clr-namespace:HolidayLights.App.Preview">
+    <UserControl.Resources>
+        <!-- A pattern: its 5-bulb animated demo on a night well, its name and its second line (the list and the closed combo). -->
+        <DataTemplate x:Key="PatternChoiceTemplate" DataType="{x:Type groups:PatternChoice}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <controls:NightWell Width="96" Height="26" Margin="0,0,12,0" VerticalAlignment="Center">
+                    <preview:LightStrip Services="{Binding Services}" SingleBulbId="{Binding DemoBulbId}" Flash="{Binding Demo}"
+                                        BulbHeight="16" BulbCount="5" IncludeCorners="False" Glow="On" Height="18"
+                                        HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </controls:NightWell>
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Name}" FontSize="14" />
+                    <TextBlock Text="{Binding Explanation}" FontSize="12" TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <controls:Card Header="Flash Settings" Description="{DynamicResource HL.Tip.FlashSettings.Pattern}">
+        <StackPanel>
+            <ComboBox x:Name="PatternCombo" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" MaxDropDownHeight="640"
+                      AutomationProperties.Name="Flash Pattern" ToolTip="{DynamicResource HL.Tip.FlashSettings.Pattern}"
+                      SelectionChanged="OnPatternSelectionChanged" />
+
+            <TextBlock x:Name="SpeedLabel" Text="Speed" Margin="0,14,0,2" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="SlowText" Text="Slow" VerticalAlignment="Center" Margin="0,0,10,0" />
+                <Slider x:Name="SpeedSlider" Grid.Column="1" Minimum="1" Maximum="9" TickFrequency="1" IsSnapToTickEnabled="True"
+                        TickPlacement="BottomRight" SmallChange="1" LargeChange="1" VerticalAlignment="Center"
+                        AutomationProperties.Name="Flash Speed" ToolTip="{DynamicResource HL.Tip.FlashSettings.Speed}"
+                        ValueChanged="OnSpeedChanged" />
+                <TextBlock x:Name="FastText" Grid.Column="2" Text="Fast" VerticalAlignment="Center" Margin="10,0,0,0" />
+            </Grid>
+
+            <Grid Margin="0,6,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="SpeedValue" VerticalAlignment="Center" FontSize="12" TextWrapping="Wrap"
+                           Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                <CheckBox x:Name="SmoothFadingCheck" Grid.Column="1" Margin="12,0,0,0" ToolTip="{DynamicResource HL.Tip.FlashSettings.SmoothFading}"
+                          Click="OnSmoothFadingClick" Checked="OnSmoothFadingClick" Unchecked="OnSmoothFadingClick" AutomationProperties.Name="Smooth Fading">
+                    <AccessText Text="S_mooth Fading" />
+                </CheckBox>
+            </Grid>
+            <TextBlock x:Name="SpeedNote" Margin="0,6,0,0" FontSize="12" TextWrapping="Wrap" Visibility="Collapsed"
+                       Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+        </StackPanel>
+    </controls:Card>
+</UserControl>

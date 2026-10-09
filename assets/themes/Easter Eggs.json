@@ -1,0 +1,51 @@
+{
+  "schema": "holidaylights.theme/1",
+  "name": "Easter Eggs",
+  "shipped": "classic",
+  "arrangement": {
+    "top": [
+      "builtin:pastel-easter-eggs",
+      "builtin:striped-easter-eggs"
+    ],
+    "right": [
+      "builtin:pastel-easter-eggs",
+      "builtin:striped-easter-eggs"
+    ],
+    "bottom": [
+      "builtin:pastel-easter-eggs",
+      "builtin:spring-flowers",
+      "builtin:striped-easter-eggs"
+    ],
+    "left": [
+      "builtin:striped-easter-eggs",
+      "builtin:pastel-easter-eggs"
+    ],
+    "topLeft": null,
+    "topRight": null,
+    "bottomLeft": null,
+    "bottomRight": null
+  },
+  "flash": {
+    "pattern": "alternating",
+    "interval": 7
+  },
+  "music": {
+    "enabledSongs": [],
+    "mode": "always"
+  },
+  "saver": {
+    "animation": "Easter Eggs",
+    "message": "Happy Easter!",
+    "font": {
+      "family": "Comic Sans MS",
+      "sizePt": 42,
+      "bold": true,
+      "italic": false,
+      "underline": false,
+      "strikeout": false
+    },
+    "color": "#FFFF00",
+    "picture": "bundled:Easter Bunny.BMP",
+    "placement": "center"
+  }
+}

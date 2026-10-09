@@ -1,0 +1,49 @@
+{
+  "schema": "holidaylights.theme/1",
+  "name": "St. Patrick's Day",
+  "shipped": "classic",
+  "arrangement": {
+    "top": [
+      "builtin:shamrocks"
+    ],
+    "right": [
+      "builtin:shamrocks"
+    ],
+    "bottom": [
+      "builtin:shamrocks",
+      "builtin:party-hats"
+    ],
+    "left": [
+      "builtin:shamrocks"
+    ],
+    "topLeft": null,
+    "topRight": null,
+    "bottomLeft": null,
+    "bottomRight": null
+  },
+  "flash": {
+    "pattern": "alternating",
+    "interval": 5
+  },
+  "music": {
+    "enabledSongs": [
+      "bundled:Danny Boy.mid"
+    ],
+    "mode": "intermittently"
+  },
+  "saver": {
+    "animation": "Shamrocks",
+    "message": "Happy St. Patrick's Day!",
+    "font": {
+      "family": "Georgia Ref",
+      "sizePt": 48,
+      "bold": true,
+      "italic": false,
+      "underline": false,
+      "strikeout": false
+    },
+    "color": "#00FF00",
+    "picture": "bundled:Pot of Gold.BMP",
+    "placement": "center"
+  }
+}

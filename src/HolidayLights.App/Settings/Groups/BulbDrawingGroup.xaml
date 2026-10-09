@@ -1,0 +1,39 @@
+<!-- "Bulb Drawing" (owner: settings-ui; PRODUCT-SPEC 3.2.8): On Desktop (behind or in front of the icons) or On Top. -->
+<UserControl x:Class="HolidayLights.App.Settings.Groups.BulbDrawingGroup"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:HolidayLights.App.Controls">
+    <controls:Card Header="Bulb Drawing" Description="Where the bulbs are drawn on your screen.">
+        <StackPanel>
+            <RadioButton x:Name="DesktopRadio" GroupName="BulbDrawing" Click="OnDesktopClick" Checked="OnDesktopClick" ContentTemplate="{DynamicResource HL.Template.TwoLine}"
+                         ToolTip="{DynamicResource HL.Tip.BulbDrawing.OnDesktop}" AutomationProperties.Name="On Desktop">
+                <controls:TwoLineLabel Label="On _Desktop" Description="Below all your windows." />
+            </RadioButton>
+            <CheckBox x:Name="BehindIconsCheck" Margin="28,6,0,0" Click="OnBehindIconsClick" Checked="OnBehindIconsClick" Unchecked="OnBehindIconsClick" ContentTemplate="{DynamicResource HL.Template.TwoLine}"
+                      ToolTip="{DynamicResource HL.Tip.BulbDrawing.BehindIcons}" AutomationProperties.Name="Behind the Desktop Icons">
+                <controls:TwoLineLabel Label="Behind the Desktop _Icons" Description="Your icons stay in front of the bulbs and keep working." />
+            </CheckBox>
+            <RadioButton x:Name="OnTopRadio" GroupName="BulbDrawing" Margin="0,8,0,0" Click="OnTopClick" Checked="OnTopClick" ContentTemplate="{DynamicResource HL.Template.TwoLine}"
+                         ToolTip="{DynamicResource HL.Tip.BulbDrawing.OnTop}" AutomationProperties.Name="On Top">
+                <controls:TwoLineLabel Label="On _Top" Description="Above all windows. Clicks go through the bulbs." />
+            </RadioButton>
+
+            <Grid x:Name="StatusRow" Margin="0,10,0,0" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="&#xE7BA;" Style="{DynamicResource HL.Style.Text.Glyph}" VerticalAlignment="Top" Margin="0,2,8,0"
+                           Foreground="{DynamicResource SystemFillColorCautionBrush}" />
+                <StackPanel Grid.Column="1">
+                    <TextBlock x:Name="StatusText" TextWrapping="Wrap" FontSize="12" AutomationProperties.LiveSetting="Polite" />
+                    <Button x:Name="TryAgainButton" Content="Try Again" Style="{DynamicResource HL.Style.Button.Link}" Margin="-4,2,0,0"
+                            Click="OnTryAgainClick" />
+                </StackPanel>
+            </Grid>
+
+            <Button x:Name="MoreLink" Content="More Display _Settings…" Style="{DynamicResource HL.Style.Button.Link}" Margin="-4,10,0,0"
+                    ToolTip="{DynamicResource HL.Tip.BulbDrawing.MoreDisplaySettings}" Click="OnMoreClick" />
+        </StackPanel>
+    </controls:Card>
+</UserControl>

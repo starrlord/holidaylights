@@ -1,0 +1,59 @@
+<!--
+  About Holiday Lights (owner: app-shell; PRODUCT-SPEC 3.9, 6.5): 640 x 720 DIP, fixed size, modeless. The 2003 banner
+  with its flashing strip, the edition, its creator with a link to the project's home page, the licence and the Tiger
+  Technologies credit, the credits expanders (built in code from HelpContent/credits.json), the copyright and privacy
+  notices, "Copy Version Info" and OK.
+-->
+<Window x:Class="HolidayLights.App.About.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="About Holiday Lights"
+        Width="640" Height="720"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        ShowInTaskbar="True">
+    <Grid Margin="24,16,24,20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ContentPresenter x:Name="BannerHost" Grid.Row="0" Margin="0,0,0,16" />
+
+        <StackPanel Grid.Row="1" Margin="0,0,0,12">
+            <TextBlock x:Name="EditionLine" Style="{DynamicResource HL.Style.Text.BodyStrong}" TextWrapping="Wrap" />
+            <TextBlock x:Name="CreatorLine" Margin="0,4,0,0" TextWrapping="Wrap" />
+            <TextBlock x:Name="ProjectLine" Margin="0,4,0,0" TextWrapping="Wrap">
+                <Run Text="Visit the project at " /><Hyperlink x:Name="ProjectLink" Click="OnProjectLink"><Run x:Name="ProjectLinkText" /></Hyperlink><Run Text="." />
+            </TextBlock>
+            <TextBlock Margin="0,4,0,0" TextWrapping="Wrap" Text="Free for everyone: no trial, no registration, no internet connection." />
+            <TextBlock x:Name="LicenseLine" Margin="0,4,0,0" TextWrapping="Wrap" />
+            <TextBlock Margin="0,4,0,0" TextWrapping="Wrap" Text="Based on Holiday Lights 5.4 for Windows. Copyright 1993-2003 Tiger Technologies." />
+            <TextBlock Margin="0,4,0,0" TextWrapping="Wrap" Text="Holiday Lights is a registered trademark of Tiger Technologies." />
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Focusable="False">
+            <StackPanel x:Name="Credits" />
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="3" Margin="0,12,0,0">
+            <TextBlock x:Name="ArtworkNotice" TextWrapping="Wrap" Style="{DynamicResource HL.Style.Text.Secondary}" />
+            <TextBlock x:Name="PrivacyNotice" Margin="0,4,0,0" TextWrapping="Wrap" Style="{DynamicResource HL.Style.Text.Secondary}" />
+        </StackPanel>
+
+        <Grid Grid.Row="4" Margin="0,16,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button Content="_Copy Version Info" Click="OnCopyVersionInfo" />
+            <TextBlock x:Name="CopyStatus" Grid.Column="1" Margin="12,0" VerticalAlignment="Center"
+                       Style="{DynamicResource HL.Style.Text.Secondary}" AutomationProperties.LiveSetting="Polite" />
+            <Button Grid.Column="2" Content="OK" MinWidth="96" IsDefault="True" IsCancel="True" Click="OnOk" />
+        </Grid>
+    </Grid>
+</Window>

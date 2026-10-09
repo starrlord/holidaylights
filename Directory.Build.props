@@ -1,0 +1,43 @@
+<Project>
+  <!--
+    Shared build settings for the Holiday Lights modern edition.
+
+    Parallel builds: set the environment variable HL_BUILD_ROOT to a private folder
+    (e.g. %TEMP%\hl-build\agent-a) and every project's obj/ and bin/ go there instead of
+    the project folder, so several builds can run at the same time without file locks.
+
+    Owner: contracts (docs/CONTRACTS.md).
+  -->
+  <PropertyGroup Condition="'$(HL_BUILD_ROOT)' != ''">
+    <BaseIntermediateOutputPath>$([MSBuild]::EnsureTrailingSlash('$(HL_BUILD_ROOT)'))obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <BaseOutputPath>$([MSBuild]::EnsureTrailingSlash('$(HL_BUILD_ROOT)'))bin\$(MSBuildProjectName)\</BaseOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <!-- never compile stray files from default-location obj/bin folders -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);obj/**;bin/**</DefaultItemExcludes>
+
+    <Product>Holiday Lights</Product>
+    <Version>6.0.0</Version>
+    <AssemblyVersion>6.0.0.0</AssemblyVersion>
+    <FileVersion>6.0.0.0</FileVersion>
+    <Company>StarrLord</Company>
+    <Authors>StarrLord</Authors>
+    <Copyright>Holiday Lights 6 (c) 2026 StarrLord. Based on Holiday Lights 5.4 (c) 1993-2003 Tiger Technologies. Bulb art and music copyright their respective authors.</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/starrlord/holidaylights</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/starrlord/holidaylights</PackageProjectUrl>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+
+  <!-- Every project sees the shared contract types (src/HolidayLights.Core/Abstractions) without a using directive. -->
+  <ItemGroup>
+    <Using Include="HolidayLights.Core.Abstractions" />
+  </ItemGroup>
+</Project>

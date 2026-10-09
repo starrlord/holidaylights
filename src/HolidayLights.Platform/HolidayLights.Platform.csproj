@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Win32 interop and OS services: displays/DPI, wallpaper, hot keys, single instance + pipe, startup (Run value),
+       .bul association, pause signals (full screen, lock, display, energy saver, focus), screen saver registration,
+       holding folder + Recycle Bin, shell operations, system information. Legacy\ = 5.4 registry reader (core-settings).
+       WinRT projection (10.0.26100) for FocusSessionManager; runs on Windows 11 22H2 and later. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
+    <SupportedOSPlatformVersion>10.0.22621.0</SupportedOSPlatformVersion>
+    <RootNamespace>HolidayLights.Platform</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HolidayLights.Core\HolidayLights.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- SessionSwitch (lock/unlock) without a WPF dependency. -->
+    <PackageReference Include="Microsoft.Win32.SystemEvents" Version="10.0.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="HolidayLights.Tests" />
+  </ItemGroup>
+
+</Project>

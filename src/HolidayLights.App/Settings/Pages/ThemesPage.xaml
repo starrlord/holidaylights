@@ -1,0 +1,179 @@
+<!--
+  The "Themes" page (owner: settings-ui; PRODUCT-SPEC 3.6): the Automatic Themes card, the theme cards in three groups
+  (My Themes, Holiday Lights 5.4 Themes, New Themes) and Recent Settings. Logic in ThemesPage.xaml.cs.
+-->
+<UserControl x:Class="HolidayLights.App.Settings.Pages.ThemesPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:HolidayLights.App.Controls"
+             xmlns:preview="clr-namespace:HolidayLights.App.Preview"
+             xmlns:settings="clr-namespace:HolidayLights.App.Settings"
+             x:Name="Root"
+             AutomationProperties.Name="Themes">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="Visible" />
+
+        <!-- A theme card (200 x 176): preview, name, a two-line summary and badges; "..." on hover or focus. The spec's 168 DIP left the
+             summary one line, cutting the play mode and the animation off most shipped themes. -->
+        <Style x:Key="ThemeCardButton" TargetType="Button">
+            <Setter Property="Width" Value="200" />
+            <Setter Property="Height" Value="176" />
+            <Setter Property="Margin" Value="0,0,12,12" />
+            <Setter Property="Padding" Value="8,8,8,6" />
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
+            <Setter Property="AutomationProperties.Name" Value="{Binding AccessibleName}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Border x:Name="Chrome" CornerRadius="8" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="1" />
+                            <ContentPresenter Margin="{TemplateBinding Padding}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Chrome" Property="Background" Value="{DynamicResource CardBackgroundFillColorSecondaryBrush}" />
+                                <Setter Property="preview:PreviewAnimation.IsHot" Value="True" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                <Setter Property="preview:PreviewAnimation.IsHot" Value="True" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Chrome" Property="Background" Value="{DynamicResource ControlFillColorTertiaryBrush}" />
+                            </Trigger>
+                            <DataTrigger Binding="{Binding IsCurrent}" Value="True">
+                                <Setter TargetName="Chrome" Property="BorderBrush" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate x:Key="ThemeCardTemplate" DataType="{x:Type settings:ThemeCardItem}">
+            <Button x:Name="Card" Style="{StaticResource ThemeCardButton}" Click="OnCardClick" PreviewKeyDown="OnCardKeyDown"
+                    ContextMenuOpening="OnCardMenuOpening">
+                <Button.ContextMenu>
+                    <ContextMenu />
+                </Button.ContextMenu>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="104" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <preview:LightStage Services="{Binding Services, ElementName=Root}" Geometry="DisplayAlone" ShowStatusOverlays="False"
+                                        Arrangement="{Binding Arrangement}" Flash="{Binding Flash}" Interval="{Binding Interval}"
+                                        IsAnimated="{Binding (preview:PreviewAnimation.IsHot), RelativeSource={RelativeSource Self}}"
+                                        EmptyText="" IsHitTestVisible="False" Focusable="False" />
+                    <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4" MaxWidth="150">
+                        <Border Style="{DynamicResource HL.Style.Badge.Accent}" Margin="0,0,4,4" Visibility="{Binding IsCurrent, Converter={StaticResource Visible}}">
+                            <TextBlock Text="Current" Style="{DynamicResource HL.Style.Text.Badge}" />
+                        </Border>
+                        <Border Style="{DynamicResource HL.Style.Badge}" Margin="0,0,4,4" Visibility="{Binding IsChanged, Converter={StaticResource Visible}}">
+                            <TextBlock Text="Changed" Style="{DynamicResource HL.Style.Text.Badge}" Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                        </Border>
+                        <Border Style="{DynamicResource HL.Style.Badge}" Margin="0,0,4,4" Visibility="{Binding HasDates, Converter={StaticResource Visible}}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&#xE787;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="10" Margin="0,1,4,0"
+                                           Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                                <TextBlock Text="{Binding DateText}" Style="{DynamicResource HL.Style.Text.Badge}" Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                            </StackPanel>
+                        </Border>
+                        <Border x:Name="MissingBadge" Style="{DynamicResource HL.Style.Badge}" Margin="0,0,4,4" ToolTip="{Binding MissingTip}"
+                                Background="{DynamicResource SystemFillColorCautionBackgroundBrush}">
+                            <TextBlock Text="{Binding MissingText}" Style="{DynamicResource HL.Style.Text.Badge}" Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                        </Border>
+                    </WrapPanel>
+                    <Button x:Name="MoreButton" Style="{DynamicResource HL.Style.Button.Subtle}" Width="28" Height="24" HorizontalAlignment="Right"
+                            VerticalAlignment="Top" Margin="0,4,4,0" Click="OnMoreClick" Visibility="Hidden" Focusable="False"
+                            Background="{DynamicResource HL.Brush.StagePill}" AutomationProperties.Name="More Commands for This Theme" ToolTip="More commands">
+                        <TextBlock Text="&#xE712;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="12" Foreground="{DynamicResource HL.Brush.OnNightWell}" />
+                    </Button>
+                    <TextBlock x:Name="NameText" Grid.Row="1" Text="{Binding Name}" FontSize="14" FontWeight="SemiBold" Margin="0,4,0,0"
+                               TextTrimming="CharacterEllipsis" />
+                    <TextBox x:Name="RenameBox" Grid.Row="1" Margin="0,3,0,0" Visibility="Collapsed" Tag="{Binding Name}"
+                             KeyDown="OnRenameKeyDown" LostKeyboardFocus="OnRenameLostFocus" AutomationProperties.Name="Theme name" />
+                    <TextBlock Grid.Row="2" Text="{Binding Summary}" ToolTip="{Binding Summary}" FontSize="12" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,2,0,0" />
+                </Grid>
+            </Button>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding MissingText}" Value="{x:Null}">
+                    <Setter TargetName="MissingBadge" Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsMouseOver, ElementName=Card}" Value="True">
+                    <Setter TargetName="MoreButton" Property="Visibility" Value="Visible" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsKeyboardFocusWithin, ElementName=Card}" Value="True">
+                    <Setter TargetName="MoreButton" Property="Visibility" Value="Visible" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsRenaming}" Value="True">
+                    <Setter TargetName="NameText" Property="Visibility" Value="Hidden" />
+                    <Setter TargetName="RenameBox" Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+
+        <ItemsPanelTemplate x:Key="CardsPanel">
+            <WrapPanel />
+        </ItemsPanelTemplate>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <controls:InfoBar x:Name="MessageBar" IsOpen="False" Margin="0,0,0,12" />
+        <controls:InfoBar x:Name="ProblemsBar" IsOpen="False" Severity="Warning" Margin="0,0,0,12" />
+
+        <controls:Card Header="Automatic Themes" Description="Your lights change to each holiday's theme when the holiday comes.">
+            <StackPanel>
+                <CheckBox x:Name="AutomaticToggle" Style="{DynamicResource HL.Style.ToggleSwitch}" Click="OnAutomaticClick" Checked="OnAutomaticClick" Unchecked="OnAutomaticClick" ToolTip="{DynamicResource HL.Tip.Themes.Automatic}"
+                          AutomationProperties.Name="Change Themes Automatically on Holidays" ContentTemplate="{DynamicResource HL.Template.TwoLine}">
+                    <controls:TwoLineLabel Label="Change Themes _Automatically on Holidays"
+                                           Description="On a holiday, its theme replaces your bulb, music and screen saver settings. Your previous settings are kept in Recent Settings." />
+                </CheckBox>
+                <Grid Margin="0,10,0,0">
+                    <TextBlock x:Name="CalendarStatus" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,160,0"
+                               AutomationProperties.LiveSetting="Polite" />
+                    <Button Content="_Edit Holidays…" HorizontalAlignment="Right" Click="OnEditHolidaysClick" ToolTip="{DynamicResource HL.Tip.Themes.EditHolidays}" />
+                </Grid>
+                <CheckBox x:Name="TellMeCheck" Content="_Tell Me When the Theme Changes" Margin="0,10,0,0" Click="OnTellMeClick" Checked="OnTellMeClick" Unchecked="OnTellMeClick"
+                          ToolTip="{DynamicResource HL.Tip.Themes.TellMe}" />
+            </StackPanel>
+        </controls:Card>
+
+        <TextBlock x:Name="EmptyText" Margin="0,24,0,0" TextWrapping="Wrap" Visibility="Collapsed" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                   Text="There are no themes. Save your settings as a theme, or click Restore Built-In Themes." />
+
+        <TextBlock x:Name="MyThemesHeader" Text="My Themes" Style="{DynamicResource HL.Style.Text.BodyStrong}" Margin="0,24,0,10"
+                   AutomationProperties.HeadingLevel="Level2" />
+        <ItemsControl x:Name="MyThemes" ItemTemplate="{StaticResource ThemeCardTemplate}" ItemsPanel="{StaticResource CardsPanel}" Focusable="False"
+                      KeyboardNavigation.TabNavigation="Once" KeyboardNavigation.DirectionalNavigation="Contained" AutomationProperties.Name="My Themes" />
+
+        <TextBlock x:Name="ClassicHeader" Text="Holiday Lights 5.4 Themes" Style="{DynamicResource HL.Style.Text.BodyStrong}" Margin="0,16,0,10"
+                   AutomationProperties.HeadingLevel="Level2" />
+        <ItemsControl x:Name="ClassicThemes" ItemTemplate="{StaticResource ThemeCardTemplate}" ItemsPanel="{StaticResource CardsPanel}" Focusable="False"
+                      KeyboardNavigation.TabNavigation="Once" KeyboardNavigation.DirectionalNavigation="Contained"
+                      AutomationProperties.Name="Holiday Lights 5.4 Themes" />
+
+        <TextBlock x:Name="NewHeader" Text="New Themes" Style="{DynamicResource HL.Style.Text.BodyStrong}" Margin="0,16,0,10"
+                   AutomationProperties.HeadingLevel="Level2" />
+        <ItemsControl x:Name="NewThemes" ItemTemplate="{StaticResource ThemeCardTemplate}" ItemsPanel="{StaticResource CardsPanel}" Focusable="False"
+                      KeyboardNavigation.TabNavigation="Once" KeyboardNavigation.DirectionalNavigation="Contained" AutomationProperties.Name="New Themes" />
+
+        <Expander x:Name="RecentExpander" Margin="0,16,0,0" IsExpanded="False" ToolTip="{DynamicResource HL.Tip.Themes.RecentSettings}"
+                  AutomationProperties.Name="Recent Settings">
+            <Expander.Header>
+                <StackPanel Orientation="Horizontal">
+                    <AccessText Text="Re_cent Settings" FontWeight="SemiBold" />
+                    <TextBlock Text=" - Holiday Lights keeps your settings from before the last 5 theme changes." TextTrimming="CharacterEllipsis"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                </StackPanel>
+            </Expander.Header>
+            <StackPanel x:Name="RecentList" Margin="0,8,0,0" />
+        </Expander>
+
+    </StackPanel>
+</UserControl>

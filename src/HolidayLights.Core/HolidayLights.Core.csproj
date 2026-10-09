@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Pure, OS-independent logic: shared contracts (Abstractions), bulb model + file formats, layout, flash patterns,
+       CPU sprite pipeline, settings, themes, seasons, legacy-settings mapping. References nothing (docs/CONTRACTS.md). -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>HolidayLights.Core</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <!-- Embedded data, opened through EmbeddedAssets (Abstractions/Runtime). Logical names: holidaylights/<area>/<relative path>.
+       builtin  = the 49-bulb table + RT_BITMAP art (produced earlier; read-only)
+       themes   = the shipped theme JSON files (owner: core-settings)
+       heritage = original 5.4 art and data shared by several owners (owner: contracts; see assets/heritage/README.md) -->
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\assets\builtin\**\*" Exclude="..\..\assets\builtin\**\README.md" LogicalName="holidaylights/builtin/%(RecursiveDir)%(Filename)%(Extension)" Link="Assets\builtin\%(RecursiveDir)%(Filename)%(Extension)" />
+    <EmbeddedResource Include="..\..\assets\themes\**\*" Exclude="..\..\assets\themes\**\README.md" LogicalName="holidaylights/themes/%(RecursiveDir)%(Filename)%(Extension)" Link="Assets\themes\%(RecursiveDir)%(Filename)%(Extension)" />
+    <EmbeddedResource Include="..\..\assets\heritage\**\*" Exclude="..\..\assets\heritage\**\README.md" LogicalName="holidaylights/heritage/%(RecursiveDir)%(Filename)%(Extension)" Link="Assets\heritage\%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="HolidayLights.Tests" />
+  </ItemGroup>
+
+</Project>

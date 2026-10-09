@@ -1,0 +1,52 @@
+{
+  "schema": "holidaylights.theme/1",
+  "name": "Summer Nights",
+  "shipped": "new",
+  "arrangement": {
+    "top": [
+      "builtin:paper-lanterns"
+    ],
+    "right": [
+      "builtin:paper-lanterns"
+    ],
+    "bottom": [
+      "builtin:paper-lanterns"
+    ],
+    "left": [
+      "builtin:paper-lanterns"
+    ],
+    "topLeft": "builtin:moon",
+    "topRight": "builtin:moon",
+    "bottomLeft": "builtin:moon",
+    "bottomRight": "builtin:moon"
+  },
+  "flash": {
+    "pattern": "twinkle",
+    "interval": 7
+  },
+  "music": {
+    "enabledSongs": [
+      "bundled:Bicycle Built for Two.mid",
+      "bundled:Clementine.mid",
+      "bundled:Danny Boy.mid"
+    ],
+    "mode": "intermittently"
+  },
+  "saver": {
+    "animation": "Heavens Above",
+    "style": "attraction",
+    "message": "Enjoy the Summer Nights!",
+    "font": {
+      "family": "Georgia",
+      "sizePt": 42,
+      "bold": false,
+      "italic": true,
+      "underline": false,
+      "strikeout": false
+    },
+    "color": "#F4B942",
+    "background": "#0B1530",
+    "picture": "(None)",
+    "placement": "center"
+  }
+}

@@ -1,0 +1,339 @@
+<!--
+  The "General" page (owner: settings-ui; PRODUCT-SPEC 3.7): Where Bulbs Are Drawn, Displays, Bulb Look, Startup
+  Settings, Hot Keys, When the Lights Rest, Accessibility, Files and Folders, Holiday Lights 5.4, Reset and Uninstall.
+  Logic in GeneralPage.xaml.cs and GeneralPage.Actions.cs.
+-->
+<UserControl x:Class="HolidayLights.App.Settings.Pages.GeneralPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:HolidayLights.App.Controls"
+             xmlns:core="clr-namespace:HolidayLights.Core.Abstractions;assembly=HolidayLights.Core"
+             AutomationProperties.Name="General">
+    <UserControl.Resources>
+        <!-- An illustrated option card of "Where Bulbs Are Drawn" (one radio group). -->
+        <Style x:Key="OptionCard" TargetType="RadioButton">
+            <Setter Property="Width" Value="196" />
+            <Setter Property="Margin" Value="0,0,12,12" />
+            <Setter Property="Padding" Value="12" />
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="Chrome" CornerRadius="8" BorderThickness="1" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}" Padding="{TemplateBinding Padding}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Image Source="{TemplateBinding Tag}" Width="160" Height="96" HorizontalAlignment="Left" Margin="0,0,0,10" />
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Width="20" Height="20" VerticalAlignment="Top" Margin="0,0,8,0">
+                                        <Ellipse x:Name="Outer" Stroke="{DynamicResource ControlStrongStrokeColorDefaultBrush}" StrokeThickness="1"
+                                                 Fill="{DynamicResource ControlAltFillColorSecondaryBrush}" />
+                                        <Ellipse x:Name="Dot" Width="8" Height="8" Fill="{DynamicResource TextOnAccentFillColorPrimaryBrush}" Visibility="Collapsed" />
+                                    </Grid>
+                                    <ContentPresenter Grid.Column="1" RecognizesAccessKey="True" />
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Chrome" Property="Background" Value="{DynamicResource CardBackgroundFillColorSecondaryBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Chrome" Property="BorderBrush" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                                <Setter TargetName="Chrome" Property="BorderThickness" Value="2" />
+                                <Setter TargetName="Chrome" Property="Padding" Value="11" />
+                                <Setter TargetName="Outer" Property="Fill" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                                <Setter TargetName="Outer" Property="Stroke" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                                <Setter TargetName="Dot" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="GroupCard" TargetType="controls:Card">
+            <Setter Property="Margin" Value="0,0,0,16" />
+        </Style>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <!-- Where Bulbs Are Drawn -->
+        <controls:Card Header="Where Bulbs Are Drawn" Description="Where the bulbs sit: on the desktop, behind or in front of the icons, or on top of all windows." Style="{StaticResource GroupCard}">
+            <StackPanel>
+                <WrapPanel x:Name="LocationCards" AutomationProperties.Name="Where bulbs are drawn">
+                    <RadioButton x:Name="BehindIconsCard" Style="{StaticResource OptionCard}" GroupName="WhereDrawn" Click="OnLocationClick" Checked="OnLocationClick"
+                                 Tag="{DynamicResource HL.Illustration.BehindIcons}" AutomationProperties.Name="On Desktop, Behind the Icons">
+                        <StackPanel>
+                            <TextBlock Text="On Desktop, Behind the Icons" FontWeight="SemiBold" TextWrapping="Wrap" />
+                            <TextBlock Text="Like Holiday Lights 2003: on your wallpaper, under your icons. Recommended." TextWrapping="Wrap" FontSize="12"
+                                       Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,2,0,0" />
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton x:Name="InFrontCard" Style="{StaticResource OptionCard}" GroupName="WhereDrawn" Click="OnLocationClick" Checked="OnLocationClick"
+                                 Tag="{DynamicResource HL.Illustration.InFrontOfIcons}" AutomationProperties.Name="On Desktop, In Front of the Icons">
+                        <StackPanel>
+                            <TextBlock Text="On Desktop, In Front of the Icons" FontWeight="SemiBold" TextWrapping="Wrap" />
+                            <TextBlock Text="On your desktop, over your icons, under every window." TextWrapping="Wrap" FontSize="12"
+                                       Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,2,0,0" />
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton x:Name="OnTopCard" Style="{StaticResource OptionCard}" GroupName="WhereDrawn" Click="OnLocationClick" Checked="OnLocationClick"
+                                 Tag="{DynamicResource HL.Illustration.OnTop}" AutomationProperties.Name="On Top of All Windows">
+                        <StackPanel>
+                            <TextBlock Text="On Top of All Windows" FontWeight="SemiBold" TextWrapping="Wrap" />
+                            <TextBlock Text="Always visible. Clicks go right through the bulbs." TextWrapping="Wrap" FontSize="12"
+                                       Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,2,0,0" />
+                        </StackPanel>
+                    </RadioButton>
+                </WrapPanel>
+                <StackPanel x:Name="FallbackRow" Orientation="Horizontal" Margin="0,0,0,8" Visibility="Collapsed">
+                    <TextBlock Text="&#xE7BA;" Style="{DynamicResource HL.Style.Text.Glyph}" Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                               VerticalAlignment="Top" Margin="0,2,8,0" />
+                    <TextBlock x:Name="FallbackText" TextWrapping="Wrap" MaxWidth="560" AutomationProperties.LiveSetting="Polite" />
+                    <Button Content="Try Again" Style="{DynamicResource HL.Style.Button.Link}" Margin="4,-2,0,0" Click="OnTryAgainClick" VerticalAlignment="Top" />
+                </StackPanel>
+                <TextBlock x:Name="HotKeyLine" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+            </StackPanel>
+        </controls:Card>
+
+        <!-- Displays -->
+        <controls:Card Header="Displays" Description="{DynamicResource HL.Tip.Displays.ShowOn}" Style="{StaticResource GroupCard}">
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Canvas x:Name="DisplayDiagram" Width="300" Height="110" Margin="0,0,24,0" AutomationProperties.Name="Displays" />
+                    <TextBlock x:Name="SingleDisplayText" TextWrapping="Wrap" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,0,24,0" />
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock x:Name="DisplaysCaption" TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                        <WrapPanel Margin="0,8,0,0">
+                            <Button Content="_Identify" Margin="0,0,12,0" Click="OnIdentifyClick" ToolTip="{DynamicResource HL.Tip.Displays.Identify}" />
+                            <Button x:Name="MainOnlyLink" Content="Main Display Only (Like _2003)" Style="{DynamicResource HL.Style.Button.Link}"
+                                    Click="OnMainOnlyClick" ToolTip="{DynamicResource HL.Tip.Displays.MainDisplayOnly}" />
+                        </WrapPanel>
+                    </StackPanel>
+                </Grid>
+                <StackPanel Orientation="Horizontal" Margin="0,12,0,0" ToolTip="{DynamicResource HL.Tip.Displays.Frame}">
+                    <TextBlock Text="Frame:" VerticalAlignment="Center" Margin="0,0,12,0" />
+                    <RadioButton x:Name="EachDisplayRadio" GroupName="FrameMode" Content="Each Displa_y" Margin="0,0,20,0" Click="OnFrameModeClick" Checked="OnFrameModeClick"
+                                 Tag="{x:Static core:FrameMode.EachDisplay}" />
+                    <RadioButton x:Name="AllTogetherRadio" GroupName="FrameMode" Content="_All Displays Together" Click="OnFrameModeClick" Checked="OnFrameModeClick"
+                                 Tag="{x:Static core:FrameMode.AllDisplaysTogether}" />
+                </StackPanel>
+            </StackPanel>
+        </controls:Card>
+
+        <!-- Bulb Look -->
+        <controls:Card Header="Bulb Look" Description="How big the bulbs are and how they look on each display." Style="{StaticResource GroupCard}">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" ToolTip="{DynamicResource HL.Tip.Look.Look}">
+                    <Label Content="Loo_k" Target="{Binding ElementName=ModernButton}" VerticalAlignment="Center" Padding="0,0,12,0" Width="90"
+                           Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                    <Border Style="{DynamicResource HL.Style.SegmentFrame}" KeyboardNavigation.DirectionalNavigation="Cycle">
+                        <StackPanel Orientation="Horizontal" AutomationProperties.Name="Look">
+                            <RadioButton x:Name="ModernButton" Style="{DynamicResource HL.Style.Segment}" GroupName="Look" Content="Modern Glow"
+                                         Click="OnLookClick" Checked="OnLookClick" Tag="{x:Static core:LookPreset.ModernGlow}" />
+                            <RadioButton x:Name="BrightButton" Style="{DynamicResource HL.Style.Segment}" GroupName="Look" Content="Bright Glow"
+                                         Click="OnLookClick" Checked="OnLookClick" Tag="{x:Static core:LookPreset.BrightGlow}" />
+                            <RadioButton x:Name="ClassicButton" Style="{DynamicResource HL.Style.Segment}" GroupName="Look" Content="Classic 2003"
+                                         Click="OnLookClick" Checked="OnLookClick" Tag="{x:Static core:LookPreset.Classic2003}"
+                                         ToolTip="Crisp pixels, no glow, no fading and 16-steps-per-second screen saver motion - exactly like 2003." />
+                            <RadioButton x:Name="CustomButton" Style="{DynamicResource HL.Style.Segment}" GroupName="Look" Content="Custom"
+                                         Click="OnLookClick" Checked="OnLookClick" Tag="{x:Static core:LookPreset.Custom}" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,14,0,0" ToolTip="{DynamicResource HL.Tip.Look.BulbSize}">
+                    <Label Content="Bulb Si_ze" Target="{Binding ElementName=SmallRadio}" VerticalAlignment="Center" Padding="0,0,12,0" Width="90"
+                           Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                    <RadioButton x:Name="SmallRadio" GroupName="GeneralBulbSize" Content="Small" Margin="0,0,20,0" Click="OnBulbSizeClick" Checked="OnBulbSizeClick" Tag="{x:Static core:BulbSize.Small}" />
+                    <RadioButton x:Name="StandardRadio" GroupName="GeneralBulbSize" Content="Standard" Margin="0,0,20,0" Click="OnBulbSizeClick" Checked="OnBulbSizeClick" Tag="{x:Static core:BulbSize.Standard}" />
+                    <RadioButton x:Name="LargeRadio" GroupName="GeneralBulbSize" Content="Large" Margin="0,0,20,0" Click="OnBulbSizeClick" Checked="OnBulbSizeClick" Tag="{x:Static core:BulbSize.Large}" />
+                    <RadioButton x:Name="ExtraLargeRadio" GroupName="GeneralBulbSize" Content="Extra Large" Click="OnBulbSizeClick" Checked="OnBulbSizeClick" Tag="{x:Static core:BulbSize.ExtraLarge}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,14,0,0" ToolTip="{DynamicResource HL.Tip.Look.Pixels}">
+                    <Label Content="_Pixels:" Target="{Binding ElementName=SmoothRadio}" VerticalAlignment="Top" Padding="0,0,12,0" Width="90"
+                           Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                    <RadioButton x:Name="SmoothRadio" GroupName="Pixels" Margin="0,0,24,0" Click="OnPixelsClick" Checked="OnPixelsClick" Tag="{x:Static core:SpriteStyle.Smooth}"
+                                 ContentTemplate="{DynamicResource HL.Template.TwoLine}" AutomationProperties.Name="Smooth">
+                        <controls:TwoLineLabel Label="Smooth" Description="Clean, smooth edges at any size." />
+                    </RadioButton>
+                    <RadioButton x:Name="CrispRadio" GroupName="Pixels" Click="OnPixelsClick" Checked="OnPixelsClick" Tag="{x:Static core:SpriteStyle.Crisp}"
+                                 ContentTemplate="{DynamicResource HL.Template.TwoLine}" AutomationProperties.Name="Crisp">
+                        <controls:TwoLineLabel Label="Crisp" Description="Square pixels, like 2003." />
+                    </RadioButton>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,14,0,0" ToolTip="{DynamicResource HL.Tip.Look.Glow}">
+                    <Label Content="_Glow:" Target="{Binding ElementName=GlowBox}" VerticalAlignment="Center" Padding="0,0,12,0" Width="90"
+                           Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                    <ComboBox x:Name="GlowBox" MinWidth="120" SelectionChanged="OnGlowChanged" AutomationProperties.Name="Glow">
+                        <ComboBoxItem Content="Off" Tag="{x:Static core:GlowLevel.Off}" />
+                        <ComboBoxItem Content="Soft" Tag="{x:Static core:GlowLevel.Soft}" />
+                        <ComboBoxItem Content="Bright" Tag="{x:Static core:GlowLevel.Bright}" />
+                    </ComboBox>
+                    <TextBlock Text="Lit bulbs give off a soft light that brightens the wallpaper around them." VerticalAlignment="Center" Margin="12,0,0,0"
+                               TextWrapping="Wrap" MaxWidth="360" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                </StackPanel>
+                <WrapPanel Margin="90,14,0,0">
+                    <CheckBox x:Name="SmoothFadingCheck" Content="S_mooth Fading" Margin="0,0,24,0" Click="OnSmoothFadingClick" Checked="OnSmoothFadingClick" Unchecked="OnSmoothFadingClick"
+                              ToolTip="{DynamicResource HL.Tip.FlashSettings.SmoothFading}" />
+                    <CheckBox x:Name="SmoothMotionCheck" Content="Smooth Screen Saver Mo_tion" Click="OnSmoothMotionClick" Checked="OnSmoothMotionClick" Unchecked="OnSmoothMotionClick"
+                              ToolTip="{DynamicResource HL.Tip.Saver.SmoothMotion}" />
+                </WrapPanel>
+            </StackPanel>
+        </controls:Card>
+
+        <!-- Startup Settings -->
+        <controls:Card Header="Startup Settings" Description="{DynamicResource HL.Tip.General.AutoStart}" Style="{StaticResource GroupCard}">
+            <StackPanel>
+                <controls:InfoBar x:Name="StartupBar" IsOpen="False" Severity="Warning" IsClosable="False" Margin="0,0,0,10"
+                                  Message="Startup is turned off for Holiday Lights in Windows Settings." ActionText="Open Startup Apps" />
+                <CheckBox x:Name="AutoStartCheck" Click="OnAutoStartClick" Checked="OnAutoStartClick" Unchecked="OnAutoStartClick" ContentTemplate="{DynamicResource HL.Template.TwoLine}"
+                          ToolTip="{DynamicResource HL.Tip.General.AutoStart}" AutomationProperties.Name="Automatically Start Holiday Lights">
+                    <controls:TwoLineLabel Label="Automatically _Start Holiday Lights"
+                                           Description="If this box is checked, Holiday Lights will run every time you sign in to Windows. Uncheck the box to use Holiday Lights only as a screen saver. You can still start it at any time from the Start menu." />
+                </CheckBox>
+            </StackPanel>
+        </controls:Card>
+
+        <!-- Hot Keys -->
+        <controls:Card Header="Hot Keys" Description="Key combinations that work anywhere in Windows." Style="{StaticResource GroupCard}" ToolTip="{DynamicResource HL.Tip.General.HotKey}">
+            <StackPanel>
+                <!-- Message and ActionText name the imported letter; they are set in UpdateHotKeys (review r1 #27). -->
+                <controls:InfoBar x:Name="HotKeyImportBar" IsOpen="False" Severity="Informational" Margin="0,0,0,10" />
+                <Grid x:Name="HotKeyRows">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <CheckBox x:Name="LocationHotKeyCheck" Content="S_witch Between On Desktop and On Top" VerticalAlignment="Center" Click="OnHotKeyCheckClick" Checked="OnHotKeyCheckClick" Unchecked="OnHotKeyCheckClick" />
+                    <controls:HotKeyRecorder x:Name="LocationCaps" Grid.Column="1" IsReadOnly="True" Margin="16,0,16,0" Focusable="False"
+                                             AutomationProperties.Name="Switch Between On Desktop and On Top hot key" />
+                    <Button x:Name="LocationChangeButton" Grid.Column="2" Content="C_hange…" Click="OnChangeHotKeyClick"
+                            AutomationProperties.Name="Change the Switch Between On Desktop and On Top hot key" />
+                    <TextBlock x:Name="LocationProblem" Grid.Row="1" Grid.ColumnSpan="3" Margin="28,4,0,0" TextWrapping="Wrap" Visibility="Collapsed"
+                               Foreground="{DynamicResource SystemFillColorCautionBrush}" Text="Another program is using this key combination. Choose another one." />
+                    <CheckBox x:Name="LightsHotKeyCheck" Grid.Row="2" Content="Turn the Lights _On or Off" VerticalAlignment="Center" Margin="0,10,0,0"
+                              Click="OnHotKeyCheckClick" Checked="OnHotKeyCheckClick" Unchecked="OnHotKeyCheckClick" />
+                    <controls:HotKeyRecorder x:Name="LightsCaps" Grid.Row="2" Grid.Column="1" IsReadOnly="True" Margin="16,10,16,0" Focusable="False"
+                                             AutomationProperties.Name="Turn the Lights On or Off hot key" />
+                    <Button x:Name="LightsChangeButton" Grid.Row="2" Grid.Column="2" Content="Cha_nge…" Margin="0,10,0,0" Click="OnChangeHotKeyClick"
+                            AutomationProperties.Name="Change the Turn the Lights On or Off hot key" />
+                    <TextBlock x:Name="LightsProblem" Grid.Row="3" Grid.ColumnSpan="3" Margin="28,4,0,0" TextWrapping="Wrap" Visibility="Collapsed"
+                               Foreground="{DynamicResource SystemFillColorCautionBrush}" Text="Another program is using this key combination. Choose another one." />
+                </Grid>
+                <TextBlock Margin="0,12,0,0" TextWrapping="Wrap" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                           Text="You can press a hot key at any time, in any program. Use the first one to move the bulbs on top of your windows when you need to see something underneath them, and back again." />
+            </StackPanel>
+        </controls:Card>
+
+        <!-- When the Lights Rest -->
+        <controls:Card Header="When the Lights Rest" Description="When the lights pause by themselves: full-screen apps, presentations, Remote Desktop and Energy Saver." Style="{StaticResource GroupCard}">
+            <StackPanel>
+                <CheckBox x:Name="RestFullScreenCheck" Content="Hide the Lights on a Display While a _Full-Screen App or Game Is Running There" Click="OnRestClick" Checked="OnRestClick" Unchecked="OnRestClick" />
+                <CheckBox x:Name="RestPresentationCheck" Content="Hide the Lights During Presentations" Margin="0,8,0,0" Click="OnRestClick" Checked="OnRestClick" Unchecked="OnRestClick" />
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0" ToolTip="{DynamicResource HL.Tip.General.EnergySaver}">
+                    <Label Content="When _Energy Saver Is On:" Target="{Binding ElementName=EnergySaverBox}" VerticalAlignment="Center" Padding="0,0,12,0"
+                           Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                    <ComboBox x:Name="EnergySaverBox" MinWidth="180" SelectionChanged="OnEnergySaverChanged" AutomationProperties.Name="When Energy Saver Is On">
+                        <ComboBoxItem Content="Use Less Power" Tag="{x:Static core:EnergySaverChoice.UseLessPower}" />
+                        <ComboBoxItem Content="Stop Flashing" Tag="{x:Static core:EnergySaverChoice.StopFlashing}" />
+                        <ComboBoxItem Content="Turn Off the Lights" Tag="{x:Static core:EnergySaverChoice.TurnOffLights}" />
+                        <ComboBoxItem Content="Change Nothing" Tag="{x:Static core:EnergySaverChoice.ChangeNothing}" />
+                    </ComboBox>
+                </StackPanel>
+                <CheckBox x:Name="MusicFullScreenCheck" Content="Pause Musi_c While a Full-Screen App, Game or Presentation Is Running" Margin="0,12,0,0" Click="OnRestClick" Checked="OnRestClick" Unchecked="OnRestClick" />
+                <CheckBox x:Name="MusicFocusCheck" Content="Pause Music During Focus Sessions" Margin="0,8,0,0" Click="OnRestClick" Checked="OnRestClick" Unchecked="OnRestClick" />
+                <CheckBox x:Name="MusicLockCheck" Content="Pause Music When I Lock My PC" Margin="0,8,0,0" Click="OnRestClick" Checked="OnRestClick" Unchecked="OnRestClick" />
+                <TextBlock Margin="0,12,0,0" TextWrapping="Wrap" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                           Text="The lights always rest while your PC is locked, while the screen is off, while another screen saver runs, and during Remote Desktop sessions." />
+            </StackPanel>
+        </controls:Card>
+
+        <!-- Accessibility -->
+        <controls:Card Header="Accessibility" Description="Options for people who are sensitive to flashing lights." Style="{StaticResource GroupCard}">
+            <StackPanel>
+                <CheckBox x:Name="LimitFlashingCheck" Click="OnLimitFlashingClick" Checked="OnLimitFlashingClick" Unchecked="OnLimitFlashingClick" ContentTemplate="{DynamicResource HL.Template.TwoLine}"
+                          ToolTip="{DynamicResource HL.Tip.General.LimitFlashing}" AutomationProperties.Name="Limit Flashing to 3 Flashes per Second">
+                    <controls:TwoLineLabel Label="_Limit Flashing to 3 Flashes per Second" Description="Recommended if flashing lights bother you." />
+                </CheckBox>
+                <CheckBox x:Name="DecorateCheck" Content="_Decorate the Settings Window with Lights" Margin="0,10,0,0" Click="OnDecorateClick" Checked="OnDecorateClick" Unchecked="OnDecorateClick"
+                          ToolTip="{DynamicResource HL.Tip.General.DecorateWindow}" />
+                <TextBlock Margin="0,12,0,0" TextWrapping="Wrap" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                           Text="Animations in Holiday Lights windows follow Windows' &quot;Animation effects&quot; setting. The lights on your desktop keep flashing." />
+            </StackPanel>
+        </controls:Card>
+
+        <!-- Files and Folders -->
+        <controls:Card Header="Files and Folders" Description="Where your bulbs, songs and pictures are kept, and which files open with Holiday Lights." Style="{StaticResource GroupCard}">
+            <StackPanel>
+                <Grid x:Name="FolderRows" ToolTip="{DynamicResource HL.Tip.General.OpenFolder}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="110" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="My Bulbs" VerticalAlignment="Center" />
+                    <TextBlock x:Name="BulbsPath" Grid.Column="1" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                    <Button Grid.Column="2" Content="Open" Margin="12,0,0,6" Click="OnOpenFolderClick" Tag="Bulbs" AutomationProperties.Name="Open My Bulbs" />
+                    <TextBlock Grid.Row="1" Text="My Music" VerticalAlignment="Center" />
+                    <TextBlock x:Name="MusicPath" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                    <Button Grid.Row="1" Grid.Column="2" Content="Open" Margin="12,0,0,6" Click="OnOpenFolderClick" Tag="Music" AutomationProperties.Name="Open My Music" />
+                    <TextBlock Grid.Row="2" Text="My Pictures" VerticalAlignment="Center" />
+                    <TextBlock x:Name="PicturesPath" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                    <Button Grid.Row="2" Grid.Column="2" Content="Open" Margin="12,0,0,6" Click="OnOpenFolderClick" Tag="Pictures" AutomationProperties.Name="Open My Pictures" />
+                </Grid>
+                <CheckBox x:Name="AssociateCheck" Content="Open _Bulb Files (.bul) with Holiday Lights" Margin="0,8,0,0" Click="OnAssociateClick" Checked="OnAssociateClick" Unchecked="OnAssociateClick"
+                          ToolTip="{DynamicResource HL.Tip.General.AssociateBul}" />
+            </StackPanel>
+        </controls:Card>
+
+        <!-- Holiday Lights 5.4 -->
+        <controls:Card x:Name="LegacyCard" Header="Holiday Lights 5.4" Description="What was brought over from Holiday Lights 5.4, and bringing it over again." Style="{StaticResource GroupCard}" Visibility="Collapsed">
+            <StackPanel>
+                <controls:InfoBar x:Name="ImportBar" IsOpen="False" Severity="Error" Margin="0,0,0,10" />
+                <TextBlock x:Name="ImportStatus" TextWrapping="Wrap" />
+                <WrapPanel Margin="0,8,0,0">
+                    <Button x:Name="ImportDetailsButton" Content="Import Details…" Margin="0,0,8,0" Click="OnImportDetailsClick"
+                            ToolTip="{DynamicResource HL.Tip.General.ImportDetails}" />
+                    <Button x:Name="ImportAgainButton" Content="Import Again…" Click="OnImportAgainClick" ToolTip="{DynamicResource HL.Tip.General.ImportAgain}" />
+                </WrapPanel>
+                <StackPanel x:Name="Leftovers" Margin="0,8,0,0" />
+            </StackPanel>
+        </controls:Card>
+
+        <!-- Reset and Uninstall -->
+        <controls:Card Header="Reset and Uninstall" Description="Start over with the original settings, or remove Holiday Lights." Style="{StaticResource GroupCard}">
+            <WrapPanel>
+                <Button Content="_Reset All Settings…" Margin="0,0,8,0" Click="OnResetClick" ToolTip="{DynamicResource HL.Tip.General.ResetAll}" />
+                <Button Content="Restore Built-In Themes…" Margin="0,0,8,0" Click="OnRestoreThemesClick" ToolTip="{DynamicResource HL.Tip.Themes.RestoreBuiltIn}" />
+                <Button Content="_Uninstall Holiday Lights…" Click="OnUninstallClick" ToolTip="{DynamicResource HL.Tip.General.Uninstall}" />
+            </WrapPanel>
+        </controls:Card>
+    </StackPanel>
+</UserControl>

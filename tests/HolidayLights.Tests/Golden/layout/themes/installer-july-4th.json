@@ -1,0 +1,7 @@
+{
+ "_comment": "Translated from golden default-themes.json, theme 'July 4th', value 'Bulb Settings' (32 x int32: per side 6 bulb ids + 2 corner ids; ids are legacy built-in bulb ids).",
+ "top": {"bulbs": [44, 39, 44, 46, -1, -1], "corners": [31, 31]},
+ "right": {"bulbs": [44, 46, 44, 31, -1, -1], "corners": [-1, -1]},
+ "bottom": {"bulbs": [44, 46, -1, -1, -1, -1], "corners": [31, 31]},
+ "left": {"bulbs": [44, 46, 44, 31, -1, -1], "corners": [-1, -1]}
+}

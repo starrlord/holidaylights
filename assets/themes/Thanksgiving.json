@@ -1,0 +1,52 @@
+{
+  "schema": "holidaylights.theme/1",
+  "name": "Thanksgiving",
+  "shipped": "classic",
+  "arrangement": {
+    "top": [
+      "builtin:cornucopias",
+      "builtin:autumn-leaves",
+      "builtin:live-turkeys"
+    ],
+    "right": [
+      "builtin:dead-turkeys",
+      "builtin:autumn-leaves"
+    ],
+    "bottom": [
+      "builtin:cornucopias",
+      "builtin:autumn-leaves",
+      "builtin:live-turkeys"
+    ],
+    "left": [
+      "builtin:dead-turkeys",
+      "builtin:autumn-leaves"
+    ],
+    "topLeft": "builtin:autumn-leaves",
+    "topRight": "builtin:autumn-leaves",
+    "bottomLeft": "builtin:autumn-leaves",
+    "bottomRight": "builtin:autumn-leaves"
+  },
+  "flash": {
+    "pattern": "bulbChase",
+    "interval": 5
+  },
+  "music": {
+    "enabledSongs": [],
+    "mode": "always"
+  },
+  "saver": {
+    "animation": "Leaves",
+    "message": "Happy Thanksgiving!",
+    "font": {
+      "family": "Figaro MT",
+      "sizePt": 60,
+      "bold": true,
+      "italic": false,
+      "underline": false,
+      "strikeout": false
+    },
+    "color": "#808000",
+    "picture": "bundled:Turkey.BMP",
+    "placement": "center"
+  }
+}

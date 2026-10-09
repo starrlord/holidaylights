@@ -1,0 +1,42 @@
+<!--
+  The frame editor (owner: settings-ui; PRODUCT-SPEC 3.2.2-3.2.7, 3.2.12): 8 boxes (4 edges with up to 6 bulb types each,
+  4 corners) around a live, exact light stage of one display. The boxes are built in code (ArrangementEditor.xaml.cs).
+-->
+<UserControl x:Class="HolidayLights.App.Controls.ArrangementEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:preview="clr-namespace:HolidayLights.App.Preview"
+             KeyboardNavigation.TabNavigation="Local" KeyboardNavigation.DirectionalNavigation="None"
+             AutomationProperties.Name="Edges and corners">
+    <Grid x:Name="Frame">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="72" />
+            <ColumnDefinition Width="8" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="8" />
+            <ColumnDefinition Width="72" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="72" />
+            <RowDefinition Height="8" />
+            <RowDefinition x:Name="StageRow" Height="240" />
+            <RowDefinition Height="8" />
+            <RowDefinition Height="72" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="StageArea" Grid.Row="2" Grid.Column="2" AllowDrop="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <preview:LightStage x:Name="Stage" ShowStatusOverlays="True" Cursor="Hand"
+                                EmptyText="No bulbs yet. Double-click a bulb to fill the whole frame, or drag bulbs into the boxes."
+                                AutomationProperties.Name="Preview of your screen" />
+            <ComboBox x:Name="DisplayPicker" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,6,6,0" MinWidth="150"
+                      Visibility="Collapsed" ToolTip="{DynamicResource HL.Tip.BulbFactory.Display}" AutomationProperties.Name="Display"
+                      SelectionChanged="OnDisplayPickerChanged" TabIndex="1" />
+            <TextBlock x:Name="DisplayCaption" Grid.Row="1" HorizontalAlignment="Center" Margin="0,4,0,0" FontSize="12"
+                       Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+        </Grid>
+    </Grid>
+</UserControl>

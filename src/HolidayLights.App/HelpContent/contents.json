@@ -1,0 +1,101 @@
+{
+  "schema": "holidaylights.help/1",
+  "books": [
+    {
+      "title": "Getting Started",
+      "topics": [
+        { "id": "welcome", "title": "Welcome to Holiday Lights" },
+        { "id": "about-holiday-lights", "title": "About Holiday Lights" },
+        { "id": "starting-holiday-lights", "title": "Starting Holiday Lights" },
+        { "id": "taskbar-icon", "title": "The Taskbar Icon" },
+        { "id": "turning-lights-on-off", "title": "Turning the Lights On and Off" },
+        { "id": "exiting", "title": "Exiting Holiday Lights" },
+        { "id": "removing-holiday-lights", "title": "Permanently Removing Holiday Lights" },
+        { "id": "coming-from-5-4", "title": "Coming from Holiday Lights 5.4" },
+        { "id": "whats-new", "title": "What's New in 6.0" }
+      ]
+    },
+    {
+      "title": "Arranging the Bulbs",
+      "topics": [
+        { "id": "about-bulbs", "title": "About Holiday Lights Bulbs" },
+        { "id": "changing-bulbs", "title": "Changing Bulbs in the Settings Window" },
+        { "id": "finding-bulbs", "title": "Finding Bulbs" },
+        { "id": "bulb-categories", "title": "Viewing Bulbs by Category" },
+        { "id": "desktop-or-on-top", "title": "Displaying Bulbs On the Desktop or Above All Windows" },
+        { "id": "location-hot-key", "title": "Using a Hot Key to Choose Where Bulbs Are Drawn" },
+        { "id": "tray-menu-location", "title": "Using the Taskbar Icon Menu to Choose Where Bulbs Are Drawn" },
+        { "id": "several-displays", "title": "Bulbs on Several Displays" },
+        { "id": "size-glow-look", "title": "Bulb Size, Glow and the Classic 2003 Look" },
+        { "id": "flash-pattern", "title": "Changing the Flash Pattern" },
+        { "id": "flash-speed", "title": "Changing the Flash Speed" },
+        { "id": "adding-bulbs", "title": "Adding Your Own Bulbs" },
+        { "id": "making-bulbs", "title": "Making Your Own Bulbs" },
+        { "id": "sharing-bulbs", "title": "Sharing Your Bulbs" }
+      ]
+    },
+    {
+      "title": "Playing Background Music",
+      "topics": [
+        { "id": "about-music", "title": "About Music" },
+        { "id": "music-on-off", "title": "Turning Music On and Off" },
+        { "id": "songs-on-off", "title": "Turning Songs On and Off" },
+        { "id": "when-music-plays", "title": "Choosing When Music is Played" },
+        { "id": "adding-songs", "title": "Adding New Songs" },
+        { "id": "volume", "title": "Volume" },
+        { "id": "lights-dance", "title": "Making the Lights Dance" },
+        { "id": "music-problems", "title": "Solving Music Problems" }
+      ]
+    },
+    {
+      "title": "Using the Screen Saver",
+      "topics": [
+        { "id": "about-screen-saver", "title": "About the Screen Saver" },
+        { "id": "screen-saver-on-off", "title": "Turning the Screen Saver On or Off" },
+        { "id": "animations-and-styles", "title": "Animations and Styles" },
+        { "id": "background-pictures", "title": "Background Pictures" },
+        { "id": "text-message", "title": "Text Message" },
+        { "id": "screen-saver-displays", "title": "Several Displays" }
+      ]
+    },
+    {
+      "title": "Holiday Lights Themes",
+      "topics": [
+        { "id": "about-themes", "title": "About Holiday Lights Themes" },
+        { "id": "automatic-themes", "title": "Changing Themes Automatically on Holidays" },
+        { "id": "recent-settings", "title": "Recent Settings" }
+      ]
+    },
+    {
+      "title": "When the Lights Rest",
+      "topics": [
+        { "id": "when-the-lights-rest", "title": "When the Lights Rest" }
+      ]
+    },
+    {
+      "title": "Keyboard Shortcuts",
+      "topics": [
+        { "id": "keyboard-shortcuts", "title": "Keyboard Shortcuts" }
+      ]
+    },
+    {
+      "title": "Troubleshooting",
+      "topics": [
+        { "id": "cant-see-lights", "title": "I Can't See My Lights" },
+        { "id": "taskbar-icon-missing", "title": "The Taskbar Icon Is Missing" },
+        { "id": "no-music", "title": "There Is No Music" },
+        { "id": "screen-saver-does-not-start", "title": "The Screen Saver Doesn't Start" },
+        { "id": "hot-key-does-not-work", "title": "My Hot Key Doesn't Work" },
+        { "id": "bulbs-in-front-of-icons", "title": "The Bulbs Are in Front of My Icons" }
+      ]
+    },
+    {
+      "title": "Credits",
+      "topics": [
+        { "id": "art-copyright", "title": "Art Copyright Information" },
+        { "id": "music-copyright", "title": "Music Copyright Information" },
+        { "id": "software-credits", "title": "Software Credits" }
+      ]
+    }
+  ]
+}

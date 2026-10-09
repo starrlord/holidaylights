@@ -1,0 +1,52 @@
+{
+  "schema": "holidaylights.theme/1",
+  "name": "Winter Wonderland",
+  "shipped": "new",
+  "arrangement": {
+    "top": [
+      "addon:IcicleLights"
+    ],
+    "right": [
+      "addon:Snowflakes4"
+    ],
+    "bottom": [
+      "builtin:snow-family"
+    ],
+    "left": [
+      "addon:Snowflakes4"
+    ],
+    "topLeft": "addon:PastelSnowflakes",
+    "topRight": "addon:PastelSnowflakes",
+    "bottomLeft": "addon:PastelSnowflakes",
+    "bottomRight": "addon:PastelSnowflakes"
+  },
+  "flash": {
+    "pattern": "slowGlow",
+    "interval": 6
+  },
+  "music": {
+    "enabledSongs": [
+      "bundled:Greensleeves.mid",
+      "bundled:Joy of Man's Desire.mid",
+      "bundled:Danny Boy.mid"
+    ],
+    "mode": "intermittently"
+  },
+  "saver": {
+    "animation": "Snow Flakes",
+    "style": "bounceOffSides",
+    "message": "Let It Snow!",
+    "font": {
+      "family": "Georgia",
+      "sizePt": 42,
+      "bold": false,
+      "italic": true,
+      "underline": false,
+      "strikeout": false
+    },
+    "color": "#CFE8FF",
+    "background": "#000000",
+    "picture": "bundled:Snowman.BMP",
+    "placement": "center"
+  }
+}

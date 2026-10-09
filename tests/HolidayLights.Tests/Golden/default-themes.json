@@ -1,0 +1,1854 @@
+{
+ "schema": "holidaylights.themes/1",
+ "source": "HKCU\\Software\\Tiger Technologies\\Holiday Lights\\Themes on the analysis machine (created by the 5.4 installer; values exactly as stored)",
+ "themes": {
+  "Blank Slate": {
+   "Bulb Settings": {
+    "regType": "REG_BINARY",
+    "rawHex": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "decoded": {
+     "top": [],
+     "right": [],
+     "bottom": [],
+     "left": [],
+     "topLeft": null,
+     "topRight": null,
+     "bottomLeft": null,
+     "bottomRight": null,
+     "raw_int32": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    }
+   },
+   "Flash Interval": {
+    "regType": "REG_DWORD",
+    "raw": 5,
+    "decoded": "5 ticks of timer 1 = 300 ms per flash step (nominal 60 ms tick)"
+   },
+   "Flash Pattern": {
+    "regType": "REG_DWORD",
+    "raw": 1,
+    "decoded": "1 = Flash Together"
+   },
+   "Enabled Music": {
+    "regType": "REG_BINARY",
+    "rawHex": "00",
+    "decoded": []
+   },
+   "Music Play": {
+    "regType": "REG_DWORD",
+    "raw": 3,
+    "decoded": "3 = Always"
+   },
+   "Screen Saver Module": {
+    "regType": "REG_SZ",
+    "raw": "(None)",
+    "decoded": "(None)"
+   },
+   "Screen Saver Message": {
+    "regType": "REG_SZ",
+    "raw": "",
+    "decoded": ""
+   },
+   "Screen Saver Message Font": {
+    "regType": "REG_BINARY",
+    "rawHex": "d0ffffff000000000000000000000000bc0200000000000000000000417269616c000000000000000000000000000000000000000000000000000000",
+    "decoded": {
+     "lfHeight": -48,
+     "lfWidth": 0,
+     "lfEscapement": 0,
+     "lfOrientation": 0,
+     "lfWeight": 700,
+     "lfItalic": 0,
+     "lfUnderline": 0,
+     "lfStrikeOut": 0,
+     "lfCharSet": 0,
+     "lfOutPrecision": 0,
+     "lfClipPrecision": 0,
+     "lfQuality": 0,
+     "lfPitchAndFamily": "0x00",
+     "lfFaceName": "Arial",
+     "faceName_garbage_after_NUL": null,
+     "approx_points_at_96dpi": 36.0
+    }
+   },
+   "Screen Saver Message Color": {
+    "regType": "REG_DWORD",
+    "raw": 255,
+    "decoded": "0x000000FF = RGB(255,0,0) #FF0000"
+   },
+   "Screen Saver Picture Name": {
+    "regType": "REG_SZ",
+    "raw": "(None)",
+    "decoded": "(None)"
+   },
+   "Screen Saver Picture Display Type": {
+    "regType": "REG_DWORD",
+    "raw": 0,
+    "decoded": "0 = Center"
+   }
+  },
+  "Chanukah": {
+   "Bulb Settings": {
+    "regType": "REG_BINARY",
+    "rawHex": "0d0000002b0000000e0000002b000000ffffffffffffffffffffffffffffffff2b0000000d0000002b0000000e000000ffffffffffffffffffffffffffffffff0d0000002b0000000e0000002b000000ffffffffffffffffffffffffffffffff2b0000000e0000002b0000000d000000ffffffffffffffffffffffffffffffff",
+    "decoded": {
+     "top": [
+      {
+       "id": 13,
+       "name": "Dreidels"
+      },
+      {
+       "id": 43,
+       "name": "16 Pixel Spacer"
+      },
+      {
+       "id": 14,
+       "name": "Menorahs"
+      },
+      {
+       "id": 43,
+       "name": "16 Pixel Spacer"
+      }
+     ],
+     "right": [
+      {
+       "id": 43,
+       "name": "16 Pixel Spacer"
+      },
+      {
+       "id": 13,
+       "name": "Dreidels"
+      },
+      {
+       "id": 43,
+       "name": "16 Pixel Spacer"
+      },
+      {
+       "id": 14,
+       "name": "Menorahs"
+      }
+     ],
+     "bottom": [
+      {
+       "id": 13,
+       "name": "Dreidels"
+      },
+      {
+       "id": 43,
+       "name": "16 Pixel Spacer"
+      },
+      {
+       "id": 14,
+       "name": "Menorahs"
+      },
+      {
+       "id": 43,
+       "name": "16 Pixel Spacer"
+      }
+     ],
+     "left": [
+      {
+       "id": 43,
+       "name": "16 Pixel Spacer"
+      },
+      {
+       "id": 14,
+       "name": "Menorahs"
+      },
+      {
+       "id": 43,
+       "name": "16 Pixel Spacer"
+      },
+      {
+       "id": 13,
+       "name": "Dreidels"
+      }
+     ],
+     "topLeft": null,
+     "topRight": null,
+     "bottomLeft": null,
+     "bottomRight": null,
+     "raw_int32": [
+      13,
+      43,
+      14,
+      43,
+      -1,
+      -1,
+      -1,
+      -1,
+      43,
+      13,
+      43,
+      14,
+      -1,
+      -1,
+      -1,
+      -1,
+      13,
+      43,
+      14,
+      43,
+      -1,
+      -1,
+      -1,
+      -1,
+      43,
+      14,
+      43,
+      13,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    }
+   },
+   "Flash Interval": {
+    "regType": "REG_DWORD",
+    "raw": 5,
+    "decoded": "5 ticks of timer 1 = 300 ms per flash step (nominal 60 ms tick)"
+   },
+   "Flash Pattern": {
+    "regType": "REG_DWORD",
+    "raw": 3,
+    "decoded": "3 = Bulb Chase"
+   },
+   "Enabled Music": {
+    "regType": "REG_BINARY",
+    "rawHex": "4368616e756b616820536f6e672e6d69640044726569646c652e6d69640048617661204e6167696c61682e6d69640000",
+    "decoded": [
+     "Chanukah Song.mid",
+     "Dreidle.mid",
+     "Hava Nagilah.mid"
+    ]
+   },
+   "Music Play": {
+    "regType": "REG_DWORD",
+    "raw": 4,
+    "decoded": "4 = Intermittently"
+   },
+   "Screen Saver Module": {
+    "regType": "REG_SZ",
+    "raw": "Dreidels",
+    "decoded": "Dreidels"
+   },
+   "Screen Saver Message": {
+    "regType": "REG_SZ",
+    "raw": "Happy Chanukah!",
+    "decoded": "Happy Chanukah!"
+   },
+   "Screen Saver Message Font": {
+    "regType": "REG_BINARY",
+    "rawHex": "c0ffffff000000000000000000000000bc0200000000000003020112466f6f746c69676874204d54204c6967687400000000f8000000a48c3b36f7bf",
+    "decoded": {
+     "lfHeight": -64,
+     "lfWidth": 0,
+     "lfEscapement": 0,
+     "lfOrientation": 0,
+     "lfWeight": 700,
+     "lfItalic": 0,
+     "lfUnderline": 0,
+     "lfStrikeOut": 0,
+     "lfCharSet": 0,
+     "lfOutPrecision": 3,
+     "lfClipPrecision": 2,
+     "lfQuality": 1,
+     "lfPitchAndFamily": "0x12",
+     "lfFaceName": "Footlight MT Light",
+     "faceName_garbage_after_NUL": "000000f8000000a48c3b36f7bf",
+     "approx_points_at_96dpi": 48.0
+    }
+   },
+   "Screen Saver Message Color": {
+    "regType": "REG_DWORD",
+    "raw": 65280,
+    "decoded": "0x0000FF00 = RGB(0,255,0) #00FF00"
+   },
+   "Screen Saver Picture Name": {
+    "regType": "REG_SZ",
+    "raw": "(None)",
+    "decoded": "(None)"
+   },
+   "Screen Saver Picture Display Type": {
+    "regType": "REG_DWORD",
+    "raw": 0,
+    "decoded": "0 = Center"
+   }
+  },
+  "Christmas 1": {
+   "Bulb Settings": {
+    "regType": "REG_BINARY",
+    "rawHex": "00000000ffffffffffffffffffffffffffffffffffffffff01000000010000000000000002000000ffffffffffffffffffffffffffffffffffffffffffffffff0200000001000000ffffffffffffffffffffffffffffffff01000000010000000000000002000000ffffffffffffffffffffffffffffffffffffffffffffffff",
+    "decoded": {
+     "top": [
+      {
+       "id": 0,
+       "name": "Standard Bulbs"
+      }
+     ],
+     "right": [
+      {
+       "id": 0,
+       "name": "Standard Bulbs"
+      },
+      {
+       "id": 2,
+       "name": "Snow Family"
+      }
+     ],
+     "bottom": [
+      {
+       "id": 2,
+       "name": "Snow Family"
+      },
+      {
+       "id": 1,
+       "name": "Jolly Holly"
+      }
+     ],
+     "left": [
+      {
+       "id": 0,
+       "name": "Standard Bulbs"
+      },
+      {
+       "id": 2,
+       "name": "Snow Family"
+      }
+     ],
+     "topLeft": {
+      "id": 1,
+      "name": "Jolly Holly"
+     },
+     "topRight": {
+      "id": 1,
+      "name": "Jolly Holly"
+     },
+     "bottomLeft": {
+      "id": 1,
+      "name": "Jolly Holly"
+     },
+     "bottomRight": {
+      "id": 1,
+      "name": "Jolly Holly"
+     },
+     "raw_int32": [
+      0,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      0,
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      2,
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      0,
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    }
+   },
+   "Flash Interval": {
+    "regType": "REG_DWORD",
+    "raw": 5,
+    "decoded": "5 ticks of timer 1 = 300 ms per flash step (nominal 60 ms tick)"
+   },
+   "Flash Pattern": {
+    "regType": "REG_DWORD",
+    "raw": 1,
+    "decoded": "1 = Flash Together"
+   },
+   "Enabled Music": {
+    "regType": "REG_BINARY",
+    "rawHex": "412056657279204d65727279204368726973746d61732e6d696400416c6d6f73742054696d6520666f72204368726973746d61732e6d696400416e67656c732057652048617665204865617264204f6e20486967682e6d6964004465636b207468652048616c6c732028526567676165292e6d6964004465636b207468652048616c6c732e6d6964004669727374204e6f656c2e6d696400476f642052657374205965204d657272792047656e746c656d656e2028526567676165292e6d696400476f642052657374205965204d657272792047656e746c656d656e2e6d696400476f6f642043687269737469616e204d656e2e6d696400476f6f64204b696e672057656e6365736c6175732e6d696400477265656e736c65657665732e6d6964004861726b2074686520486572616c6420416e67656c732053696e672e6d6964004865726520576520436f6d6520412d4361726f6c696e672e6d696400496e2061204d616e6765722e6d69640049742043616d652055706f6e2041204d69646e696768742e6d6964004a696e676c652042656c6c732028526567676165292e6d6964004a696e676c652042656c6c732e6d6964004a6f6c6c79204f6c642053742e204e69636b2e6d6964004a6f79206f66204d616e2773204465736972652028526567676165292e6d6964004a6f79206f66204d616e2773204465736972652e6d6964004a6f7920746f2074686520576f726c642e6d6964004f204368726973746d6173205472656520285377696e67292e6d6964004f204368726973746d617320547265652e6d6964004f20436f6d652c20416c6c20596520466169746866756c2e6d6964004f204c6974746c6520546f776e206f6620426574686c6568656d2e6d69640053696c656e74204e696768742e6d6964005477656c76652044617973206f66204368726973746d61732e6d6964005765205468726565204b696e67732e6d6964005765205769736820596f752061204d65727279204368726973746d61732028526567676165292e6d6964005765205769736820596f752061204d65727279204368726973746d61732e6d69640057686174204368696c6420497320546869732e6d69640000",
+    "decoded": [
+     "A Very Merry Christmas.mid",
+     "Almost Time for Christmas.mid",
+     "Angels We Have Heard On High.mid",
+     "Deck the Halls (Reggae).mid",
+     "Deck the Halls.mid",
+     "First Noel.mid",
+     "God Rest Ye Merry Gentlemen (Reggae).mid",
+     "God Rest Ye Merry Gentlemen.mid",
+     "Good Christian Men.mid",
+     "Good King Wenceslaus.mid",
+     "Greensleeves.mid",
+     "Hark the Herald Angels Sing.mid",
+     "Here We Come A-Caroling.mid",
+     "In a Manger.mid",
+     "It Came Upon A Midnight.mid",
+     "Jingle Bells (Reggae).mid",
+     "Jingle Bells.mid",
+     "Jolly Old St. Nick.mid",
+     "Joy of Man's Desire (Reggae).mid",
+     "Joy of Man's Desire.mid",
+     "Joy to the World.mid",
+     "O Christmas Tree (Swing).mid",
+     "O Christmas Tree.mid",
+     "O Come, All Ye Faithful.mid",
+     "O Little Town of Bethlehem.mid",
+     "Silent Night.mid",
+     "Twelve Days of Christmas.mid",
+     "We Three Kings.mid",
+     "We Wish You a Merry Christmas (Reggae).mid",
+     "We Wish You a Merry Christmas.mid",
+     "What Child Is This.mid"
+    ]
+   },
+   "Music Play": {
+    "regType": "REG_DWORD",
+    "raw": 3,
+    "decoded": "3 = Always"
+   },
+   "Screen Saver Module": {
+    "regType": "REG_SZ",
+    "raw": "Snow",
+    "decoded": "Snow"
+   },
+   "Screen Saver Message": {
+    "regType": "REG_SZ",
+    "raw": "Merry Christmas!",
+    "decoded": "Merry Christmas!"
+   },
+   "Screen Saver Message Font": {
+    "regType": "REG_BINARY",
+    "rawHex": "c0ffffff000000000000000000000000bc02000000000000030201424c75636964612048616e6477726974696e67000000000100000000000000ce80",
+    "decoded": {
+     "lfHeight": -64,
+     "lfWidth": 0,
+     "lfEscapement": 0,
+     "lfOrientation": 0,
+     "lfWeight": 700,
+     "lfItalic": 0,
+     "lfUnderline": 0,
+     "lfStrikeOut": 0,
+     "lfCharSet": 0,
+     "lfOutPrecision": 3,
+     "lfClipPrecision": 2,
+     "lfQuality": 1,
+     "lfPitchAndFamily": "0x42",
+     "lfFaceName": "Lucida Handwriting",
+     "faceName_garbage_after_NUL": "0000000100000000000000ce80",
+     "approx_points_at_96dpi": 48.0
+    }
+   },
+   "Screen Saver Message Color": {
+    "regType": "REG_DWORD",
+    "raw": 255,
+    "decoded": "0x000000FF = RGB(255,0,0) #FF0000"
+   },
+   "Screen Saver Picture Name": {
+    "regType": "REG_SZ",
+    "raw": "Santa Candle.BMP",
+    "decoded": "Santa Candle.BMP"
+   },
+   "Screen Saver Picture Display Type": {
+    "regType": "REG_DWORD",
+    "raw": 0,
+    "decoded": "0 = Center"
+   }
+  },
+  "Christmas 2": {
+   "Bulb Settings": {
+    "regType": "REG_BINARY",
+    "rawHex": "0000000006000000ffffffffffffffffffffffffffffffff01000000010000000000000006000000ffffffffffffffffffffffffffffffffffffffffffffffff0000000002000000ffffffffffffffffffffffffffffffff01000000010000000000000006000000ffffffffffffffffffffffffffffffffffffffffffffffff",
+    "decoded": {
+     "top": [
+      {
+       "id": 0,
+       "name": "Standard Bulbs"
+      },
+      {
+       "id": 6,
+       "name": "Shiny Baubles"
+      }
+     ],
+     "right": [
+      {
+       "id": 0,
+       "name": "Standard Bulbs"
+      },
+      {
+       "id": 6,
+       "name": "Shiny Baubles"
+      }
+     ],
+     "bottom": [
+      {
+       "id": 0,
+       "name": "Standard Bulbs"
+      },
+      {
+       "id": 2,
+       "name": "Snow Family"
+      }
+     ],
+     "left": [
+      {
+       "id": 0,
+       "name": "Standard Bulbs"
+      },
+      {
+       "id": 6,
+       "name": "Shiny Baubles"
+      }
+     ],
+     "topLeft": {
+      "id": 1,
+      "name": "Jolly Holly"
+     },
+     "topRight": {
+      "id": 1,
+      "name": "Jolly Holly"
+     },
+     "bottomLeft": {
+      "id": 1,
+      "name": "Jolly Holly"
+     },
+     "bottomRight": {
+      "id": 1,
+      "name": "Jolly Holly"
+     },
+     "raw_int32": [
+      0,
+      6,
+      -1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      0,
+      6,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      0,
+      2,
+      -1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      0,
+      6,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    }
+   },
+   "Flash Interval": {
+    "regType": "REG_DWORD",
+    "raw": 5,
+    "decoded": "5 ticks of timer 1 = 300 ms per flash step (nominal 60 ms tick)"
+   },
+   "Flash Pattern": {
+    "regType": "REG_DWORD",
+    "raw": 1,
+    "decoded": "1 = Flash Together"
+   },
+   "Enabled Music": {
+    "regType": "REG_BINARY",
+    "rawHex": "412056657279204d65727279204368726973746d61732e6d696400416c6d6f73742054696d6520666f72204368726973746d61732e6d696400416e67656c732057652048617665204865617264204f6e20486967682e6d6964004465636b207468652048616c6c732028526567676165292e6d6964004465636b207468652048616c6c732e6d6964004669727374204e6f656c2e6d696400476f642052657374205965204d657272792047656e746c656d656e2028526567676165292e6d696400476f642052657374205965204d657272792047656e746c656d656e2e6d696400476f6f642043687269737469616e204d656e2e6d696400476f6f64204b696e672057656e6365736c6175732e6d696400477265656e736c65657665732e6d6964004861726b2074686520486572616c6420416e67656c732053696e672e6d6964004865726520576520436f6d6520412d4361726f6c696e672e6d696400496e2061204d616e6765722e6d69640049742043616d652055706f6e2041204d69646e696768742e6d6964004a696e676c652042656c6c732028526567676165292e6d6964004a696e676c652042656c6c732e6d6964004a6f6c6c79204f6c642053742e204e69636b2e6d6964004a6f79206f66204d616e2773204465736972652028526567676165292e6d6964004a6f79206f66204d616e2773204465736972652e6d6964004a6f7920746f2074686520576f726c642e6d6964004f204368726973746d6173205472656520285377696e67292e6d6964004f204368726973746d617320547265652e6d6964004f20436f6d652c20416c6c20596520466169746866756c2e6d6964004f204c6974746c6520546f776e206f6620426574686c6568656d2e6d69640053696c656e74204e696768742e6d6964005477656c76652044617973206f66204368726973746d61732e6d6964005765205468726565204b696e67732e6d6964005765205769736820596f752061204d65727279204368726973746d61732028526567676165292e6d6964005765205769736820596f752061204d65727279204368726973746d61732e6d69640057686174204368696c6420497320546869732e6d69640000",
+    "decoded": [
+     "A Very Merry Christmas.mid",
+     "Almost Time for Christmas.mid",
+     "Angels We Have Heard On High.mid",
+     "Deck the Halls (Reggae).mid",
+     "Deck the Halls.mid",
+     "First Noel.mid",
+     "God Rest Ye Merry Gentlemen (Reggae).mid",
+     "God Rest Ye Merry Gentlemen.mid",
+     "Good Christian Men.mid",
+     "Good King Wenceslaus.mid",
+     "Greensleeves.mid",
+     "Hark the Herald Angels Sing.mid",
+     "Here We Come A-Caroling.mid",
+     "In a Manger.mid",
+     "It Came Upon A Midnight.mid",
+     "Jingle Bells (Reggae).mid",
+     "Jingle Bells.mid",
+     "Jolly Old St. Nick.mid",
+     "Joy of Man's Desire (Reggae).mid",
+     "Joy of Man's Desire.mid",
+     "Joy to the World.mid",
+     "O Christmas Tree (Swing).mid",
+     "O Christmas Tree.mid",
+     "O Come, All Ye Faithful.mid",
+     "O Little Town of Bethlehem.mid",
+     "Silent Night.mid",
+     "Twelve Days of Christmas.mid",
+     "We Three Kings.mid",
+     "We Wish You a Merry Christmas (Reggae).mid",
+     "We Wish You a Merry Christmas.mid",
+     "What Child Is This.mid"
+    ]
+   },
+   "Music Play": {
+    "regType": "REG_DWORD",
+    "raw": 3,
+    "decoded": "3 = Always"
+   },
+   "Screen Saver Module": {
+    "regType": "REG_SZ",
+    "raw": "Santa",
+    "decoded": "Santa"
+   },
+   "Screen Saver Message": {
+    "regType": "REG_SZ",
+    "raw": "Merry Christmas!",
+    "decoded": "Merry Christmas!"
+   },
+   "Screen Saver Message Font": {
+    "regType": "REG_BINARY",
+    "rawHex": "c0ffffff000000000000000000000000bc02000000000000030201424c75636964612048616e6477726974696e67000000000100000000000000ce80",
+    "decoded": {
+     "lfHeight": -64,
+     "lfWidth": 0,
+     "lfEscapement": 0,
+     "lfOrientation": 0,
+     "lfWeight": 700,
+     "lfItalic": 0,
+     "lfUnderline": 0,
+     "lfStrikeOut": 0,
+     "lfCharSet": 0,
+     "lfOutPrecision": 3,
+     "lfClipPrecision": 2,
+     "lfQuality": 1,
+     "lfPitchAndFamily": "0x42",
+     "lfFaceName": "Lucida Handwriting",
+     "faceName_garbage_after_NUL": "0000000100000000000000ce80",
+     "approx_points_at_96dpi": 48.0
+    }
+   },
+   "Screen Saver Message Color": {
+    "regType": "REG_DWORD",
+    "raw": 255,
+    "decoded": "0x000000FF = RGB(255,0,0) #FF0000"
+   },
+   "Screen Saver Picture Name": {
+    "regType": "REG_SZ",
+    "raw": "Snowman.BMP",
+    "decoded": "Snowman.BMP"
+   },
+   "Screen Saver Picture Display Type": {
+    "regType": "REG_DWORD",
+    "raw": 0,
+    "decoded": "0 = Center"
+   }
+  },
+  "Easter Eggs": {
+   "Bulb Settings": {
+    "regType": "REG_BINARY",
+    "rawHex": "1300000014000000ffffffffffffffffffffffffffffffffffffffffffffffff1300000014000000ffffffffffffffffffffffffffffffffffffffffffffffff130000001500000014000000ffffffffffffffffffffffffffffffffffffffff1400000013000000ffffffffffffffffffffffffffffffffffffffffffffffff",
+    "decoded": {
+     "top": [
+      {
+       "id": 19,
+       "name": "Pastel Easter Eggs"
+      },
+      {
+       "id": 20,
+       "name": "Striped Easter Eggs"
+      }
+     ],
+     "right": [
+      {
+       "id": 19,
+       "name": "Pastel Easter Eggs"
+      },
+      {
+       "id": 20,
+       "name": "Striped Easter Eggs"
+      }
+     ],
+     "bottom": [
+      {
+       "id": 19,
+       "name": "Pastel Easter Eggs"
+      },
+      {
+       "id": 21,
+       "name": "Spring Flowers"
+      },
+      {
+       "id": 20,
+       "name": "Striped Easter Eggs"
+      }
+     ],
+     "left": [
+      {
+       "id": 20,
+       "name": "Striped Easter Eggs"
+      },
+      {
+       "id": 19,
+       "name": "Pastel Easter Eggs"
+      }
+     ],
+     "topLeft": null,
+     "topRight": null,
+     "bottomLeft": null,
+     "bottomRight": null,
+     "raw_int32": [
+      19,
+      20,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      19,
+      20,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      19,
+      21,
+      20,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      20,
+      19,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    }
+   },
+   "Flash Interval": {
+    "regType": "REG_DWORD",
+    "raw": 7,
+    "decoded": "7 ticks of timer 1 = 420 ms per flash step (nominal 60 ms tick)"
+   },
+   "Flash Pattern": {
+    "regType": "REG_DWORD",
+    "raw": 2,
+    "decoded": "2 = Alternating"
+   },
+   "Enabled Music": {
+    "regType": "REG_BINARY",
+    "rawHex": "00",
+    "decoded": []
+   },
+   "Music Play": {
+    "regType": "REG_DWORD",
+    "raw": 3,
+    "decoded": "3 = Always"
+   },
+   "Screen Saver Module": {
+    "regType": "REG_SZ",
+    "raw": "Easter Eggs",
+    "decoded": "Easter Eggs"
+   },
+   "Screen Saver Message": {
+    "regType": "REG_SZ",
+    "raw": "Happy Easter!",
+    "decoded": "Happy Easter!"
+   },
+   "Screen Saver Message Font": {
+    "regType": "REG_BINARY",
+    "rawHex": "c8ffffff000000000000000000000000bc0200000000000003020142436f6d69632053616e73204d53007800ffffffff90df7800da62f5bf09040000",
+    "decoded": {
+     "lfHeight": -56,
+     "lfWidth": 0,
+     "lfEscapement": 0,
+     "lfOrientation": 0,
+     "lfWeight": 700,
+     "lfItalic": 0,
+     "lfUnderline": 0,
+     "lfStrikeOut": 0,
+     "lfCharSet": 0,
+     "lfOutPrecision": 3,
+     "lfClipPrecision": 2,
+     "lfQuality": 1,
+     "lfPitchAndFamily": "0x42",
+     "lfFaceName": "Comic Sans MS",
+     "faceName_garbage_after_NUL": "7800ffffffff90df7800da62f5bf0904",
+     "approx_points_at_96dpi": 42.0
+    }
+   },
+   "Screen Saver Message Color": {
+    "regType": "REG_DWORD",
+    "raw": 65535,
+    "decoded": "0x0000FFFF = RGB(255,255,0) #FFFF00"
+   },
+   "Screen Saver Picture Name": {
+    "regType": "REG_SZ",
+    "raw": "Easter Bunny.BMP",
+    "decoded": "Easter Bunny.BMP"
+   },
+   "Screen Saver Picture Display Type": {
+    "regType": "REG_DWORD",
+    "raw": 0,
+    "decoded": "0 = Center"
+   }
+  },
+  "Halloween": {
+   "Bulb Settings": {
+    "regType": "REG_BINARY",
+    "rawHex": "170000001a000000ffffffffffffffffffffffffffffffff1b0000001b0000001700000019000000ffffffffffffffffffffffffffffffffffffffffffffffff1700000018000000ffffffffffffffffffffffffffffffffffffffffffffffff1700000019000000ffffffffffffffffffffffffffffffffffffffffffffffff",
+    "decoded": {
+     "top": [
+      {
+       "id": 23,
+       "name": "Jack-O-Lanterns"
+      },
+      {
+       "id": 26,
+       "name": "Ghosts"
+      }
+     ],
+     "right": [
+      {
+       "id": 23,
+       "name": "Jack-O-Lanterns"
+      },
+      {
+       "id": 25,
+       "name": "The Grim Reaper"
+      }
+     ],
+     "bottom": [
+      {
+       "id": 23,
+       "name": "Jack-O-Lanterns"
+      },
+      {
+       "id": 24,
+       "name": "Zombie Tombstones"
+      }
+     ],
+     "left": [
+      {
+       "id": 23,
+       "name": "Jack-O-Lanterns"
+      },
+      {
+       "id": 25,
+       "name": "The Grim Reaper"
+      }
+     ],
+     "topLeft": {
+      "id": 27,
+      "name": "Autumn Leaves"
+     },
+     "topRight": {
+      "id": 27,
+      "name": "Autumn Leaves"
+     },
+     "bottomLeft": null,
+     "bottomRight": null,
+     "raw_int32": [
+      23,
+      26,
+      -1,
+      -1,
+      -1,
+      -1,
+      27,
+      27,
+      23,
+      25,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      23,
+      24,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      23,
+      25,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    }
+   },
+   "Flash Interval": {
+    "regType": "REG_DWORD",
+    "raw": 5,
+    "decoded": "5 ticks of timer 1 = 300 ms per flash step (nominal 60 ms tick)"
+   },
+   "Flash Pattern": {
+    "regType": "REG_DWORD",
+    "raw": 1,
+    "decoded": "1 = Flash Together"
+   },
+   "Enabled Music": {
+    "regType": "REG_BINARY",
+    "rawHex": "48616c6c6f7765656e202d2045657269652e6d69640048616c6c6f7765656e202d2046756e6572616c204d617263682e6d69640048616c6c6f7765656e202d204861756e74656420486f7573652e6d69640048616c6c6f7765656e202d204d6172696f6e657474652e6d69640048616c6c6f7765656e202d2053636172792e6d69640000",
+    "decoded": [
+     "Halloween - Eerie.mid",
+     "Halloween - Funeral March.mid",
+     "Halloween - Haunted House.mid",
+     "Halloween - Marionette.mid",
+     "Halloween - Scary.mid"
+    ]
+   },
+   "Music Play": {
+    "regType": "REG_DWORD",
+    "raw": 4,
+    "decoded": "4 = Intermittently"
+   },
+   "Screen Saver Module": {
+    "regType": "REG_SZ",
+    "raw": "Halloween",
+    "decoded": "Halloween"
+   },
+   "Screen Saver Message": {
+    "regType": "REG_SZ",
+    "raw": "Happy Halloween!",
+    "decoded": "Happy Halloween!"
+   },
+   "Screen Saver Message Font": {
+    "regType": "REG_BINARY",
+    "rawHex": "b0ffffff000000000000000000000000bc02000000000000030201524372656570790000010001000000600d7c7f0f081f170000600d5716b014be7f",
+    "decoded": {
+     "lfHeight": -80,
+     "lfWidth": 0,
+     "lfEscapement": 0,
+     "lfOrientation": 0,
+     "lfWeight": 700,
+     "lfItalic": 0,
+     "lfUnderline": 0,
+     "lfStrikeOut": 0,
+     "lfCharSet": 0,
+     "lfOutPrecision": 3,
+     "lfClipPrecision": 2,
+     "lfQuality": 1,
+     "lfPitchAndFamily": "0x52",
+     "lfFaceName": "Creepy",
+     "faceName_garbage_after_NUL": "00010001000000600d7c7f0f081f170000600d5716b014be7f",
+     "approx_points_at_96dpi": 60.0
+    }
+   },
+   "Screen Saver Message Color": {
+    "regType": "REG_DWORD",
+    "raw": 255,
+    "decoded": "0x000000FF = RGB(255,0,0) #FF0000"
+   },
+   "Screen Saver Picture Name": {
+    "regType": "REG_SZ",
+    "raw": "Pumpkin.BMP",
+    "decoded": "Pumpkin.BMP"
+   },
+   "Screen Saver Picture Display Type": {
+    "regType": "REG_DWORD",
+    "raw": 0,
+    "decoded": "0 = Center"
+   }
+  },
+  "July 4th": {
+   "Bulb Settings": {
+    "regType": "REG_BINARY",
+    "rawHex": "2c000000270000002c0000002e000000ffffffffffffffff1f0000001f0000002c0000002e0000002c0000001f000000ffffffffffffffffffffffffffffffff2c0000002e000000ffffffffffffffffffffffffffffffff1f0000001f0000002c0000002e0000002c0000001f000000ffffffffffffffffffffffffffffffff",
+    "decoded": {
+     "top": [
+      {
+       "id": 44,
+       "name": "32 Pixel Spacer"
+      },
+      {
+       "id": 39,
+       "name": "Sun"
+      },
+      {
+       "id": 44,
+       "name": "32 Pixel Spacer"
+      },
+      {
+       "id": 46,
+       "name": "Old Glory Bulbs"
+      }
+     ],
+     "right": [
+      {
+       "id": 44,
+       "name": "32 Pixel Spacer"
+      },
+      {
+       "id": 46,
+       "name": "Old Glory Bulbs"
+      },
+      {
+       "id": 44,
+       "name": "32 Pixel Spacer"
+      },
+      {
+       "id": 31,
+       "name": "Chili Peppers"
+      }
+     ],
+     "bottom": [
+      {
+       "id": 44,
+       "name": "32 Pixel Spacer"
+      },
+      {
+       "id": 46,
+       "name": "Old Glory Bulbs"
+      }
+     ],
+     "left": [
+      {
+       "id": 44,
+       "name": "32 Pixel Spacer"
+      },
+      {
+       "id": 46,
+       "name": "Old Glory Bulbs"
+      },
+      {
+       "id": 44,
+       "name": "32 Pixel Spacer"
+      },
+      {
+       "id": 31,
+       "name": "Chili Peppers"
+      }
+     ],
+     "topLeft": {
+      "id": 31,
+      "name": "Chili Peppers"
+     },
+     "topRight": {
+      "id": 31,
+      "name": "Chili Peppers"
+     },
+     "bottomLeft": {
+      "id": 31,
+      "name": "Chili Peppers"
+     },
+     "bottomRight": {
+      "id": 31,
+      "name": "Chili Peppers"
+     },
+     "raw_int32": [
+      44,
+      39,
+      44,
+      46,
+      -1,
+      -1,
+      31,
+      31,
+      44,
+      46,
+      44,
+      31,
+      -1,
+      -1,
+      -1,
+      -1,
+      44,
+      46,
+      -1,
+      -1,
+      -1,
+      -1,
+      31,
+      31,
+      44,
+      46,
+      44,
+      31,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    }
+   },
+   "Flash Interval": {
+    "regType": "REG_DWORD",
+    "raw": 5,
+    "decoded": "5 ticks of timer 1 = 300 ms per flash step (nominal 60 ms tick)"
+   },
+   "Flash Pattern": {
+    "regType": "REG_DWORD",
+    "raw": 1,
+    "decoded": "1 = Flash Together"
+   },
+   "Enabled Music": {
+    "regType": "REG_BINARY",
+    "rawHex": "53746172205370616e676c65642042616e6e65722e6d69640059616e6b656520446f6f646c652044616e64792e6d69640000",
+    "decoded": [
+     "Star Spangled Banner.mid",
+     "Yankee Doodle Dandy.mid"
+    ]
+   },
+   "Music Play": {
+    "regType": "REG_DWORD",
+    "raw": 4,
+    "decoded": "4 = Intermittently"
+   },
+   "Screen Saver Module": {
+    "regType": "REG_SZ",
+    "raw": "Happy Faces",
+    "decoded": "Happy Faces"
+   },
+   "Screen Saver Message": {
+    "regType": "REG_SZ",
+    "raw": "Happy July 4th!",
+    "decoded": "Happy July 4th!"
+   },
+   "Screen Saver Message Font": {
+    "regType": "REG_BINARY",
+    "rawHex": "c0ffffff000000000000000000000000bc0200000000000003020122417269616c20426c61636b00328c02000000050000000100000004000000568c",
+    "decoded": {
+     "lfHeight": -64,
+     "lfWidth": 0,
+     "lfEscapement": 0,
+     "lfOrientation": 0,
+     "lfWeight": 700,
+     "lfItalic": 0,
+     "lfUnderline": 0,
+     "lfStrikeOut": 0,
+     "lfCharSet": 0,
+     "lfOutPrecision": 3,
+     "lfClipPrecision": 2,
+     "lfQuality": 1,
+     "lfPitchAndFamily": "0x22",
+     "lfFaceName": "Arial Black",
+     "faceName_garbage_after_NUL": "328c02000000050000000100000004000000568c",
+     "approx_points_at_96dpi": 48.0
+    }
+   },
+   "Screen Saver Message Color": {
+    "regType": "REG_DWORD",
+    "raw": 255,
+    "decoded": "0x000000FF = RGB(255,0,0) #FF0000"
+   },
+   "Screen Saver Picture Name": {
+    "regType": "REG_SZ",
+    "raw": "Flag.BMP",
+    "decoded": "Flag.BMP"
+   },
+   "Screen Saver Picture Display Type": {
+    "regType": "REG_DWORD",
+    "raw": 0,
+    "decoded": "0 = Center"
+   }
+  },
+  "New Year": {
+   "Bulb Settings": {
+    "regType": "REG_BINARY",
+    "rawHex": "04000000ffffffffffffffffffffffffffffffffffffffff010000000100000004000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff0400000016000000ffffffffffffffffffffffffffffffffffffffffffffffff04000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "decoded": {
+     "top": [
+      {
+       "id": 4,
+       "name": "Mini Bulbs"
+      }
+     ],
+     "right": [
+      {
+       "id": 4,
+       "name": "Mini Bulbs"
+      }
+     ],
+     "bottom": [
+      {
+       "id": 4,
+       "name": "Mini Bulbs"
+      },
+      {
+       "id": 22,
+       "name": "Party Hats"
+      }
+     ],
+     "left": [
+      {
+       "id": 4,
+       "name": "Mini Bulbs"
+      }
+     ],
+     "topLeft": {
+      "id": 1,
+      "name": "Jolly Holly"
+     },
+     "topRight": {
+      "id": 1,
+      "name": "Jolly Holly"
+     },
+     "bottomLeft": null,
+     "bottomRight": null,
+     "raw_int32": [
+      4,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      4,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      4,
+      22,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      4,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    }
+   },
+   "Flash Interval": {
+    "regType": "REG_DWORD",
+    "raw": 1,
+    "decoded": "1 ticks of timer 1 = 60 ms per flash step (nominal 60 ms tick)"
+   },
+   "Flash Pattern": {
+    "regType": "REG_DWORD",
+    "raw": 3,
+    "decoded": "3 = Bulb Chase"
+   },
+   "Enabled Music": {
+    "regType": "REG_BINARY",
+    "rawHex": "41756c64204c616e672053796e6520285377696e67292e6d69640041756c64204c616e672053796e652e6d69640000",
+    "decoded": [
+     "Auld Lang Syne (Swing).mid",
+     "Auld Lang Syne.mid"
+    ]
+   },
+   "Music Play": {
+    "regType": "REG_DWORD",
+    "raw": 3,
+    "decoded": "3 = Always"
+   },
+   "Screen Saver Module": {
+    "regType": "REG_SZ",
+    "raw": "Balloons",
+    "decoded": "Balloons"
+   },
+   "Screen Saver Message": {
+    "regType": "REG_SZ",
+    "raw": "Happy New Year!",
+    "decoded": "Happy New Year!"
+   },
+   "Screen Saver Message Font": {
+    "regType": "REG_BINARY",
+    "rawHex": "c0ffffff000000000000000000000000900100000000000003020122496d706163740000ffff06809a7f02000000050000000100000004000000be7f",
+    "decoded": {
+     "lfHeight": -64,
+     "lfWidth": 0,
+     "lfEscapement": 0,
+     "lfOrientation": 0,
+     "lfWeight": 400,
+     "lfItalic": 0,
+     "lfUnderline": 0,
+     "lfStrikeOut": 0,
+     "lfCharSet": 0,
+     "lfOutPrecision": 3,
+     "lfClipPrecision": 2,
+     "lfQuality": 1,
+     "lfPitchAndFamily": "0x22",
+     "lfFaceName": "Impact",
+     "faceName_garbage_after_NUL": "00ffff06809a7f02000000050000000100000004000000be7f",
+     "approx_points_at_96dpi": 48.0
+    }
+   },
+   "Screen Saver Message Color": {
+    "regType": "REG_DWORD",
+    "raw": 16711935,
+    "decoded": "0x00FF00FF = RGB(255,0,255) #FF00FF"
+   },
+   "Screen Saver Picture Name": {
+    "regType": "REG_SZ",
+    "raw": "New Year Clock.BMP",
+    "decoded": "New Year Clock.BMP"
+   },
+   "Screen Saver Picture Display Type": {
+    "regType": "REG_DWORD",
+    "raw": 0,
+    "decoded": "0 = Center"
+   }
+  },
+  "St. Patrick's Day": {
+   "Bulb Settings": {
+    "regType": "REG_BINARY",
+    "rawHex": "12000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff12000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff1200000016000000ffffffffffffffffffffffffffffffffffffffffffffffff12000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "decoded": {
+     "top": [
+      {
+       "id": 18,
+       "name": "Shamrocks"
+      }
+     ],
+     "right": [
+      {
+       "id": 18,
+       "name": "Shamrocks"
+      }
+     ],
+     "bottom": [
+      {
+       "id": 18,
+       "name": "Shamrocks"
+      },
+      {
+       "id": 22,
+       "name": "Party Hats"
+      }
+     ],
+     "left": [
+      {
+       "id": 18,
+       "name": "Shamrocks"
+      }
+     ],
+     "topLeft": null,
+     "topRight": null,
+     "bottomLeft": null,
+     "bottomRight": null,
+     "raw_int32": [
+      18,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      18,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      18,
+      22,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      18,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    }
+   },
+   "Flash Interval": {
+    "regType": "REG_DWORD",
+    "raw": 5,
+    "decoded": "5 ticks of timer 1 = 300 ms per flash step (nominal 60 ms tick)"
+   },
+   "Flash Pattern": {
+    "regType": "REG_DWORD",
+    "raw": 2,
+    "decoded": "2 = Alternating"
+   },
+   "Enabled Music": {
+    "regType": "REG_BINARY",
+    "rawHex": "44616e6e7920426f792e6d69640000",
+    "decoded": [
+     "Danny Boy.mid"
+    ]
+   },
+   "Music Play": {
+    "regType": "REG_DWORD",
+    "raw": 4,
+    "decoded": "4 = Intermittently"
+   },
+   "Screen Saver Module": {
+    "regType": "REG_SZ",
+    "raw": "Shamrocks",
+    "decoded": "Shamrocks"
+   },
+   "Screen Saver Message": {
+    "regType": "REG_SZ",
+    "raw": "Happy St. Patrick's Day!",
+    "decoded": "Happy St. Patrick's Day!"
+   },
+   "Screen Saver Message Font": {
+    "regType": "REG_BINARY",
+    "rawHex": "c0ffffff000000000000000000000000bc020000000000000302011247656f7267696120526566009a7f02000000050000000100000004000000be7f",
+    "decoded": {
+     "lfHeight": -64,
+     "lfWidth": 0,
+     "lfEscapement": 0,
+     "lfOrientation": 0,
+     "lfWeight": 700,
+     "lfItalic": 0,
+     "lfUnderline": 0,
+     "lfStrikeOut": 0,
+     "lfCharSet": 0,
+     "lfOutPrecision": 3,
+     "lfClipPrecision": 2,
+     "lfQuality": 1,
+     "lfPitchAndFamily": "0x12",
+     "lfFaceName": "Georgia Ref",
+     "faceName_garbage_after_NUL": "9a7f02000000050000000100000004000000be7f",
+     "approx_points_at_96dpi": 48.0
+    }
+   },
+   "Screen Saver Message Color": {
+    "regType": "REG_DWORD",
+    "raw": 65280,
+    "decoded": "0x0000FF00 = RGB(0,255,0) #00FF00"
+   },
+   "Screen Saver Picture Name": {
+    "regType": "REG_SZ",
+    "raw": "Pot of Gold.BMP",
+    "decoded": "Pot of Gold.BMP"
+   },
+   "Screen Saver Picture Display Type": {
+    "regType": "REG_DWORD",
+    "raw": 0,
+    "decoded": "0 = Center"
+   }
+  },
+  "Thanksgiving": {
+   "Bulb Settings": {
+    "regType": "REG_BINARY",
+    "rawHex": "1c0000001b0000001d000000ffffffffffffffffffffffff1b0000001b0000001e0000001b000000ffffffffffffffffffffffffffffffffffffffffffffffff1c0000001b0000001d000000ffffffffffffffffffffffff1b0000001b0000001e0000001b000000ffffffffffffffffffffffffffffffffffffffffffffffff",
+    "decoded": {
+     "top": [
+      {
+       "id": 28,
+       "name": "Cornucopias"
+      },
+      {
+       "id": 27,
+       "name": "Autumn Leaves"
+      },
+      {
+       "id": 29,
+       "name": "Live Turkeys"
+      }
+     ],
+     "right": [
+      {
+       "id": 30,
+       "name": "Dead Turkeys"
+      },
+      {
+       "id": 27,
+       "name": "Autumn Leaves"
+      }
+     ],
+     "bottom": [
+      {
+       "id": 28,
+       "name": "Cornucopias"
+      },
+      {
+       "id": 27,
+       "name": "Autumn Leaves"
+      },
+      {
+       "id": 29,
+       "name": "Live Turkeys"
+      }
+     ],
+     "left": [
+      {
+       "id": 30,
+       "name": "Dead Turkeys"
+      },
+      {
+       "id": 27,
+       "name": "Autumn Leaves"
+      }
+     ],
+     "topLeft": {
+      "id": 27,
+      "name": "Autumn Leaves"
+     },
+     "topRight": {
+      "id": 27,
+      "name": "Autumn Leaves"
+     },
+     "bottomLeft": {
+      "id": 27,
+      "name": "Autumn Leaves"
+     },
+     "bottomRight": {
+      "id": 27,
+      "name": "Autumn Leaves"
+     },
+     "raw_int32": [
+      28,
+      27,
+      29,
+      -1,
+      -1,
+      -1,
+      27,
+      27,
+      30,
+      27,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      28,
+      27,
+      29,
+      -1,
+      -1,
+      -1,
+      27,
+      27,
+      30,
+      27,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    }
+   },
+   "Flash Interval": {
+    "regType": "REG_DWORD",
+    "raw": 5,
+    "decoded": "5 ticks of timer 1 = 300 ms per flash step (nominal 60 ms tick)"
+   },
+   "Flash Pattern": {
+    "regType": "REG_DWORD",
+    "raw": 3,
+    "decoded": "3 = Bulb Chase"
+   },
+   "Enabled Music": {
+    "regType": "REG_BINARY",
+    "rawHex": "00",
+    "decoded": []
+   },
+   "Music Play": {
+    "regType": "REG_DWORD",
+    "raw": 3,
+    "decoded": "3 = Always"
+   },
+   "Screen Saver Module": {
+    "regType": "REG_SZ",
+    "raw": "Leaves",
+    "decoded": "Leaves"
+   },
+   "Screen Saver Message": {
+    "regType": "REG_SZ",
+    "raw": "Happy Thanksgiving!",
+    "decoded": "Happy Thanksgiving!"
+   },
+   "Screen Saver Message Font": {
+    "regType": "REG_BINARY",
+    "rawHex": "b0ffffff000000000000000000000000bc020000000000000302010246696761726f204d54005f01a27fe94a470100000000f80000007c7fdf7f4701",
+    "decoded": {
+     "lfHeight": -80,
+     "lfWidth": 0,
+     "lfEscapement": 0,
+     "lfOrientation": 0,
+     "lfWeight": 700,
+     "lfItalic": 0,
+     "lfUnderline": 0,
+     "lfStrikeOut": 0,
+     "lfCharSet": 0,
+     "lfOutPrecision": 3,
+     "lfClipPrecision": 2,
+     "lfQuality": 1,
+     "lfPitchAndFamily": "0x02",
+     "lfFaceName": "Figaro MT",
+     "faceName_garbage_after_NUL": "5f01a27fe94a470100000000f80000007c7fdf7f4701",
+     "approx_points_at_96dpi": 60.0
+    }
+   },
+   "Screen Saver Message Color": {
+    "regType": "REG_DWORD",
+    "raw": 32896,
+    "decoded": "0x00008080 = RGB(128,128,0) #808000"
+   },
+   "Screen Saver Picture Name": {
+    "regType": "REG_SZ",
+    "raw": "Turkey.BMP",
+    "decoded": "Turkey.BMP"
+   },
+   "Screen Saver Picture Display Type": {
+    "regType": "REG_DWORD",
+    "raw": 0,
+    "decoded": "0 = Center"
+   }
+  },
+  "Valentine's Day": {
+   "Bulb Settings": {
+    "regType": "REG_BINARY",
+    "rawHex": "0f0000001000000011000000ffffffffffffffffffffffffffffffffffffffff10000000110000000f000000ffffffffffffffffffffffffffffffffffffffff0f0000001000000011000000ffffffffffffffffffffffffffffffffffffffff10000000110000000f000000ffffffffffffffffffffffffffffffffffffffff",
+    "decoded": {
+     "top": [
+      {
+       "id": 15,
+       "name": "Mezmerized"
+      },
+      {
+       "id": 16,
+       "name": "Candy Hearts"
+      },
+      {
+       "id": 17,
+       "name": "Sweet Hearts"
+      }
+     ],
+     "right": [
+      {
+       "id": 16,
+       "name": "Candy Hearts"
+      },
+      {
+       "id": 17,
+       "name": "Sweet Hearts"
+      },
+      {
+       "id": 15,
+       "name": "Mezmerized"
+      }
+     ],
+     "bottom": [
+      {
+       "id": 15,
+       "name": "Mezmerized"
+      },
+      {
+       "id": 16,
+       "name": "Candy Hearts"
+      },
+      {
+       "id": 17,
+       "name": "Sweet Hearts"
+      }
+     ],
+     "left": [
+      {
+       "id": 16,
+       "name": "Candy Hearts"
+      },
+      {
+       "id": 17,
+       "name": "Sweet Hearts"
+      },
+      {
+       "id": 15,
+       "name": "Mezmerized"
+      }
+     ],
+     "topLeft": null,
+     "topRight": null,
+     "bottomLeft": null,
+     "bottomRight": null,
+     "raw_int32": [
+      15,
+      16,
+      17,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      16,
+      17,
+      15,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      15,
+      16,
+      17,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      16,
+      17,
+      15,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    }
+   },
+   "Flash Interval": {
+    "regType": "REG_DWORD",
+    "raw": 5,
+    "decoded": "5 ticks of timer 1 = 300 ms per flash step (nominal 60 ms tick)"
+   },
+   "Flash Pattern": {
+    "regType": "REG_DWORD",
+    "raw": 1,
+    "decoded": "1 = Flash Together"
+   },
+   "Enabled Music": {
+    "regType": "REG_BINARY",
+    "rawHex": "42696379636c65204275696c7420666f722054776f2e6d696400436c656d656e74696e652e6d69640000",
+    "decoded": [
+     "Bicycle Built for Two.mid",
+     "Clementine.mid"
+    ]
+   },
+   "Music Play": {
+    "regType": "REG_DWORD",
+    "raw": 4,
+    "decoded": "4 = Intermittently"
+   },
+   "Screen Saver Module": {
+    "regType": "REG_SZ",
+    "raw": "Valentine's Hearts",
+    "decoded": "Valentine's Hearts"
+   },
+   "Screen Saver Message": {
+    "regType": "REG_SZ",
+    "raw": "Happy Valentine's Day!",
+    "decoded": "Happy Valentine's Day!"
+   },
+   "Screen Saver Message Font": {
+    "regType": "REG_BINARY",
+    "rawHex": "c0ffffff000000000000000000000000bc02000000000000030201424d69737472616c00ffff06809a7f02000000010000000100000000000000be7f",
+    "decoded": {
+     "lfHeight": -64,
+     "lfWidth": 0,
+     "lfEscapement": 0,
+     "lfOrientation": 0,
+     "lfWeight": 700,
+     "lfItalic": 0,
+     "lfUnderline": 0,
+     "lfStrikeOut": 0,
+     "lfCharSet": 0,
+     "lfOutPrecision": 3,
+     "lfClipPrecision": 2,
+     "lfQuality": 1,
+     "lfPitchAndFamily": "0x42",
+     "lfFaceName": "Mistral",
+     "faceName_garbage_after_NUL": "ffff06809a7f02000000010000000100000000000000be7f",
+     "approx_points_at_96dpi": 48.0
+    }
+   },
+   "Screen Saver Message Color": {
+    "regType": "REG_DWORD",
+    "raw": 16711935,
+    "decoded": "0x00FF00FF = RGB(255,0,255) #FF00FF"
+   },
+   "Screen Saver Picture Name": {
+    "regType": "REG_SZ",
+    "raw": "Hearts.BMP",
+    "decoded": "Hearts.BMP"
+   },
+   "Screen Saver Picture Display Type": {
+    "regType": "REG_DWORD",
+    "raw": 0,
+    "decoded": "0 = Center"
+   }
+  }
+ }
+}

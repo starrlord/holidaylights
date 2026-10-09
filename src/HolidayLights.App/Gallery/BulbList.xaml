@@ -1,0 +1,379 @@
+<!--
+  The Bulb List (owner: settings-ui; PRODUCT-SPEC 3.2.5, 3.2.9, 3.2.11): toolbar, result line, a virtualized tile grid
+  (VirtualizingWrapPanel GridView) or Details rows, and the empty states. Logic in BulbList.xaml.cs.
+-->
+<UserControl x:Class="HolidayLights.App.Gallery.BulbList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:HolidayLights.App.Controls"
+             xmlns:preview="clr-namespace:HolidayLights.App.Preview"
+             xmlns:gallery="clr-namespace:HolidayLights.App.Gallery"
+             xmlns:vwp="clr-namespace:WpfToolkit.Controls;assembly=VirtualizingWrapPanel"
+             x:Name="Root">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="Visible" />
+
+        <!-- Star toggle on tiles and rows: filled when favorite, outline while the item is hovered or focused. -->
+        <Style x:Key="FavoriteStar" TargetType="ToggleButton">
+            <Setter Property="Width" Value="24" />
+            <Setter Property="Height" Value="24" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="ToolTip" Value="{DynamicResource HL.Tip.BulbFactory.Favorite}" />
+            <Setter Property="AutomationProperties.Name" Value="Favorite" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border Background="Transparent">
+                            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock x:Name="Halo" Text="&#xE735;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="15"
+                                           Foreground="#99000000" Margin="1,1,0,0" />
+                                <TextBlock x:Name="Star" Text="&#xE734;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="14"
+                                           Foreground="{DynamicResource HL.Brush.OnNightWell}" />
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Star" Property="Text" Value="&#xE735;" />
+                                <Setter TargetName="Star" Property="Foreground" Value="{DynamicResource HL.Brush.WarmGold}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Star" Property="FontSize" Value="16" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Tile container: rounded, hover fill, 2 DIP accent ring when selected; the hand shows that bulbs can be dragged. -->
+        <Style x:Key="TileContainer" TargetType="ListBoxItem">
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="controls:HoverLift.IsEnabled" Value="True" />
+            <EventSetter Event="MouseEnter" Handler="OnItemMouseEnter" />
+            <EventSetter Event="MouseLeave" Handler="OnItemMouseLeave" />
+            <EventSetter Event="GotKeyboardFocus" Handler="OnItemGotFocus" />
+            <EventSetter Event="MouseDoubleClick" Handler="OnItemDoubleClick" />
+            <EventSetter Event="PreviewMouseLeftButtonDown" Handler="OnItemMouseDown" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+            <Setter Property="AutomationProperties.Name" Value="{Binding AccessibleName}" />
+            <Setter Property="ToolTipService.InitialShowDelay" Value="500" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Grid Width="112" Height="124" Background="Transparent">
+                            <Border x:Name="Chrome" CornerRadius="6" Background="Transparent" BorderThickness="2" BorderBrush="Transparent" />
+                            <ContentPresenter />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Chrome" Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+                                <Setter Property="preview:PreviewAnimation.IsHot" Value="True" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter Property="preview:PreviewAnimation.IsHot" Value="True" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Chrome" Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+                                <Setter TargetName="Chrome" Property="BorderBrush" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsPlaceholder}" Value="True">
+                    <Setter Property="IsEnabled" Value="False" />
+                    <Setter Property="Cursor" Value="Arrow" />
+                    <Setter Property="controls:HoverLift.IsEnabled" Value="False" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Details row container: hover fill, selected fill with the Fluent pill; the hand shows that bulbs can be dragged. -->
+        <Style x:Key="RowContainer" TargetType="ListBoxItem">
+            <Setter Property="Cursor" Value="Hand" />
+            <EventSetter Event="MouseEnter" Handler="OnItemMouseEnter" />
+            <EventSetter Event="MouseLeave" Handler="OnItemMouseLeave" />
+            <EventSetter Event="GotKeyboardFocus" Handler="OnItemGotFocus" />
+            <EventSetter Event="MouseDoubleClick" Handler="OnItemDoubleClick" />
+            <EventSetter Event="PreviewMouseLeftButtonDown" Handler="OnItemMouseDown" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0,1" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+            <Setter Property="AutomationProperties.Name" Value="{Binding AccessibleName}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Grid Background="Transparent">
+                            <Border x:Name="Chrome" CornerRadius="4" Background="Transparent" />
+                            <Border x:Name="Pill" Width="3" Height="16" CornerRadius="1.5" HorizontalAlignment="Left" Margin="0,0,0,0"
+                                    Background="{DynamicResource AccentFillColorDefaultBrush}" Visibility="Collapsed" />
+                            <ContentPresenter Margin="8,0,8,0" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Chrome" Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+                                <Setter Property="preview:PreviewAnimation.IsHot" Value="True" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter Property="preview:PreviewAnimation.IsHot" Value="True" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Chrome" Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+                                <Setter TargetName="Pill" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsPlaceholder}" Value="True">
+                    <Setter Property="IsEnabled" Value="False" />
+                    <Setter Property="Cursor" Value="Arrow" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <DataTemplate x:Key="TileTemplate" DataType="{x:Type gallery:BulbItem}">
+            <Grid Width="112" Height="124">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <controls:NightWell Width="96" Height="72" VerticalAlignment="Bottom">
+                    <preview:LightStrip Services="{Binding Services, ElementName=Root}" SingleBulbId="{Binding Id}" Side="Top"
+                                        BulbHeight="56" MaxArtScale="{Binding TileArtScale, ElementName=Root}" Glow="On"
+                                        FallbackToListPreview="True" CropRun="True" VerticalAlignment="Center" Margin="0,0,0,0" />
+                </controls:NightWell>
+                <Ellipse Width="8" Height="8" Fill="{DynamicResource AccentFillColorDefaultBrush}" Stroke="#99000000"
+                         StrokeThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,15,0,0"
+                         Visibility="{Binding IsInUse, Converter={StaticResource Visible}}" ToolTip="In use" />
+                <TextBlock Text="&#xE7BA;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="14" Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                           HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="12,0,0,4"
+                           Visibility="{Binding IsDamaged, Converter={StaticResource Visible}}" ToolTip="This bulb is damaged and may cause problems." />
+                <ToggleButton Style="{StaticResource FavoriteStar}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0"
+                              IsChecked="{Binding IsFavorite, Mode=OneWay}" Click="OnStarClick" x:Name="Star" Visibility="Collapsed" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,4">
+                    <Border Style="{DynamicResource HL.Style.Badge.Accent}" Margin="2,0,0,0" Visibility="{Binding IsNew, Converter={StaticResource Visible}}">
+                        <TextBlock Text="New" Style="{DynamicResource HL.Style.Text.Badge}" />
+                    </Border>
+                    <Border Style="{DynamicResource HL.Style.Badge}" Margin="2,0,0,0" Visibility="{Binding IsBig, Converter={StaticResource Visible}}"
+                            ToolTip="{DynamicResource HL.Tip.BulbFactory.BigBulb}">
+                        <TextBlock Text="Big" Style="{DynamicResource HL.Style.Text.Badge}" Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                    </Border>
+                </StackPanel>
+                <TextBlock x:Name="TileName" Grid.Row="1" Text="{Binding Name}" FontSize="12" TextAlignment="Center" TextWrapping="Wrap"
+                           TextTrimming="CharacterEllipsis" MaxHeight="34" Margin="6,4,6,0" />
+                <Button Grid.Row="1" Content="Restore" Padding="10,1" MinHeight="22" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                        Click="OnRestoreClick" Visibility="{Binding IsRemoved, Converter={StaticResource Visible}}"
+                        AutomationProperties.Name="{Binding Name, StringFormat='Restore {0}'}" />
+            </Grid>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding IsRemoved}" Value="True">
+                    <Setter TargetName="TileName" Property="TextWrapping" Value="NoWrap" />
+                    <Setter TargetName="TileName" Property="ToolTip" Value="{Binding Name}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsFavorite}" Value="True">
+                    <Setter TargetName="Star" Property="Visibility" Value="Visible" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
+                    <Setter TargetName="Star" Property="Visibility" Value="Visible" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsKeyboardFocused, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
+                    <Setter TargetName="Star" Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+
+        <DataTemplate x:Key="RowTemplate" DataType="{x:Type gallery:BulbItem}">
+            <Grid Height="56">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <controls:NightWell Width="40" Height="40">
+                    <controls:BulbThumbnail Services="{Binding Services, ElementName=Root}" BulbId="{Binding Id}" ShowListPreview="True"
+                                            MaxArtScale="1" Width="32" Height="32" />
+                </controls:NightWell>
+                <StackPanel Grid.Column="1" Margin="12,0,8,0" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+                        <TextBlock Text="&#xE735;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="12" Margin="6,2,0,0"
+                                   Foreground="{DynamicResource HL.Brush.WarmGold}" Visibility="{Binding IsFavorite, Converter={StaticResource Visible}}"
+                                   ToolTip="Favorite" />
+                        <Ellipse Width="7" Height="7" Margin="6,1,0,0" Fill="{DynamicResource AccentFillColorDefaultBrush}"
+                                 Visibility="{Binding IsInUse, Converter={StaticResource Visible}}" ToolTip="In use" />
+                        <Border Style="{DynamicResource HL.Style.Badge.Accent}" Margin="6,0,0,0" Visibility="{Binding IsNew, Converter={StaticResource Visible}}">
+                            <TextBlock Text="New" Style="{DynamicResource HL.Style.Text.Badge}" />
+                        </Border>
+                        <TextBlock Text="&#xE7BA;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="12" Margin="6,2,0,0"
+                                   Foreground="{DynamicResource SystemFillColorCautionBrush}" Visibility="{Binding IsDamaged, Converter={StaticResource Visible}}"
+                                   ToolTip="This bulb is damaged and may cause problems." />
+                    </StackPanel>
+                    <TextBlock Text="{Binding Description}" FontSize="12" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxHeight="32"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                </StackPanel>
+                <StackPanel Grid.Column="2" VerticalAlignment="Center" MaxWidth="200">
+                    <TextBlock Text="{Binding DetailsCaption}" FontSize="12" TextAlignment="Right" TextTrimming="CharacterEllipsis"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                    <TextBlock Text="{Binding CategoriesText}" FontSize="12" TextAlignment="Right" TextTrimming="CharacterEllipsis"
+                               Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                    <Button Content="Restore" Padding="10,2" MinHeight="24" FontSize="12" HorizontalAlignment="Right" Margin="0,2,0,0"
+                            Click="OnRestoreClick" Visibility="{Binding IsRemoved, Converter={StaticResource Visible}}"
+                            AutomationProperties.Name="{Binding Name, StringFormat='Restore {0}'}" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <!-- Placeholders while the add-on bulbs are indexed (PRODUCT-SPEC 3.2.9: skeleton tiles): quiet blocks in the tile and row shapes. -->
+        <DataTemplate x:Key="SkeletonTileTemplate" DataType="{x:Type gallery:SkeletonItem}">
+            <Grid Width="112" Height="124" Opacity="0.5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Border Width="96" Height="72" VerticalAlignment="Bottom" CornerRadius="4" Background="{DynamicResource ControlStrongFillColorDisabledBrush}" />
+                <Border Grid.Row="1" Width="64" Height="10" Margin="0,8,0,0" VerticalAlignment="Top" CornerRadius="5"
+                        Background="{DynamicResource ControlStrongFillColorDisabledBrush}" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="SkeletonRowTemplate" DataType="{x:Type gallery:SkeletonItem}">
+            <Grid Height="56" Opacity="0.5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border Width="40" Height="40" CornerRadius="4" Background="{DynamicResource ControlStrongFillColorDisabledBrush}" />
+                <StackPanel Grid.Column="1" Margin="12,0,8,0" VerticalAlignment="Center">
+                    <Border Width="120" Height="10" HorizontalAlignment="Left" CornerRadius="5" Background="{DynamicResource ControlStrongFillColorDisabledBrush}" />
+                    <Border Width="200" Height="8" Margin="0,8,0,0" HorizontalAlignment="Left" CornerRadius="4" Background="{DynamicResource ControlStrongFillColorDisabledBrush}" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <gallery:BulbTemplateSelector x:Key="TileSelector" BulbTemplate="{StaticResource TileTemplate}" SkeletonTemplate="{StaticResource SkeletonTileTemplate}" />
+        <gallery:BulbTemplateSelector x:Key="RowSelector" BulbTemplate="{StaticResource RowTemplate}" SkeletonTemplate="{StaticResource SkeletonRowTemplate}" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- "Double-click a bulb to use it for: the whole frame" -->
+        <TextBlock x:Name="TargetLine" TextWrapping="Wrap" Margin="0,0,0,10" FontSize="14">
+            <Run Text="Double-click a bulb to use it for:" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+            <Run x:Name="TargetText" Text="the whole frame" FontWeight="SemiBold" />
+        </TextBlock>
+
+        <Grid Grid.Row="1" Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <controls:SearchBox x:Name="Search" AutomationProperties.Name="Search bulbs" SearchChanged="OnSearchChanged" />
+            <Button x:Name="AddBulbButton" Grid.Column="1" Content="_Add Bulb…" Margin="8,0,0,0" Click="OnAddBulbClick"
+                    ToolTip="{DynamicResource HL.Tip.BulbFactory.AddBulb}" />
+        </Grid>
+
+        <Grid Grid.Row="2" Margin="0,0,0,4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Label Content="S_how:" Target="{Binding ElementName=ShowBox}" VerticalAlignment="Center" Padding="0,0,8,0" Margin="0,0,0,6"
+                   Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+            <ComboBox x:Name="ShowBox" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,0,0,6" AutomationProperties.Name="Show"
+                      ToolTip="{DynamicResource HL.Tip.BulbFactory.Show}" SelectionChanged="OnShowChanged" />
+            <Label Grid.Row="1" Content="So_rt:" Target="{Binding ElementName=SortBox}" VerticalAlignment="Center" Padding="0,0,8,0" Margin="0,0,0,6"
+                   Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+            <ComboBox x:Name="SortBox" Grid.Row="1" Grid.Column="1" Margin="0,0,8,6" MinWidth="120" AutomationProperties.Name="Sort"
+                      ToolTip="{DynamicResource HL.Tip.BulbFactory.Sort}" SelectionChanged="OnSortChanged">
+                <ComboBoxItem Content="Original Order" />
+                <ComboBoxItem Content="Name" />
+                <ComboBoxItem Content="Newest First" />
+                <ComboBoxItem x:Name="BestMatchItem" Content="Best Match" Visibility="Collapsed" />
+            </ComboBox>
+            <Border Grid.Row="1" Grid.Column="2" Style="{DynamicResource HL.Style.SegmentFrame}" Margin="0,0,0,6" ToolTip="{DynamicResource HL.Tip.BulbFactory.View}"
+                    KeyboardNavigation.DirectionalNavigation="Cycle" KeyboardNavigation.TabNavigation="Once">
+                <StackPanel Orientation="Horizontal" AutomationProperties.Name="View">
+                    <RadioButton x:Name="TilesButton" Style="{DynamicResource HL.Style.Segment}" GroupName="BulbListView" Padding="8,4"
+                                 Checked="OnViewChecked" AutomationProperties.Name="Tiles" ToolTip="Tiles">
+                        <TextBlock Text="&#xECA5;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="14" />
+                    </RadioButton>
+                    <RadioButton x:Name="DetailsButton" Style="{DynamicResource HL.Style.Segment}" GroupName="BulbListView" Padding="8,4"
+                                 Checked="OnViewChecked" AutomationProperties.Name="Details" ToolTip="Details">
+                        <TextBlock Text="&#xEA37;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="14" />
+                    </RadioButton>
+                </StackPanel>
+            </Border>
+            <Button x:Name="MoreButton" Grid.Row="1" Grid.Column="3" Style="{DynamicResource HL.Style.Button.Subtle}" Margin="6,0,0,6" Width="36" Height="32"
+                    Click="OnMoreClick" AutomationProperties.Name="More Bulb List Commands" ToolTip="{DynamicResource HL.Tip.BulbFactory.More}">
+                <TextBlock Text="&#xE712;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="14" />
+            </Button>
+        </Grid>
+
+        <StackPanel Grid.Row="3" Margin="0,0,0,6">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="ResultLine" FontSize="12" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"
+                           Foreground="{DynamicResource TextFillColorSecondaryBrush}" AutomationProperties.LiveSetting="Polite" />
+                <Button x:Name="RestoreAllButton" Grid.Column="1" Content="Restore All" Margin="8,0,0,0" Padding="10,2" MinHeight="26" FontSize="12"
+                        Visibility="Collapsed" Click="OnRestoreAllClick" ToolTip="Lists every removed bulb again. You can undo it." />
+            </Grid>
+        </StackPanel>
+
+        <Grid Grid.Row="4">
+            <vwp:GridView x:Name="Tiles" Style="{DynamicResource {x:Type ListBox}}" ItemContainerStyle="{StaticResource TileContainer}"
+                          ItemTemplateSelector="{StaticResource TileSelector}"
+                          SelectionMode="Extended" SpacingMode="Uniform" StretchItems="False" Background="Transparent" BorderThickness="0"
+                          VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling"
+                          VirtualizingPanel.CacheLengthUnit="Pixel" VirtualizingPanel.CacheLength="240"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled" Padding="0" Margin="-6,0,-6,0"
+                          AutomationProperties.Name="Bulbs" ToolTip="{x:Null}">
+                <vwp:GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <vwp:VirtualizingWrapPanel SpacingMode="Uniform" StretchItems="False" />
+                    </ItemsPanelTemplate>
+                </vwp:GridView.ItemsPanel>
+            </vwp:GridView>
+            <ListBox x:Name="Rows" ItemContainerStyle="{StaticResource RowContainer}" ItemTemplateSelector="{StaticResource RowSelector}"
+                     SelectionMode="Extended" Background="Transparent" BorderThickness="0" Visibility="Collapsed"
+                     VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling"
+                     VirtualizingPanel.ScrollUnit="Pixel" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     AutomationProperties.Name="Bulbs" />
+            <StackPanel x:Name="EmptyState" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="16,32,16,0" MaxWidth="340"
+                        Visibility="Collapsed">
+                <TextBlock Text="&#xE82F;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="32" HorizontalAlignment="Center"
+                           Foreground="{DynamicResource TextFillColorTertiaryBrush}" Margin="0,0,0,12" />
+                <TextBlock x:Name="EmptyText" TextWrapping="Wrap" TextAlignment="Center" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                           AutomationProperties.LiveSetting="Polite" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,12,0,0">
+                    <Button x:Name="ClearSearchButton" Content="Clear Search" Margin="0,0,8,0" Click="OnClearSearchClick" />
+                    <Button x:Name="ShowAllButton" Content="Show All Bulbs" Click="OnShowAllClick" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,23 @@
+# Normalize line endings of text files; Windows checkouts get CRLF when core.autocrlf asks for it.
+* text=auto
+
+# Source files the Windows tools prefer with CRLF
+*.sln text eol=crlf
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# Binary content: never touch line endings or diff as text
+*.bul binary
+*.mid binary
+*.bmp binary
+*.BMP binary
+*.png binary
+*.ico binary
+*.gif binary
+*.jpg binary
+*.jpeg binary
+*.gz binary
+*.zip binary
+*.exe binary
+*.dll binary
+*.pdb binary

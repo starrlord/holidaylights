@@ -1,0 +1,52 @@
+{
+  "schema": "holidaylights.theme/1",
+  "name": "Spring Garden",
+  "shipped": "new",
+  "arrangement": {
+    "top": [
+      "addon:SpringFlowerLights"
+    ],
+    "right": [
+      "addon:SpringFlowerLights"
+    ],
+    "bottom": [
+      "builtin:spring-flowers"
+    ],
+    "left": [
+      "addon:SpringFlowerLights"
+    ],
+    "topLeft": "builtin:spring-flowers",
+    "topRight": "builtin:spring-flowers",
+    "bottomLeft": "builtin:spring-flowers",
+    "bottomRight": "builtin:spring-flowers"
+  },
+  "flash": {
+    "pattern": "slowGlow",
+    "interval": 5
+  },
+  "music": {
+    "enabledSongs": [
+      "bundled:Bicycle Built for Two.mid",
+      "bundled:Clementine.mid",
+      "bundled:Greensleeves.mid"
+    ],
+    "mode": "intermittently"
+  },
+  "saver": {
+    "animation": "Balloons",
+    "style": "bounceOffSides",
+    "message": "Happy Spring!",
+    "font": {
+      "family": "Comic Sans MS",
+      "sizePt": 42,
+      "bold": true,
+      "italic": false,
+      "underline": false,
+      "strikeout": false
+    },
+    "color": "#8BC34A",
+    "background": "#1D3466",
+    "picture": "(None)",
+    "placement": "center"
+  }
+}

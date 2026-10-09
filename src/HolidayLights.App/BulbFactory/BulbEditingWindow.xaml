@@ -1,0 +1,376 @@
+<!--
+  Bulb Editing (owner: bulb-factory; PRODUCT-SPEC 3.3.1): the 5.4 groups "Bulb &Information" and "Animation &Frames" with
+  their labels and texts, plus the slot map, zoom, frame stepper, transparency, edge sample and GIF tip. Modal over
+  Settings; 980 x 640 DIP, resizable down to 860 x 600.
+  The two group headers keep their 5.4 access keys, which go where 5.4's went (the group's first control there): Alt+I to
+  Bulb Name, Alt+F to the slot combo box. The shared Card draws its header as plain text, so these cards leave Header and
+  Description empty and draw the same header and description themselves, with a Label for the access key (CardHeading:
+  the Card header's 14 SemiBold and 2 DIP gap). Padding top 8 plus the Card's 8 DIP content gap puts the header where the
+  Card puts its own.
+-->
+<Window x:Class="HolidayLights.App.BulbFactory.BulbEditingWindow" x:ClassModifier="internal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:HolidayLights.App.BulbFactory"
+        xmlns:controls="clr-namespace:HolidayLights.App.Controls"
+        xmlns:preview="clr-namespace:HolidayLights.App.Preview"
+        xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+        Title="{Binding Title}"
+        Width="980" Height="640" MinWidth="860" MinHeight="600"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False" UseLayoutRounding="True">
+
+    <Window.Resources>
+        <local:TextVisibilityConverter x:Key="TextVisibility" />
+        <BooleanToVisibilityConverter x:Key="BoolVisibility" />
+        <sys:String x:Key="InformationDescription">The text below appears in the bulb list and bulb credits window.</sys:String>
+
+        <Style x:Key="FieldLabel" TargetType="Label">
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0,10,0,4" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+        </Style>
+        <Style x:Key="CardHeading" TargetType="Label">
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0,0,0,2" />
+            <Setter Property="AutomationProperties.HeadingLevel" Value="Level2" />
+        </Style>
+        <Style x:Key="Secondary" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+        </Style>
+        <Style x:Key="Counter" TargetType="TextBlock" BasedOn="{StaticResource Secondary}">
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="Margin" Value="0,0,0,4" />
+        </Style>
+        <Style x:Key="Problem" TargetType="TextBlock" BasedOn="{StaticResource Secondary}">
+            <Setter Property="Foreground" Value="{DynamicResource SystemFillColorCriticalBrush}" />
+            <Setter Property="Margin" Value="0,4,0,0" />
+        </Style>
+        <!-- Text on the night well: light on the night sky; the system text colour in High Contrast (the well is the Window colour there). -->
+        <Style x:Key="OnNightWell" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#E6FFFFFF" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Source={x:Static SystemParameters.HighContrast}}" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="Glyph" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe Fluent Icons, Segoe MDL2 Assets" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+    </Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding Gesture="Ctrl+S" Command="{Binding SaveCommand}" />
+    </Window.InputBindings>
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <controls:InfoBar Severity="Error" IsClosable="False" Margin="0,0,0,12"
+                          Message="{Binding ErrorMessage}"
+                          Visibility="{Binding ErrorMessage, Converter={StaticResource TextVisibility}}" />
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" MinWidth="340" />
+                <ColumnDefinition Width="16" />
+                <ColumnDefinition Width="6*" MinWidth="440" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Bulb Information -->
+            <controls:Card Padding="16,8,16,16" DataContext="{Binding Information}"
+                           AutomationProperties.Name="Bulb Information"
+                           AutomationProperties.HelpText="{StaticResource InformationDescription}">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Margin="0,0,0,8">
+                        <Label x:Name="InformationHeading" Content="Bulb _Information" Target="{Binding ElementName=NameBox}"
+                               Style="{StaticResource CardHeading}" />
+                        <TextBlock Text="{StaticResource InformationDescription}" Margin="0,0,0,4" Style="{StaticResource Secondary}" />
+                    </StackPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" MinHeight="72" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Content="Bulb _Name" Target="{Binding ElementName=NameBox}" Style="{StaticResource FieldLabel}" />
+                        <TextBlock Grid.Row="0" Text="{Binding NameCounter}" Style="{StaticResource Counter}" />
+                        <TextBox Grid.Row="1" x:Name="NameBox" MaxLength="79"
+                                 Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                                 AutomationProperties.Name="Bulb Name"
+                                 ToolTip="{DynamicResource HL.Tip.BulbEditing.Name}" />
+                        <TextBlock Grid.Row="2" Text="{Binding NameError}" Style="{StaticResource Problem}"
+                                   Visibility="{Binding NameError, Converter={StaticResource TextVisibility}}" />
+
+                        <Label Grid.Row="3" Content="_Description" Target="{Binding ElementName=DescriptionBox}" Style="{StaticResource FieldLabel}" />
+                        <TextBlock Grid.Row="3" Text="{Binding DescriptionCounter}" Style="{StaticResource Counter}" />
+                        <TextBox Grid.Row="4" x:Name="DescriptionBox" MaxLength="79"
+                                 Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"
+                                 AutomationProperties.Name="Description"
+                                 ToolTip="{DynamicResource HL.Tip.BulbEditing.Description}" />
+
+                        <Label Grid.Row="5" Content="_Author's Name and E-Mail Address" Target="{Binding ElementName=AuthorBox}" Style="{StaticResource FieldLabel}" />
+                        <TextBox Grid.Row="6" x:Name="AuthorBox" MaxLength="79" AcceptsReturn="True" MinLines="2" MaxLines="2"
+                                 VerticalScrollBarVisibility="Disabled" PreviewKeyDown="OnTwoLineBoxKeyDown"
+                                 Text="{Binding Author, UpdateSourceTrigger=PropertyChanged}"
+                                 AutomationProperties.Name="Author's Name and E-Mail Address"
+                                 ToolTip="{DynamicResource HL.Tip.BulbEditing.Author}" />
+
+                        <Label Grid.Row="7" Content="_Copyright Message" Target="{Binding ElementName=CopyrightBox}" Style="{StaticResource FieldLabel}" />
+                        <TextBox Grid.Row="8" x:Name="CopyrightBox" MaxLength="79" AcceptsReturn="True" MinLines="2" MaxLines="2"
+                                 VerticalScrollBarVisibility="Disabled" PreviewKeyDown="OnTwoLineBoxKeyDown"
+                                 Text="{Binding Copyright, UpdateSourceTrigger=PropertyChanged}"
+                                 AutomationProperties.Name="Copyright Message"
+                                 ToolTip="{DynamicResource HL.Tip.BulbEditing.Copyright}" />
+
+                        <Label Grid.Row="9" Content="Ca_tegories" Target="{Binding ElementName=CategoryList}" Style="{StaticResource FieldLabel}" />
+                        <Button Grid.Row="9" Content="New Category…" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                Margin="0,8,0,4" Padding="12,2" Command="{Binding NewCategoryCommand}"
+                                ToolTip="{DynamicResource HL.Tip.BulbEditing.NewCategory}" />
+                        <Border Grid.Row="10" BorderThickness="1" CornerRadius="4"
+                                BorderBrush="{DynamicResource ControlStrokeColorDefaultBrush}">
+                            <ScrollViewer x:Name="CategoryScroller" VerticalScrollBarVisibility="Auto"
+                                          HorizontalScrollBarVisibility="Disabled" Focusable="False" Padding="8,4">
+                                <ItemsControl x:Name="CategoryList" ItemsSource="{Binding Categories.Items}"
+                                              Focusable="True" IsTabStop="False" GotKeyboardFocus="OnCategoryListFocused"
+                                              KeyboardNavigation.TabNavigation="Once"
+                                              KeyboardNavigation.DirectionalNavigation="Contained"
+                                              AutomationProperties.Name="Categories"
+                                              ToolTip="{DynamicResource HL.Tip.BulbEditing.Categories}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type local:CategoryItem}">
+                                            <CheckBox Content="{Binding Name}" IsChecked="{Binding IsChecked}"
+                                                      MinWidth="0" MinHeight="28" Margin="0,0,16,0" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </Border>
+                        <TextBlock Grid.Row="11" Text="{Binding CategoryError}" Style="{StaticResource Problem}"
+                                   Visibility="{Binding CategoryError, Converter={StaticResource TextVisibility}}" />
+                        <controls:InfoBar Grid.Row="12" Severity="Warning" IsClosable="False" Margin="0,8,0,0"
+                                          Message="{Binding CharacterWarning}"
+                                          Visibility="{Binding CharacterWarning, Converter={StaticResource TextVisibility}}" />
+                    </Grid>
+                </DockPanel>
+            </controls:Card>
+
+            <!-- Animation Frames -->
+            <controls:Card Grid.Column="2" Padding="16,8,16,16" DataContext="{Binding Frames}"
+                           AutomationProperties.Name="Animation Frames">
+                <DockPanel>
+                    <Label x:Name="FramesHeading" DockPanel.Dock="Top" Content="Animation _Frames" Target="{Binding ElementName=SlotBox}"
+                           Style="{StaticResource CardHeading}" />
+                    <Grid Margin="0,8,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" MinHeight="96" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <controls:InfoBar Grid.Row="0" Severity="Error" IsClosable="False" Margin="0,0,0,8"
+                                          Message="{Binding ErrorMessage}"
+                                          Visibility="{Binding ErrorMessage, Converter={StaticResource TextVisibility}}" />
+                        <controls:InfoBar Grid.Row="1" Severity="Informational" IsClosable="False" Margin="0,0,0,8"
+                                          Message="{Binding NoticeMessage}"
+                                          Visibility="{Binding NoticeMessage, Converter={StaticResource TextVisibility}}" />
+
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <ListBox x:Name="SlotMapList" ItemsSource="{Binding SlotMap}" SelectedItem="{Binding SelectedCell}"
+                                     PreviewKeyDown="OnSlotMapKeyDown" BorderThickness="0" Padding="0"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                     AutomationProperties.Name="Slot map"
+                                     ToolTip="{DynamicResource HL.Tip.BulbEditing.Slot}">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="48" />
+                                                <ColumnDefinition Width="80" />
+                                                <ColumnDefinition Width="48" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="40" />
+                                                <RowDefinition Height="48" />
+                                                <RowDefinition Height="40" />
+                                            </Grid.RowDefinitions>
+                                        </Grid>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                                        <Setter Property="Grid.Row" Value="{Binding Choice.Row}" />
+                                        <Setter Property="Grid.Column" Value="{Binding Choice.Column}" />
+                                        <Setter Property="Margin" Value="1" />
+                                        <Setter Property="Padding" Value="2" />
+                                        <Setter Property="MinHeight" Value="0" />
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                                        <Setter Property="AutomationProperties.Name" Value="{Binding Choice.Name}" />
+                                        <Setter Property="ToolTip" Value="{Binding Choice.Name}" />
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type local:SlotMapCell}">
+                                        <controls:NightWell CornerRadius="4">
+                                            <Image Source="{Binding Thumbnail}" Stretch="Uniform" Margin="3"
+                                                   RenderOptions.BitmapScalingMode="NearestNeighbor" />
+                                        </controls:NightWell>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                            <StackPanel Grid.Column="1" Margin="16,0,0,0">
+                                <ComboBox x:Name="SlotBox" ItemsSource="{Binding Slots}" SelectedItem="{Binding SelectedSlot}"
+                                          AutomationProperties.Name="Slot" ToolTip="{DynamicResource HL.Tip.BulbEditing.Slot}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type local:SlotChoice}">
+                                            <TextBlock Text="{Binding Name}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <ComboBox Margin="0,8,0,0" ItemsSource="{Binding Flavors}" SelectedIndex="{Binding SelectedFlavor}"
+                                          IsEnabled="{Binding IsSideSelected}"
+                                          AutomationProperties.Name="Flavor" ToolTip="{DynamicResource HL.Tip.BulbEditing.Flavor}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type local:FlavorChoice}">
+                                            <TextBlock Text="{Binding Label}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <TextBlock Margin="0,8,0,0" Text="{Binding SlotDescription}" Style="{StaticResource Secondary}" />
+                            </StackPanel>
+                        </Grid>
+
+                        <controls:InfoBar Grid.Row="3" Severity="Warning" Margin="0,8,0,0"
+                                          Message="{Binding Preview.GifTip}"
+                                          IsOpen="{Binding Preview.IsGifTipOpen, Mode=TwoWay}"
+                                          Visibility="{Binding Preview.IsGifTipOpen, Converter={StaticResource BoolVisibility}}" />
+
+                        <Grid Grid.Row="4" x:Name="PreviewArea" Margin="0,8,0,0" AllowDrop="True" Background="Transparent"
+                              SizeChanged="OnPreviewAreaSizeChanged" DragOver="OnPreviewDragOver" Drop="OnPreviewDrop">
+                            <controls:NightWell CornerRadius="4" />
+                            <ScrollViewer x:Name="PreviewScroller" HorizontalScrollBarVisibility="Auto"
+                                          VerticalScrollBarVisibility="Auto" Focusable="False">
+                                <Grid MinWidth="{Binding ViewportWidth, ElementName=PreviewScroller}"
+                                      MinHeight="{Binding ViewportHeight, ElementName=PreviewScroller}">
+                                    <local:AnimationPreview x:Name="Preview" Margin="8" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                            Frame="{Binding Preview.CurrentFrame}"
+                                                            PictureWidth="{Binding Preview.PictureWidth}"
+                                                            PictureHeight="{Binding Preview.PictureHeight}"
+                                                            Zoom="{Binding Preview.Zoom}"
+                                                            ShowTransparency="{Binding Preview.ShowTransparency}"
+                                                            ShowWhiteSquare="{Binding IsWhiteSquareVisible}"
+                                                            WhiteSquare="{Binding WhiteSquare}"
+                                                            SquareDragged="OnSquareDragged"
+                                                            PreviewKeyDown="OnPreviewKeyDown"
+                                                            AutomationProperties.Name="Preview"
+                                                            AutomationProperties.HelpText="{DynamicResource HL.Tip.BulbEditing.Preview}"
+                                                            ToolTip="{DynamicResource HL.Tip.BulbEditing.Preview}" />
+                                </Grid>
+                            </ScrollViewer>
+                            <TextBlock x:Name="PreviewMessage" Text="{Binding PreviewMessage}" Margin="24,12"
+                                       TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" FontSize="12"
+                                       IsHitTestVisible="False" Style="{StaticResource OnNightWell}"
+                                       Visibility="{Binding PreviewMessage, Converter={StaticResource TextVisibility}}" />
+                        </Grid>
+
+                        <DockPanel Grid.Row="5" Margin="0,8,0,0" LastChildFill="False">
+                            <TextBlock Text="Zoom" VerticalAlignment="Center" Margin="0,0,8,0" />
+                            <Button Command="{Binding Preview.ZoomOutCommand}" ToolTip="Zoom Out" AutomationProperties.Name="Zoom Out" Padding="8,4">
+                                <TextBlock Text="&#xE71F;" Style="{StaticResource Glyph}" />
+                            </Button>
+                            <TextBlock Text="{Binding Preview.ZoomText}" MinWidth="32" TextAlignment="Center" VerticalAlignment="Center" />
+                            <Button Command="{Binding Preview.ZoomInCommand}" ToolTip="Zoom In" AutomationProperties.Name="Zoom In" Padding="8,4">
+                                <TextBlock Text="&#xE8A3;" Style="{StaticResource Glyph}" />
+                            </Button>
+                            <ToggleButton IsChecked="{Binding Preview.IsPaused}" Margin="16,0,8,0" Padding="8,4"
+                                          ToolTip="Pause" AutomationProperties.Name="Pause">
+                                <TextBlock Style="{StaticResource Glyph}">
+                                    <TextBlock.Text>
+                                        <Binding Path="Preview.IsPaused">
+                                            <Binding.Converter>
+                                                <local:PauseGlyphConverter />
+                                            </Binding.Converter>
+                                        </Binding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </ToggleButton>
+                            <TextBlock Text="{Binding Preview.FrameText}" VerticalAlignment="Center" />
+                            <ToggleButton DockPanel.Dock="Right" Content="Transparency" IsChecked="{Binding Preview.ShowTransparency}"
+                                          ToolTip="{DynamicResource HL.Tip.BulbEditing.Transparency}" Padding="12,4" />
+                        </DockPanel>
+
+                        <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="0,8,0,0">
+                            <Button Content="Change…" Command="{Binding ChangeCommand}" MinWidth="96"
+                                    ToolTip="{DynamicResource HL.Tip.BulbEditing.Change}" />
+                            <Button Content="Remove Flavor" Command="{Binding RemoveFlavorCommand}" MinWidth="96" Margin="8,0,0,0"
+                                    ToolTip="{DynamicResource HL.Tip.BulbEditing.RemoveFlavor}" ToolTipService.ShowOnDisabled="True" />
+                            <Button Content="Copy to All Sides" Command="{Binding CopyToAllSidesCommand}" MinWidth="96" Margin="8,0,0,0"
+                                    ToolTip="{DynamicResource HL.Tip.BulbEditing.CopyToAllSides}" />
+                        </StackPanel>
+
+                        <controls:NightWell Grid.Row="7" Height="44" Margin="0,8,0,0" CornerRadius="4">
+                            <preview:LightStrip Margin="8,4" BulbHeight="28" Glow="On"
+                                                Side="{Binding EdgeSampleSide}"
+                                                IncludeCorners="{Binding EdgeSampleIncludesCorners}"
+                                                SingleBulbId="{Binding EdgeSampleBulbId}"
+                                                Bulbs="{Binding EdgeSampleBulbs}"
+                                                AutomationProperties.Name="Edge sample" />
+                        </controls:NightWell>
+
+                        <TextBlock Grid.Row="8" Margin="0,8,0,0" Text="{Binding ChangeHint}" Style="{StaticResource Secondary}" />
+                    </Grid>
+                </DockPanel>
+            </controls:Card>
+        </Grid>
+
+        <DockPanel Grid.Row="2" Margin="0,16,0,0" LastChildFill="False">
+            <Button DockPanel.Dock="Right" Content="Cancel" MinWidth="96" Margin="8,0,0,0" Click="OnCancelClick" />
+            <Button DockPanel.Dock="Right" Content="Save" MinWidth="96" IsDefault="True" Command="{Binding SaveCommand}"
+                    Style="{DynamicResource AccentButtonStyle}" />
+            <TextBlock DockPanel.Dock="Left" Text="{Binding ValidationMessage}" VerticalAlignment="Center"
+                       Style="{StaticResource Secondary}" MaxWidth="600" />
+        </DockPanel>
+    </Grid>
+</Window>

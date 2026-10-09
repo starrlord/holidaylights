@@ -1,0 +1,2477 @@
+{
+ "schema": "holidaylights.golden.midi/1",
+ "generator": "reference tools of the Holiday Lights 5.4 analysis (not part of this repository; see Golden/README.md)",
+ "source": "the 47 .mid files of the Holiday Lights 5.4 distribution: content/Music (46 songs) and tests/HolidayLights.Tests/Fixtures/Music/reset.mid",
+ "conventions": {
+  "order": "files sorted by name (ordinal); includes the hidden reset.mid",
+  "trackCount": "number of MTrk chunks parsed (trackCountHeader = MThd ntrks)",
+  "division": "raw MThd division (ticks per quarter note when bit 15 is clear)",
+  "counts": "per track: noteOn = 9n with velocity > 0; noteOff = 8n plus 9n with velocity 0; controlChange = Bn; programChange = Cn; pitchBend = En; polyPressure = An; channelPressure = Dn; sysex = F0 and F7 events; meta = FF events by type (hex key, End of Track 0x2F included); running status honoured",
+  "lastTick": "absolute tick of the last event of the track (its End of Track); song lastTick = max",
+  "tempoChanges": "every Set Tempo (FF 51) of every track in playback order (tick, then track)",
+  "duration": "PPQN: 500000 us per quarter until the first Set Tempo; tickTempoSum = sum over tempo segments up to the song lastTick of ticks * usPerQuarter; exact duration = tickTempoSum / division us; durationMicroseconds = floor(tickTempoSum / division)",
+  "lastEvent": "lastEventTick = tick of the last event that is not End of Track (max over tracks); lastEventMicroseconds = same formula up to that tick.  Windows' MCI sequencer reports 'status length' up to this point (it computes with whole microseconds per tick, so its value is up to ~0.07 % shorter, at most 76 ms for these files); it differs from durationMicroseconds where End of Track comes later (Bicycle Built for Two 2.07 s, Chanukah Song 4.0 s, Clementine 1.05 s, reset.mid 2.0 s)",
+  "quirks": "per track: noteOnVelocity0 = note-ons with velocity 0 (counted as noteOff); runningStatusAfterMetaOrSysex = data bytes that reuse the channel status across a meta/SysEx event (SMF 1.0 says those cancel running status; the parser keeps it)"
+ },
+ "count": 47,
+ "files": [
+  {
+   "file": "A Very Merry Christmas.mid",
+   "bytes": 18476,
+   "sha256": "f31348d31c1dfee437a6811be4efed992b7831bbef18d547bc61c3d7e4f4781e",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 24000,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 24000000000,
+   "durationMicroseconds": 100000000,
+   "lastEventTick": 24000,
+   "lastEventMicroseconds": 100000000,
+   "totals": {
+    "noteOn": 2577,
+    "noteOff": 2577,
+    "controlChange": 7,
+    "programChange": 11,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 18454,
+     "events": 5177,
+     "counts": {"noteOn":2577,"noteOff":2577,"controlChange":7,"programChange":11,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 24000,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Almost Time for Christmas.mid",
+   "bytes": 9480,
+   "sha256": "959adf655895b7994bb0d33f5888ce0f6ec31bd32757e27506d4af15858222fa",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 27840,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 27840000000,
+   "durationMicroseconds": 116000000,
+   "lastEventTick": 27840,
+   "lastEventMicroseconds": 116000000,
+   "totals": {
+    "noteOn": 1246,
+    "noteOff": 1246,
+    "controlChange": 0,
+    "programChange": 19,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 9458,
+     "events": 2516,
+     "counts": {"noteOn":1246,"noteOff":1246,"controlChange":0,"programChange":19,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 27840,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Angels We Have Heard On High.mid",
+   "bytes": 2660,
+   "sha256": "63fe4a39ece8d90e9dcbcfd1df70cc5a127c99ad27388f41c10e51cc668149e0",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 11520,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 11520000000,
+   "durationMicroseconds": 48000000,
+   "lastEventTick": 11520,
+   "lastEventMicroseconds": 48000000,
+   "totals": {
+    "noteOn": 310,
+    "noteOff": 310,
+    "controlChange": 0,
+    "programChange": 11,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 2638,
+     "events": 637,
+     "counts": {"noteOn":310,"noteOff":310,"controlChange":0,"programChange":11,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 11520,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Auld Lang Syne (Swing).mid",
+   "bytes": 4726,
+   "sha256": "2a579dd14a77cd6d3f398f5ec6ae870a78e08b6564514ff20f346f64efb04bae",
+   "format": 1,
+   "trackCountHeader": 8,
+   "trackCount": 8,
+   "division": 480,
+   "lastTick": 36480,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 500000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 18240000000,
+   "durationMicroseconds": 38000000,
+   "lastEventTick": 36480,
+   "lastEventMicroseconds": 38000000,
+   "totals": {
+    "noteOn": 537,
+    "noteOff": 537,
+    "controlChange": 0,
+    "programChange": 6,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x03":8,"0x04":7,"0x2F":8,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 132,
+     "events": 7,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":0,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x03":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 36480,
+     "quirks": {}
+    },
+    {
+     "bytes": 1391,
+     "events": 408,
+     "counts": {"noteOn":202,"noteOff":202,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 36480,
+     "quirks": {}
+    },
+    {
+     "bytes": 716,
+     "events": 158,
+     "counts": {"noteOn":77,"noteOff":77,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 36480,
+     "quirks": {}
+    },
+    {
+     "bytes": 923,
+     "events": 212,
+     "counts": {"noteOn":104,"noteOff":104,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 36480,
+     "quirks": {}
+    },
+    {
+     "bytes": 559,
+     "events": 128,
+     "counts": {"noteOn":62,"noteOff":62,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 36480,
+     "quirks": {}
+    },
+    {
+     "bytes": 25,
+     "events": 4,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 36480,
+     "quirks": {}
+    },
+    {
+     "bytes": 26,
+     "events": 4,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 36480,
+     "quirks": {}
+    },
+    {
+     "bytes": 876,
+     "events": 187,
+     "counts": {"noteOn":92,"noteOff":92,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 36480,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Auld Lang Syne.mid",
+   "bytes": 3318,
+   "sha256": "7c2fb42022a9d2a5d8b2d31109aa648ad5ae9e04900bb00d09dcbc472cf9b42c",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 6720,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 6720000000,
+   "durationMicroseconds": 28000000,
+   "lastEventTick": 6720,
+   "lastEventMicroseconds": 28000000,
+   "totals": {
+    "noteOn": 416,
+    "noteOff": 416,
+    "controlChange": 4,
+    "programChange": 8,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 3296,
+     "events": 849,
+     "counts": {"noteOn":416,"noteOff":416,"controlChange":4,"programChange":8,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 6720,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Bicycle Built for Two.mid",
+   "bytes": 51688,
+   "sha256": "d5cf3cfa14b7e51d8e375ad4d57670a154c8a87309100fcd51b8f62b913c5e54",
+   "format": 1,
+   "trackCountHeader": 10,
+   "trackCount": 10,
+   "division": 384,
+   "lastTick": 153600,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 600000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 92160000000,
+   "durationMicroseconds": 240000000,
+   "lastEventTick": 152278,
+   "lastEventMicroseconds": 237934375,
+   "totals": {
+    "noteOn": 6769,
+    "noteOff": 6769,
+    "controlChange": 333,
+    "programChange": 9,
+    "pitchBend": 17,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 1,
+    "meta": {"0x01":2,"0x02":1,"0x03":10,"0x21":11,"0x2F":10,"0x51":1,"0x54":1,"0x58":1,"0x59":1}
+   },
+   "tracks": [
+    {
+     "bytes": 239,
+     "events": 12,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":1},
+     "meta": {"0x01":2,"0x02":1,"0x03":1,"0x21":2,"0x2F":1,"0x51":1,"0x54":1,"0x58":1,"0x59":1},
+     "lastTick": 153600,
+     "quirks": {}
+    },
+    {
+     "bytes": 3045,
+     "events": 697,
+     "counts": {"noteOn":342,"noteOff":342,"controlChange":7,"programChange":1,"pitchBend":2,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x21":1,"0x2F":1},
+     "lastTick": 153600,
+     "quirks": {}
+    },
+    {
+     "bytes": 3043,
+     "events": 697,
+     "counts": {"noteOn":342,"noteOff":342,"controlChange":7,"programChange":1,"pitchBend":2,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x21":1,"0x2F":1},
+     "lastTick": 153600,
+     "quirks": {}
+    },
+    {
+     "bytes": 4644,
+     "events": 1251,
+     "counts": {"noteOn":560,"noteOff":560,"controlChange":125,"programChange":1,"pitchBend":2,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x21":1,"0x2F":1},
+     "lastTick": 153600,
+     "quirks": {}
+    },
+    {
+     "bytes": 4638,
+     "events": 1251,
+     "counts": {"noteOn":560,"noteOff":560,"controlChange":125,"programChange":1,"pitchBend":2,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x21":1,"0x2F":1},
+     "lastTick": 153600,
+     "quirks": {}
+    },
+    {
+     "bytes": 10653,
+     "events": 3069,
+     "counts": {"noteOn":1519,"noteOff":1519,"controlChange":25,"programChange":1,"pitchBend":2,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x21":1,"0x2F":1},
+     "lastTick": 153600,
+     "quirks": {}
+    },
+    {
+     "bytes": 10643,
+     "events": 3069,
+     "counts": {"noteOn":1519,"noteOff":1519,"controlChange":25,"programChange":1,"pitchBend":2,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x21":1,"0x2F":1},
+     "lastTick": 153600,
+     "quirks": {}
+    },
+    {
+     "bytes": 1598,
+     "events": 369,
+     "counts": {"noteOn":178,"noteOff":178,"controlChange":7,"programChange":1,"pitchBend":2,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x21":1,"0x2F":1},
+     "lastTick": 153600,
+     "quirks": {}
+    },
+    {
+     "bytes": 1596,
+     "events": 369,
+     "counts": {"noteOn":178,"noteOff":178,"controlChange":7,"programChange":1,"pitchBend":2,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x21":1,"0x2F":1},
+     "lastTick": 153600,
+     "quirks": {}
+    },
+    {
+     "bytes": 11495,
+     "events": 3152,
+     "counts": {"noteOn":1571,"noteOff":1571,"controlChange":5,"programChange":1,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x21":1,"0x2F":1},
+     "lastTick": 153600,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Chanukah Song.mid",
+   "bytes": 4341,
+   "sha256": "62354589729e4064d7184aa4b168e247410d9bfd5e88ca5d4f0d9308685cc30c",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 12536,
+   "tempoChanges": [{"tick": 56, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 12508000000,
+   "durationMicroseconds": 52116666,
+   "lastEventTick": 11576,
+   "lastEventMicroseconds": 48116666,
+   "totals": {
+    "noteOn": 579,
+    "noteOff": 579,
+    "controlChange": 0,
+    "programChange": 4,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 4319,
+     "events": 1168,
+     "counts": {"noteOn":579,"noteOff":579,"controlChange":0,"programChange":4,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 12536,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Clementine.mid",
+   "bytes": 22993,
+   "sha256": "43cec8180d4acf9a679745a4f795d980c9200e3bf682a7a9b0a3790b2e149093",
+   "format": 1,
+   "trackCountHeader": 11,
+   "trackCount": 11,
+   "division": 384,
+   "lastTick": 62976,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 600000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 37785600000,
+   "durationMicroseconds": 98400000,
+   "lastEventTick": 62304,
+   "lastEventMicroseconds": 97350000,
+   "totals": {
+    "noteOn": 2912,
+    "noteOff": 2912,
+    "controlChange": 114,
+    "programChange": 9,
+    "pitchBend": 13,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 1,
+    "meta": {"0x01":3,"0x02":2,"0x03":11,"0x21":12,"0x2F":11,"0x51":1,"0x54":1,"0x58":1,"0x59":1}
+   },
+   "tracks": [
+    {
+     "bytes": 277,
+     "events": 14,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":1},
+     "meta": {"0x01":3,"0x02":2,"0x03":1,"0x21":2,"0x2F":1,"0x51":1,"0x54":1,"0x58":1,"0x59":1},
+     "lastTick": 62976,
+     "quirks": {}
+    },
+    {
+     "bytes": 2719,
+     "events": 774,
+     "counts": {"noteOn":380,"noteOff":380,"controlChange":8,"programChange":1,"pitchBend":2,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x21":1,"0x2F":1},
+     "lastTick": 62976,
+     "quirks": {}
+    },
+    {
+     "bytes": 2721,
+     "events": 774,
+     "counts": {"noteOn":380,"noteOff":380,"controlChange":8,"programChange":1,"pitchBend":2,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x21":1,"0x2F":1},
+     "lastTick": 62976,
+     "quirks": {}
+    },
+    {
+     "bytes": 4604,
+     "events": 1254,
+     "counts": {"noteOn":607,"noteOff":607,"controlChange":34,"programChange":1,"pitchBend":2,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x21":1,"0x2F":1},
+     "lastTick": 62976,
+     "quirks": {}
+    },
+    {
+     "bytes": 4601,
+     "events": 1254,
+     "counts": {"noteOn":607,"noteOff":607,"controlChange":34,"programChange":1,"pitchBend":2,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x21":1,"0x2F":1},
+     "lastTick": 62976,
+     "quirks": {}
+    },
+    {
+     "bytes": 1595,
+     "events": 371,
+     "counts": {"noteOn":180,"noteOff":180,"controlChange":6,"programChange":1,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x21":1,"0x2F":1},
+     "lastTick": 62976,
+     "quirks": {}
+    },
+    {
+     "bytes": 1596,
+     "events": 371,
+     "counts": {"noteOn":180,"noteOff":180,"controlChange":6,"programChange":1,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x21":1,"0x2F":1},
+     "lastTick": 62976,
+     "quirks": {}
+    },
+    {
+     "bytes": 956,
+     "events": 221,
+     "counts": {"noteOn":105,"noteOff":105,"controlChange":6,"programChange":1,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x21":1,"0x2F":1},
+     "lastTick": 62976,
+     "quirks": {}
+    },
+    {
+     "bytes": 957,
+     "events": 221,
+     "counts": {"noteOn":105,"noteOff":105,"controlChange":6,"programChange":1,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x21":1,"0x2F":1},
+     "lastTick": 62976,
+     "quirks": {}
+    },
+    {
+     "bytes": 2831,
+     "events": 747,
+     "counts": {"noteOn":368,"noteOff":368,"controlChange":6,"programChange":1,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x21":1,"0x2F":1},
+     "lastTick": 62976,
+     "quirks": {}
+    },
+    {
+     "bytes": 34,
+     "events": 3,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x21":1,"0x2F":1},
+     "lastTick": 62976,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Danny Boy.mid",
+   "bytes": 8180,
+   "sha256": "2163f27a78b711789596622dd4f88f4e13996efe9253d784b15719ec4fb4c95f",
+   "format": 1,
+   "trackCountHeader": 6,
+   "trackCount": 6,
+   "division": 480,
+   "lastTick": 96000,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 833333, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 79999968000,
+   "durationMicroseconds": 166666600,
+   "lastEventTick": 96000,
+   "lastEventMicroseconds": 166666600,
+   "totals": {
+    "noteOn": 815,
+    "noteOff": 815,
+    "controlChange": 139,
+    "programChange": 5,
+    "pitchBend": 3,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x03":6,"0x04":5,"0x06":3,"0x2F":6,"0x51":1,"0x54":1,"0x58":1,"0x59":1}
+   },
+   "tracks": [
+    {
+     "bytes": 190,
+     "events": 10,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x03":1,"0x06":3,"0x2F":1,"0x51":1,"0x54":1,"0x58":1,"0x59":1},
+     "lastTick": 96000,
+     "quirks": {}
+    },
+    {
+     "bytes": 2414,
+     "events": 549,
+     "counts": {"noteOn":270,"noteOff":270,"controlChange":4,"programChange":1,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 96000,
+     "quirks": {}
+    },
+    {
+     "bytes": 684,
+     "events": 146,
+     "counts": {"noteOn":71,"noteOff":71,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 96000,
+     "quirks": {}
+    },
+    {
+     "bytes": 412,
+     "events": 88,
+     "counts": {"noteOn":42,"noteOff":42,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 96000,
+     "quirks": {}
+    },
+    {
+     "bytes": 3804,
+     "events": 873,
+     "counts": {"noteOn":366,"noteOff":366,"controlChange":135,"programChange":1,"pitchBend":2,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 96000,
+     "quirks": {}
+    },
+    {
+     "bytes": 614,
+     "events": 136,
+     "counts": {"noteOn":66,"noteOff":66,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 96000,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Deck the Halls (Reggae).mid",
+   "bytes": 3766,
+   "sha256": "216e0f28d5114b6d0477fcdfcdf480a59f318dc926c86f2f0d9f49583e0afb50",
+   "format": 1,
+   "trackCountHeader": 6,
+   "trackCount": 6,
+   "division": 480,
+   "lastTick": 34560,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 480000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 16588800000,
+   "durationMicroseconds": 34560000,
+   "lastEventTick": 34560,
+   "lastEventMicroseconds": 34560000,
+   "totals": {
+    "noteOn": 402,
+    "noteOff": 402,
+    "controlChange": 0,
+    "programChange": 3,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x03":6,"0x04":5,"0x2F":6,"0x51":1,"0x54":1,"0x58":1,"0x59":1}
+   },
+   "tracks": [
+    {
+     "bytes": 135,
+     "events": 7,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x03":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1,"0x59":1},
+     "lastTick": 34560,
+     "quirks": {}
+    },
+    {
+     "bytes": 416,
+     "events": 91,
+     "counts": {"noteOn":44,"noteOff":44,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 34560,
+     "quirks": {}
+    },
+    {
+     "bytes": 25,
+     "events": 4,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 34560,
+     "quirks": {}
+    },
+    {
+     "bytes": 1168,
+     "events": 260,
+     "counts": {"noteOn":128,"noteOff":128,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 34560,
+     "quirks": {}
+    },
+    {
+     "bytes": 885,
+     "events": 195,
+     "counts": {"noteOn":96,"noteOff":96,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 34560,
+     "quirks": {}
+    },
+    {
+     "bytes": 1075,
+     "events": 273,
+     "counts": {"noteOn":134,"noteOff":134,"controlChange":0,"programChange":1,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 34560,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Deck the Halls.mid",
+   "bytes": 4417,
+   "sha256": "8b8e68ee5f11df455cf385e73bc47c2f44e8e086fa524cd0770c794c954dd475",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 5760,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 5760000000,
+   "durationMicroseconds": 24000000,
+   "lastEventTick": 5760,
+   "lastEventMicroseconds": 24000000,
+   "totals": {
+    "noteOn": 542,
+    "noteOff": 542,
+    "controlChange": 4,
+    "programChange": 2,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 4395,
+     "events": 1095,
+     "counts": {"noteOn":542,"noteOff":542,"controlChange":4,"programChange":2,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 5760,
+     "quirks": {"noteOnVelocity0":542}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Dreidle.mid",
+   "bytes": 1507,
+   "sha256": "9423347e1a38eba4b5d9af20d04ee195be30fbf028fdb0180852e976a1d32fe3",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 7680,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 7680000000,
+   "durationMicroseconds": 32000000,
+   "lastEventTick": 7680,
+   "lastEventMicroseconds": 32000000,
+   "totals": {
+    "noteOn": 166,
+    "noteOff": 166,
+    "controlChange": 4,
+    "programChange": 2,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 1485,
+     "events": 344,
+     "counts": {"noteOn":166,"noteOff":166,"controlChange":4,"programChange":2,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 7680,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "First Noel.mid",
+   "bytes": 7581,
+   "sha256": "0ef2b5c7883dfd457d92bd3d4fbc2d04c90c82683c458586db0160598aabb682",
+   "format": 1,
+   "trackCountHeader": 6,
+   "trackCount": 6,
+   "division": 240,
+   "lastTick": 16320,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 16320000000,
+   "durationMicroseconds": 68000000,
+   "lastEventTick": 16320,
+   "lastEventMicroseconds": 68000000,
+   "totals": {
+    "noteOn": 1040,
+    "noteOff": 1040,
+    "controlChange": 8,
+    "programChange": 4,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x2F":6,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 7494,
+     "events": 2098,
+     "counts": {"noteOn":1040,"noteOff":1040,"controlChange":8,"programChange":4,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 16320,
+     "quirks": {}
+    },
+    {
+     "bytes": 5,
+     "events": 1,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x2F":1},
+     "lastTick": 16320,
+     "quirks": {}
+    },
+    {
+     "bytes": 5,
+     "events": 1,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x2F":1},
+     "lastTick": 16320,
+     "quirks": {}
+    },
+    {
+     "bytes": 5,
+     "events": 1,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x2F":1},
+     "lastTick": 16320,
+     "quirks": {}
+    },
+    {
+     "bytes": 5,
+     "events": 1,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x2F":1},
+     "lastTick": 16320,
+     "quirks": {}
+    },
+    {
+     "bytes": 5,
+     "events": 1,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x2F":1},
+     "lastTick": 16320,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "God Rest Ye Merry Gentlemen (Reggae).mid",
+   "bytes": 4370,
+   "sha256": "51177f6b315ed1584f9ac1860e4ad8a3489485996cd403bb76be5aa5c85c1a63",
+   "format": 1,
+   "trackCountHeader": 5,
+   "trackCount": 5,
+   "division": 480,
+   "lastTick": 40320,
+   "tempoChanges": [],
+   "timing": "ppqn",
+   "tickTempoSum": 20160000000,
+   "durationMicroseconds": 42000000,
+   "lastEventTick": 40320,
+   "lastEventMicroseconds": 42000000,
+   "totals": {
+    "noteOn": 471,
+    "noteOff": 471,
+    "controlChange": 0,
+    "programChange": 2,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x03":1,"0x2F":5}
+   },
+   "tracks": [
+    {
+     "bytes": 118,
+     "events": 3,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x03":1,"0x2F":1},
+     "lastTick": 40320,
+     "quirks": {}
+    },
+    {
+     "bytes": 482,
+     "events": 107,
+     "counts": {"noteOn":53,"noteOff":53,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x2F":1},
+     "lastTick": 40320,
+     "quirks": {}
+    },
+    {
+     "bytes": 1420,
+     "events": 318,
+     "counts": {"noteOn":158,"noteOff":158,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x2F":1},
+     "lastTick": 40320,
+     "quirks": {}
+    },
+    {
+     "bytes": 1067,
+     "events": 237,
+     "counts": {"noteOn":118,"noteOff":118,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x2F":1},
+     "lastTick": 40320,
+     "quirks": {}
+    },
+    {
+     "bytes": 1229,
+     "events": 287,
+     "counts": {"noteOn":142,"noteOff":142,"controlChange":0,"programChange":1,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x2F":1},
+     "lastTick": 40320,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "God Rest Ye Merry Gentlemen.mid",
+   "bytes": 2668,
+   "sha256": "26a324057bbcfddf0fc7fce62938eeb57c07a8fdb181ef88707f821ba9fbe48e",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 7680,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 7680000000,
+   "durationMicroseconds": 32000000,
+   "lastEventTick": 7680,
+   "lastEventMicroseconds": 32000000,
+   "totals": {
+    "noteOn": 313,
+    "noteOff": 313,
+    "controlChange": 0,
+    "programChange": 12,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 2646,
+     "events": 644,
+     "counts": {"noteOn":313,"noteOff":313,"controlChange":0,"programChange":12,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 7680,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Good Christian Men.mid",
+   "bytes": 2402,
+   "sha256": "dc892d41a8a4e5bae126ac057fde363366575773de077210ad53e98440ec4767",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 7680,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 7680000000,
+   "durationMicroseconds": 32000000,
+   "lastEventTick": 7680,
+   "lastEventMicroseconds": 32000000,
+   "totals": {
+    "noteOn": 278,
+    "noteOff": 278,
+    "controlChange": 0,
+    "programChange": 12,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 2380,
+     "events": 574,
+     "counts": {"noteOn":278,"noteOff":278,"controlChange":0,"programChange":12,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 7680,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Good King Wenceslaus.mid",
+   "bytes": 2118,
+   "sha256": "7f7a0c8657b74afa13c539c1e5e13777be1c167bb754032d017ba90924eb2810",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 6720,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 6720000000,
+   "durationMicroseconds": 28000000,
+   "lastEventTick": 6720,
+   "lastEventMicroseconds": 28000000,
+   "totals": {
+    "noteOn": 240,
+    "noteOff": 240,
+    "controlChange": 0,
+    "programChange": 12,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 2096,
+     "events": 498,
+     "counts": {"noteOn":240,"noteOff":240,"controlChange":0,"programChange":12,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 6720,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Greensleeves.mid",
+   "bytes": 6549,
+   "sha256": "2569271964e97c740e383a974786c0bbcc0f3414784fdb897c4d6b93bc729477",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 21120,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 21120000000,
+   "durationMicroseconds": 88000000,
+   "lastEventTick": 21120,
+   "lastEventMicroseconds": 88000000,
+   "totals": {
+    "noteOn": 831,
+    "noteOff": 831,
+    "controlChange": 0,
+    "programChange": 8,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 6527,
+     "events": 1676,
+     "counts": {"noteOn":831,"noteOff":831,"controlChange":0,"programChange":8,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 21120,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Halloween - Eerie.mid",
+   "bytes": 4951,
+   "sha256": "16fedb16e29bbc629e9c6ecf61089421e3f0bc8432ff4bf7eb8a8fc7ca66f086",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 9600,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 9600000000,
+   "durationMicroseconds": 40000000,
+   "lastEventTick": 9600,
+   "lastEventMicroseconds": 40000000,
+   "totals": {
+    "noteOn": 449,
+    "noteOff": 449,
+    "controlChange": 170,
+    "programChange": 8,
+    "pitchBend": 195,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 4929,
+     "events": 1275,
+     "counts": {"noteOn":449,"noteOff":449,"controlChange":170,"programChange":8,"pitchBend":195,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 9600,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Halloween - Funeral March.mid",
+   "bytes": 19332,
+   "sha256": "38176187624bfcb20f5af4e41b797152e4f4a2f261bcd1d13d2cb4d51d55aeda",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 54720,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 54720000000,
+   "durationMicroseconds": 228000000,
+   "lastEventTick": 54720,
+   "lastEventMicroseconds": 228000000,
+   "totals": {
+    "noteOn": 2199,
+    "noteOff": 2199,
+    "controlChange": 1128,
+    "programChange": 1,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 19310,
+     "events": 5532,
+     "counts": {"noteOn":2199,"noteOff":2199,"controlChange":1128,"programChange":1,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 54720,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Halloween - Haunted House.mid",
+   "bytes": 725,
+   "sha256": "2d887b6d5c364717c191ac7fe35660f25cb151d3835138e87524b7e0e5339e86",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 13440,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 13440000000,
+   "durationMicroseconds": 56000000,
+   "lastEventTick": 13440,
+   "lastEventMicroseconds": 56000000,
+   "totals": {
+    "noteOn": 72,
+    "noteOff": 72,
+    "controlChange": 12,
+    "programChange": 6,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 703,
+     "events": 167,
+     "counts": {"noteOn":72,"noteOff":72,"controlChange":12,"programChange":6,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 13440,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Halloween - Marionette.mid",
+   "bytes": 2606,
+   "sha256": "dac15a8fcd7bb34cd5437540657d1cac5104bfb0f27c4f43e071fd6e80d484a4",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 4800,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 4800000000,
+   "durationMicroseconds": 20000000,
+   "lastEventTick": 4800,
+   "lastEventMicroseconds": 20000000,
+   "totals": {
+    "noteOn": 328,
+    "noteOff": 328,
+    "controlChange": 5,
+    "programChange": 9,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 2584,
+     "events": 675,
+     "counts": {"noteOn":328,"noteOff":328,"controlChange":5,"programChange":9,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 4800,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Halloween - Scary.mid",
+   "bytes": 19783,
+   "sha256": "f341d6214c07fa1237f7a0ef58b5e3953121f7140e6f9eb7ff78aff326bdfa8f",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 20160,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 20160000000,
+   "durationMicroseconds": 84000000,
+   "lastEventTick": 20160,
+   "lastEventMicroseconds": 84000000,
+   "totals": {
+    "noteOn": 2042,
+    "noteOff": 2042,
+    "controlChange": 708,
+    "programChange": 14,
+    "pitchBend": 792,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 19761,
+     "events": 5602,
+     "counts": {"noteOn":2042,"noteOff":2042,"controlChange":708,"programChange":14,"pitchBend":792,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 20160,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Hark the Herald Angels Sing.mid",
+   "bytes": 2989,
+   "sha256": "20b6f0467a1032271dc7ddf2be996fd9f7d9f56c79b429933824c6db273cd062",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 12480,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 12480000000,
+   "durationMicroseconds": 52000000,
+   "lastEventTick": 12480,
+   "lastEventMicroseconds": 52000000,
+   "totals": {
+    "noteOn": 348,
+    "noteOff": 348,
+    "controlChange": 0,
+    "programChange": 12,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 2967,
+     "events": 714,
+     "counts": {"noteOn":348,"noteOff":348,"controlChange":0,"programChange":12,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 12480,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Hava Nagilah.mid",
+   "bytes": 8483,
+   "sha256": "8053f2725e3eb25e4bdd81fd224b4358f0457bf22ee8afd0e7b9413799c741b2",
+   "format": 1,
+   "trackCountHeader": 8,
+   "trackCount": 8,
+   "division": 480,
+   "lastTick": 49920,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 480000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 23961600000,
+   "durationMicroseconds": 49920000,
+   "lastEventTick": 49920,
+   "lastEventMicroseconds": 49920000,
+   "totals": {
+    "noteOn": 971,
+    "noteOff": 971,
+    "controlChange": 0,
+    "programChange": 6,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x03":8,"0x04":7,"0x2F":8,"0x51":1,"0x54":1,"0x58":1,"0x59":1}
+   },
+   "tracks": [
+    {
+     "bytes": 128,
+     "events": 8,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":0,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x03":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1,"0x59":1},
+     "lastTick": 49920,
+     "quirks": {}
+    },
+    {
+     "bytes": 632,
+     "events": 139,
+     "counts": {"noteOn":68,"noteOff":68,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 49920,
+     "quirks": {}
+    },
+    {
+     "bytes": 1033,
+     "events": 224,
+     "counts": {"noteOn":110,"noteOff":110,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 49920,
+     "quirks": {}
+    },
+    {
+     "bytes": 1805,
+     "events": 403,
+     "counts": {"noteOn":199,"noteOff":199,"controlChange":0,"programChange":2,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 49920,
+     "quirks": {}
+    },
+    {
+     "bytes": 1361,
+     "events": 301,
+     "counts": {"noteOn":149,"noteOff":149,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 49920,
+     "quirks": {}
+    },
+    {
+     "bytes": 1326,
+     "events": 306,
+     "counts": {"noteOn":151,"noteOff":151,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 49920,
+     "quirks": {}
+    },
+    {
+     "bytes": 2092,
+     "events": 592,
+     "counts": {"noteOn":294,"noteOff":294,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 49920,
+     "quirks": {}
+    },
+    {
+     "bytes": 28,
+     "events": 4,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 49920,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Here We Come A-Caroling.mid",
+   "bytes": 2496,
+   "sha256": "07c56e8e88264324adc52abe0dcf99ddeae7e497f0d1c7419e9352c35786a936",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 7680,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 7680000000,
+   "durationMicroseconds": 32000000,
+   "lastEventTick": 7680,
+   "lastEventMicroseconds": 32000000,
+   "totals": {
+    "noteOn": 290,
+    "noteOff": 290,
+    "controlChange": 0,
+    "programChange": 12,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 2474,
+     "events": 598,
+     "counts": {"noteOn":290,"noteOff":290,"controlChange":0,"programChange":12,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 7680,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "In a Manger.mid",
+   "bytes": 2341,
+   "sha256": "1ae87bc14d8d25674a07511e2214b637a111fb2b39830d158c24e06d6330524f",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 8640,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 8640000000,
+   "durationMicroseconds": 36000000,
+   "lastEventTick": 8640,
+   "lastEventMicroseconds": 36000000,
+   "totals": {
+    "noteOn": 269,
+    "noteOff": 269,
+    "controlChange": 0,
+    "programChange": 12,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 2319,
+     "events": 556,
+     "counts": {"noteOn":269,"noteOff":269,"controlChange":0,"programChange":12,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 8640,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "It Came Upon A Midnight.mid",
+   "bytes": 2324,
+   "sha256": "94cf3b90107d76060da71740021c101a2f6505d7d72c73a263fcfc403fe41dca",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 11520,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 11520000000,
+   "durationMicroseconds": 48000000,
+   "lastEventTick": 11520,
+   "lastEventMicroseconds": 48000000,
+   "totals": {
+    "noteOn": 266,
+    "noteOff": 266,
+    "controlChange": 0,
+    "programChange": 12,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 2302,
+     "events": 550,
+     "counts": {"noteOn":266,"noteOff":266,"controlChange":0,"programChange":12,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 11520,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Jingle Bells (Reggae).mid",
+   "bytes": 4616,
+   "sha256": "1cef4fdba6b6db2eeab427c0e91c37143487cf35e2e6c49375940b39863f683a",
+   "format": 1,
+   "trackCountHeader": 8,
+   "trackCount": 8,
+   "division": 480,
+   "lastTick": 32640,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 480000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 15667200000,
+   "durationMicroseconds": 32640000,
+   "lastEventTick": 32640,
+   "lastEventMicroseconds": 32640000,
+   "totals": {
+    "noteOn": 493,
+    "noteOff": 493,
+    "controlChange": 0,
+    "programChange": 5,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x03":8,"0x04":7,"0x2F":8,"0x51":1,"0x54":1,"0x58":1,"0x59":1}
+   },
+   "tracks": [
+    {
+     "bytes": 128,
+     "events": 8,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":0,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x03":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1,"0x59":1},
+     "lastTick": 32640,
+     "quirks": {}
+    },
+    {
+     "bytes": 416,
+     "events": 91,
+     "counts": {"noteOn":44,"noteOff":44,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 32640,
+     "quirks": {}
+    },
+    {
+     "bytes": 608,
+     "events": 132,
+     "counts": {"noteOn":64,"noteOff":64,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 32640,
+     "quirks": {}
+    },
+    {
+     "bytes": 1159,
+     "events": 258,
+     "counts": {"noteOn":127,"noteOff":127,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 32640,
+     "quirks": {}
+    },
+    {
+     "bytes": 875,
+     "events": 193,
+     "counts": {"noteOn":95,"noteOff":95,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 32640,
+     "quirks": {}
+    },
+    {
+     "bytes": 1288,
+     "events": 330,
+     "counts": {"noteOn":163,"noteOff":163,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 32640,
+     "quirks": {}
+    },
+    {
+     "bytes": 36,
+     "events": 4,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 32640,
+     "quirks": {}
+    },
+    {
+     "bytes": 28,
+     "events": 4,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 32640,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Jingle Bells.mid",
+   "bytes": 3879,
+   "sha256": "4c1b490c5310805a2b8f9f1e7bc2dc7d035626a3d5f5b893c4ea8ebc900e5257",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 10560,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 10560000000,
+   "durationMicroseconds": 44000000,
+   "lastEventTick": 10560,
+   "lastEventMicroseconds": 44000000,
+   "totals": {
+    "noteOn": 463,
+    "noteOff": 463,
+    "controlChange": 0,
+    "programChange": 10,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 3857,
+     "events": 942,
+     "counts": {"noteOn":463,"noteOff":463,"controlChange":0,"programChange":10,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 10560,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Jolly Old St. Nick.mid",
+   "bytes": 2148,
+   "sha256": "5b4448039d7dadaccf93c86ad76af36db22db98a6a7883e7e61ce9aefa9ff59d",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 6720,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 6720000000,
+   "durationMicroseconds": 28000000,
+   "lastEventTick": 6720,
+   "lastEventMicroseconds": 28000000,
+   "totals": {
+    "noteOn": 245,
+    "noteOff": 245,
+    "controlChange": 0,
+    "programChange": 12,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 2126,
+     "events": 508,
+     "counts": {"noteOn":245,"noteOff":245,"controlChange":0,"programChange":12,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 6720,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Joy of Man's Desire (Reggae).mid",
+   "bytes": 5128,
+   "sha256": "53cabb0b1b13463e3b9f22e2f83f77b6ad6de6fac3b2a3996788a6f24b46f1d9",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 17280,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 17280000000,
+   "durationMicroseconds": 72000000,
+   "lastEventTick": 17280,
+   "lastEventMicroseconds": 72000000,
+   "totals": {
+    "noteOn": 628,
+    "noteOff": 628,
+    "controlChange": 0,
+    "programChange": 4,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 5106,
+     "events": 1266,
+     "counts": {"noteOn":628,"noteOff":628,"controlChange":0,"programChange":4,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 17280,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Joy of Man's Desire.mid",
+   "bytes": 5132,
+   "sha256": "6059ec9c0c868f0e13eafbad3d388768d8213790f26fb7bbb723dc9f56d1247b",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 17280,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 17280000000,
+   "durationMicroseconds": 72000000,
+   "lastEventTick": 17280,
+   "lastEventMicroseconds": 72000000,
+   "totals": {
+    "noteOn": 628,
+    "noteOff": 628,
+    "controlChange": 0,
+    "programChange": 6,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 5110,
+     "events": 1268,
+     "counts": {"noteOn":628,"noteOff":628,"controlChange":0,"programChange":6,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 17280,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Joy to the World.mid",
+   "bytes": 2029,
+   "sha256": "7fe8c1e756b5eb8e7dbac4bc93091d189763c993ce6edd3f04561ea65e1e971a",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 8640,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 8640000000,
+   "durationMicroseconds": 36000000,
+   "lastEventTick": 8640,
+   "lastEventMicroseconds": 36000000,
+   "totals": {
+    "noteOn": 231,
+    "noteOff": 231,
+    "controlChange": 0,
+    "programChange": 12,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 2007,
+     "events": 480,
+     "counts": {"noteOn":231,"noteOff":231,"controlChange":0,"programChange":12,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 8640,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "O Christmas Tree (Swing).mid",
+   "bytes": 4710,
+   "sha256": "232b0515e71915620f3bdd5a38c4116b816498c00073a19350b796e9cadaa8db",
+   "format": 1,
+   "trackCountHeader": 4,
+   "trackCount": 4,
+   "division": 480,
+   "lastTick": 38400,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 500000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 19200000000,
+   "durationMicroseconds": 40000000,
+   "lastEventTick": 38400,
+   "lastEventMicroseconds": 40000000,
+   "totals": {
+    "noteOn": 598,
+    "noteOff": 598,
+    "controlChange": 0,
+    "programChange": 2,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x03":4,"0x04":3,"0x2F":4,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 126,
+     "events": 6,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x03":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 38400,
+     "quirks": {}
+    },
+    {
+     "bytes": 2714,
+     "events": 795,
+     "counts": {"noteOn":395,"noteOff":395,"controlChange":0,"programChange":1,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 38400,
+     "quirks": {}
+    },
+    {
+     "bytes": 1018,
+     "events": 233,
+     "counts": {"noteOn":115,"noteOff":115,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 38400,
+     "quirks": {}
+    },
+    {
+     "bytes": 806,
+     "events": 180,
+     "counts": {"noteOn":88,"noteOff":88,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 38400,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "O Christmas Tree.mid",
+   "bytes": 2377,
+   "sha256": "33fca0680fc734bce1bf72be61f3d9721531e5b3f1b26799a02632cc4f91a76f",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 9600,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 9600000000,
+   "durationMicroseconds": 40000000,
+   "lastEventTick": 9600,
+   "lastEventMicroseconds": 40000000,
+   "totals": {
+    "noteOn": 273,
+    "noteOff": 273,
+    "controlChange": 0,
+    "programChange": 12,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 2355,
+     "events": 564,
+     "counts": {"noteOn":273,"noteOff":273,"controlChange":0,"programChange":12,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 9600,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "O Come, All Ye Faithful.mid",
+   "bytes": 2010,
+   "sha256": "087cb53934b75a865c609f779dbf4a6f5abe4f2494101ceb0c8d86eae3144e76",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 10560,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 10560000000,
+   "durationMicroseconds": 44000000,
+   "lastEventTick": 10560,
+   "lastEventMicroseconds": 44000000,
+   "totals": {
+    "noteOn": 228,
+    "noteOff": 228,
+    "controlChange": 0,
+    "programChange": 10,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 1988,
+     "events": 472,
+     "counts": {"noteOn":228,"noteOff":228,"controlChange":0,"programChange":10,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 10560,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "O Little Town of Bethlehem.mid",
+   "bytes": 2196,
+   "sha256": "0e333ce2b7285d827ba4ffe7d59821bb69c8e9a18bb39ad0268fd1d034c31adc",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 10560,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 10560000000,
+   "durationMicroseconds": 44000000,
+   "lastEventTick": 10560,
+   "lastEventMicroseconds": 44000000,
+   "totals": {
+    "noteOn": 252,
+    "noteOff": 252,
+    "controlChange": 0,
+    "programChange": 10,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 2174,
+     "events": 520,
+     "counts": {"noteOn":252,"noteOff":252,"controlChange":0,"programChange":10,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 10560,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Silent Night.mid",
+   "bytes": 1752,
+   "sha256": "c7fde08a2b91da3945f1f414b82989e38defcbf0d2646642cd261037f09ea127",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 14400,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 14400000000,
+   "durationMicroseconds": 60000000,
+   "lastEventTick": 14400,
+   "lastEventMicroseconds": 60000000,
+   "totals": {
+    "noteOn": 194,
+    "noteOff": 194,
+    "controlChange": 0,
+    "programChange": 10,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 1730,
+     "events": 404,
+     "counts": {"noteOn":194,"noteOff":194,"controlChange":0,"programChange":10,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 14400,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Star Spangled Banner.mid",
+   "bytes": 14365,
+   "sha256": "4d828938f369684ee4cbda6d428b6e840ee4b7e99becca3a68a678b44c6c80f8",
+   "format": 1,
+   "trackCountHeader": 10,
+   "trackCount": 10,
+   "division": 480,
+   "lastTick": 49920,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 600000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 29952000000,
+   "durationMicroseconds": 62400000,
+   "lastEventTick": 49920,
+   "lastEventMicroseconds": 62400000,
+   "totals": {
+    "noteOn": 1726,
+    "noteOff": 1726,
+    "controlChange": 0,
+    "programChange": 9,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x03":10,"0x04":9,"0x2F":10,"0x51":1,"0x54":1,"0x58":5}
+   },
+   "tracks": [
+    {
+     "bytes": 78,
+     "events": 9,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":5},
+     "lastTick": 49920,
+     "quirks": {}
+    },
+    {
+     "bytes": 1791,
+     "events": 486,
+     "counts": {"noteOn":241,"noteOff":241,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 49920,
+     "quirks": {}
+    },
+    {
+     "bytes": 251,
+     "events": 50,
+     "counts": {"noteOn":23,"noteOff":23,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 49920,
+     "quirks": {}
+    },
+    {
+     "bytes": 788,
+     "events": 172,
+     "counts": {"noteOn":84,"noteOff":84,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 49920,
+     "quirks": {}
+    },
+    {
+     "bytes": 760,
+     "events": 160,
+     "counts": {"noteOn":78,"noteOff":78,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 49920,
+     "quirks": {}
+    },
+    {
+     "bytes": 3718,
+     "events": 936,
+     "counts": {"noteOn":466,"noteOff":466,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 49920,
+     "quirks": {}
+    },
+    {
+     "bytes": 3376,
+     "events": 835,
+     "counts": {"noteOn":415,"noteOff":415,"controlChange":0,"programChange":1,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 49920,
+     "quirks": {}
+    },
+    {
+     "bytes": 1791,
+     "events": 486,
+     "counts": {"noteOn":241,"noteOff":241,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 49920,
+     "quirks": {}
+    },
+    {
+     "bytes": 747,
+     "events": 158,
+     "counts": {"noteOn":77,"noteOff":77,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 49920,
+     "quirks": {}
+    },
+    {
+     "bytes": 971,
+     "events": 206,
+     "counts": {"noteOn":101,"noteOff":101,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 49920,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Twelve Days of Christmas.mid",
+   "bytes": 9925,
+   "sha256": "4c359cf833433d094b6fef7f3edf8c91f85b503259ae5d4d34759c0ad2850bc0",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 48000,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 48000000000,
+   "durationMicroseconds": 200000000,
+   "lastEventTick": 48000,
+   "lastEventMicroseconds": 200000000,
+   "totals": {
+    "noteOn": 1231,
+    "noteOff": 1231,
+    "controlChange": 0,
+    "programChange": 4,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 9903,
+     "events": 2471,
+     "counts": {"noteOn":1231,"noteOff":1231,"controlChange":0,"programChange":4,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 48000,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "We Three Kings.mid",
+   "bytes": 2396,
+   "sha256": "31a9033d5210dc109ea1020974f01632cca4587b9d7f4f799405c10644de42ac",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 11520,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 11520000000,
+   "durationMicroseconds": 48000000,
+   "lastEventTick": 11520,
+   "lastEventMicroseconds": 48000000,
+   "totals": {
+    "noteOn": 274,
+    "noteOff": 274,
+    "controlChange": 0,
+    "programChange": 12,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 2374,
+     "events": 566,
+     "counts": {"noteOn":274,"noteOff":274,"controlChange":0,"programChange":12,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 11520,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "We Wish You a Merry Christmas (Reggae).mid",
+   "bytes": 6610,
+   "sha256": "072a8ce8b44b097d82b78f2adf3e1ec9dde7513e757c4155576deac2ee658841",
+   "format": 1,
+   "trackCountHeader": 8,
+   "trackCount": 8,
+   "division": 480,
+   "lastTick": 51840,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 480000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 24883200000,
+   "durationMicroseconds": 51840000,
+   "lastEventTick": 51840,
+   "lastEventMicroseconds": 51840000,
+   "totals": {
+    "noteOn": 689,
+    "noteOff": 689,
+    "controlChange": 0,
+    "programChange": 6,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x03":8,"0x04":7,"0x2F":8,"0x51":1,"0x54":1,"0x58":1,"0x59":1}
+   },
+   "tracks": [
+    {
+     "bytes": 150,
+     "events": 7,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x03":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1,"0x59":1},
+     "lastTick": 51840,
+     "quirks": {}
+    },
+    {
+     "bytes": 641,
+     "events": 141,
+     "counts": {"noteOn":69,"noteOff":69,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 51840,
+     "quirks": {}
+    },
+    {
+     "bytes": 24,
+     "events": 4,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 51840,
+     "quirks": {}
+    },
+    {
+     "bytes": 1858,
+     "events": 415,
+     "counts": {"noteOn":205,"noteOff":205,"controlChange":0,"programChange":2,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 51840,
+     "quirks": {}
+    },
+    {
+     "bytes": 1406,
+     "events": 311,
+     "counts": {"noteOn":154,"noteOff":154,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 51840,
+     "quirks": {}
+    },
+    {
+     "bytes": 858,
+     "events": 184,
+     "counts": {"noteOn":90,"noteOff":90,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 51840,
+     "quirks": {}
+    },
+    {
+     "bytes": 921,
+     "events": 207,
+     "counts": {"noteOn":101,"noteOff":101,"controlChange":0,"programChange":1,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 51840,
+     "quirks": {}
+    },
+    {
+     "bytes": 674,
+     "events": 144,
+     "counts": {"noteOn":70,"noteOff":70,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 51840,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "We Wish You a Merry Christmas.mid",
+   "bytes": 2216,
+   "sha256": "fbe8d32cd22a953924c67f5e2a70de0d63a1f2dd1e7cd2df73bbe43ff0ef7bf5",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 5760,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 5760000000,
+   "durationMicroseconds": 24000000,
+   "lastEventTick": 5760,
+   "lastEventMicroseconds": 24000000,
+   "totals": {
+    "noteOn": 254,
+    "noteOff": 254,
+    "controlChange": 0,
+    "programChange": 11,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 2194,
+     "events": 525,
+     "counts": {"noteOn":254,"noteOff":254,"controlChange":0,"programChange":11,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 5760,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "What Child Is This.mid",
+   "bytes": 2401,
+   "sha256": "d636a8ca462c33f7a1ddd296b5a6fe1a107002bcb95a4b5a45cda0fe89400fb4",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 240,
+   "lastTick": 13440,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 1000000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 13440000000,
+   "durationMicroseconds": 56000000,
+   "lastEventTick": 13440,
+   "lastEventMicroseconds": 56000000,
+   "totals": {
+    "noteOn": 274,
+    "noteOff": 274,
+    "controlChange": 0,
+    "programChange": 12,
+    "pitchBend": 1,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1}
+   },
+   "tracks": [
+    {
+     "bytes": 2379,
+     "events": 566,
+     "counts": {"noteOn":274,"noteOff":274,"controlChange":0,"programChange":12,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1},
+     "lastTick": 13440,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "Yankee Doodle Dandy.mid",
+   "bytes": 24963,
+   "sha256": "d9df6d1742e77ca0a2e73683763a108b4701a8139dc928de1dbb28e8723fdad8",
+   "format": 1,
+   "trackCountHeader": 7,
+   "trackCount": 7,
+   "division": 480,
+   "lastTick": 86400,
+   "tempoChanges": [{"tick": 0, "usPerQuarter": 600000, "track": 0}],
+   "timing": "ppqn",
+   "tickTempoSum": 51840000000,
+   "durationMicroseconds": 108000000,
+   "lastEventTick": 86400,
+   "lastEventMicroseconds": 108000000,
+   "totals": {
+    "noteOn": 3461,
+    "noteOff": 3461,
+    "controlChange": 24,
+    "programChange": 6,
+    "pitchBend": 3,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x02":1,"0x03":6,"0x04":6,"0x06":1,"0x2F":7,"0x51":1,"0x54":1,"0x58":1,"0x59":1}
+   },
+   "tracks": [
+    {
+     "bytes": 197,
+     "events": 8,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x02":1,"0x03":1,"0x06":1,"0x2F":1,"0x51":1,"0x54":1,"0x58":1,"0x59":1},
+     "lastTick": 86400,
+     "quirks": {}
+    },
+    {
+     "bytes": 28,
+     "events": 3,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":0,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x04":1,"0x2F":1},
+     "lastTick": 86400,
+     "quirks": {}
+    },
+    {
+     "bytes": 6426,
+     "events": 1861,
+     "counts": {"noteOn":926,"noteOff":926,"controlChange":5,"programChange":0,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 86400,
+     "quirks": {}
+    },
+    {
+     "bytes": 6434,
+     "events": 1862,
+     "counts": {"noteOn":926,"noteOff":926,"controlChange":5,"programChange":1,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 86400,
+     "quirks": {}
+    },
+    {
+     "bytes": 3323,
+     "events": 903,
+     "counts": {"noteOn":448,"noteOff":448,"controlChange":3,"programChange":1,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 86400,
+     "quirks": {}
+    },
+    {
+     "bytes": 2014,
+     "events": 486,
+     "counts": {"noteOn":238,"noteOff":238,"controlChange":5,"programChange":2,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 86400,
+     "quirks": {}
+    },
+    {
+     "bytes": 6471,
+     "events": 1857,
+     "counts": {"noteOn":923,"noteOff":923,"controlChange":6,"programChange":1,"pitchBend":1,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x03":1,"0x04":1,"0x2F":1},
+     "lastTick": 86400,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  },
+  {
+   "file": "reset.mid",
+   "bytes": 91,
+   "sha256": "2c20a0fdf350a0f72ad372a7b6ec6fca814e612d1a5b822f9e3bc781d0256493",
+   "format": 0,
+   "trackCountHeader": 1,
+   "trackCount": 1,
+   "division": 480,
+   "lastTick": 1920,
+   "tempoChanges": [],
+   "timing": "ppqn",
+   "tickTempoSum": 960000000,
+   "durationMicroseconds": 2000000,
+   "lastEventTick": 0,
+   "lastEventMicroseconds": 0,
+   "totals": {
+    "noteOn": 0,
+    "noteOff": 0,
+    "controlChange": 16,
+    "programChange": 0,
+    "pitchBend": 0,
+    "polyPressure": 0,
+    "channelPressure": 0,
+    "sysex": 0,
+    "meta": {"0x2F":1}
+   },
+   "tracks": [
+    {
+     "bytes": 69,
+     "events": 17,
+     "counts": {"noteOn":0,"noteOff":0,"controlChange":16,"programChange":0,"pitchBend":0,"polyPressure":0,"channelPressure":0,"sysex":0},
+     "meta": {"0x2F":1},
+     "lastTick": 1920,
+     "quirks": {}
+    }
+   ],
+   "anomalies": []
+  }
+ ]
+}

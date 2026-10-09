@@ -1,0 +1,80 @@
+{
+  "schema": "holidaylights.theme/1",
+  "name": "Bubble Lights",
+  "shipped": "new",
+  "arrangement": {
+    "top": [
+      "addon:MulticolorBubbleLights"
+    ],
+    "right": [
+      "addon:MulticolorBubbleLights"
+    ],
+    "bottom": [
+      "addon:MulticolorBubbleLights"
+    ],
+    "left": [
+      "addon:MulticolorBubbleLights"
+    ],
+    "topLeft": "builtin:shiny-baubles",
+    "topRight": "builtin:shiny-baubles",
+    "bottomLeft": "builtin:shiny-baubles",
+    "bottomRight": "builtin:shiny-baubles"
+  },
+  "flash": {
+    "pattern": "flashTogether",
+    "interval": 4
+  },
+  "music": {
+    "enabledSongs": [
+      "bundled:A Very Merry Christmas.mid",
+      "bundled:Almost Time for Christmas.mid",
+      "bundled:Angels We Have Heard On High.mid",
+      "bundled:Deck the Halls (Reggae).mid",
+      "bundled:Deck the Halls.mid",
+      "bundled:First Noel.mid",
+      "bundled:God Rest Ye Merry Gentlemen (Reggae).mid",
+      "bundled:God Rest Ye Merry Gentlemen.mid",
+      "bundled:Good Christian Men.mid",
+      "bundled:Good King Wenceslaus.mid",
+      "bundled:Greensleeves.mid",
+      "bundled:Hark the Herald Angels Sing.mid",
+      "bundled:Here We Come A-Caroling.mid",
+      "bundled:In a Manger.mid",
+      "bundled:It Came Upon A Midnight.mid",
+      "bundled:Jingle Bells (Reggae).mid",
+      "bundled:Jingle Bells.mid",
+      "bundled:Jolly Old St. Nick.mid",
+      "bundled:Joy of Man's Desire (Reggae).mid",
+      "bundled:Joy of Man's Desire.mid",
+      "bundled:Joy to the World.mid",
+      "bundled:O Christmas Tree (Swing).mid",
+      "bundled:O Christmas Tree.mid",
+      "bundled:O Come, All Ye Faithful.mid",
+      "bundled:O Little Town of Bethlehem.mid",
+      "bundled:Silent Night.mid",
+      "bundled:Twelve Days of Christmas.mid",
+      "bundled:We Three Kings.mid",
+      "bundled:We Wish You a Merry Christmas (Reggae).mid",
+      "bundled:We Wish You a Merry Christmas.mid",
+      "bundled:What Child Is This.mid"
+    ],
+    "mode": "always"
+  },
+  "saver": {
+    "animation": "Baubles",
+    "style": "bounceOffSides",
+    "message": "Happy Holidays!",
+    "font": {
+      "family": "Georgia",
+      "sizePt": 42,
+      "bold": true,
+      "italic": false,
+      "underline": false,
+      "strikeout": false
+    },
+    "color": "#F4B942",
+    "background": "#000000",
+    "picture": "bundled:Snowman.BMP",
+    "placement": "center"
+  }
+}

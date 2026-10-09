@@ -1,0 +1,157 @@
+<!--
+  Descriptions and tooltips of the Settings window and its dialogs (owner: branding-docs).
+
+  Sources: PRODUCT-SPEC Appendix A (the 57 "What's This?" popups of Holiday Lights 5.4, updated) word for word, the tooltips
+  that PRODUCT-SPEC sections 2.3 and 3.x give for single controls, and (marked "6.0") short tooltips in the house voice
+  (PRODUCT-SPEC 4.8) for controls that had no popup in 5.4. Each text serves as the visible description under a control
+  or, where space is short, as its tooltip after 500 ms (PRODUCT-SPEC 3.0.4).
+
+  Keys: HL.Tip.<Area>.<Control>. Use them with {DynamicResource}. Texts ending in a format item ({0}) are format strings.
+  This dictionary is merged by Illustrations.xaml, which App.xaml merges, so the keys are available everywhere.
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+    <!-- Bulb Factory: the list and the eight boxes (5.4 popups 100-108). -->
+    <sys:String x:Key="HL.Tip.BulbFactory.BulbList">Shows the bulbs you can use. Double-click a bulb to use it, or drag it into the boxes around your screen. Right-click a bulb to edit it, see its credits, or remove a bulb you've added. (Bulbs that came with Holiday Lights 5.4 can't be removed.)</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.TopLeftCorner">Represents the top-left corner of your screen. Drag a bulb here, or select this box and double-click a bulb.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.TopRightCorner">Represents the top-right corner of your screen. Drag a bulb here, or select this box and double-click a bulb.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.BottomLeftCorner">Represents the bottom-left corner of your screen. Drag a bulb here, or select this box and double-click a bulb.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.BottomRightCorner">Represents the bottom-right corner of your screen. Drag a bulb here, or select this box and double-click a bulb.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.TopEdge">Represents the top edge of your screen. Up to six kinds of bulbs repeat along the edge in this order.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.RightEdge">Represents the right edge of your screen. Up to six kinds of bulbs repeat along the edge in this order.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.BottomEdge">Represents the bottom edge of your screen. Up to six kinds of bulbs repeat along the edge in this order.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.LeftEdge">Represents the left edge of your screen. Up to six kinds of bulbs repeat along the edge in this order.</sys:String>
+
+    <!-- Bulb Factory: targets, header actions and bulb commands (Appendix A, 3.2.3-3.2.7). -->
+    <sys:String x:Key="HL.Tip.BulbFactory.WholeFrame">Double-clicking a bulb puts it on every edge and in every corner.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.AllEdges">Double-clicking a bulb puts it on all four edges; the corners stay.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.AllCorners">Double-clicking a bulb puts it in all four corners; the edges stay.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.Peek">Hide this window for a moment so you can see your desktop. Hold to keep it hidden.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.ClearAllBulbs">Takes every bulb off the screen. You can undo it.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.AddBulb">Adds a bulb file (.bul) to the list, or turns an animated GIF picture into a new bulb.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.EditBulb">If you made the bulb yourself, you can edit its name, description, pictures and more. If someone else made it, you can edit its categories.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.BulbCredits">Shows who made this bulb and its copyright.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.UseEverywhere">Replaces every edge and corner with this bulb. You can undo it.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.EdgeFull">This edge already has 6 bulb types. Remove one first.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.EdgeFullDrop">This edge already has 6 bulb types. Drop onto a bulb to replace it.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.BigBulb">Big bulbs make a thick border.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.MissingBulb">This bulb's file is missing ({0}).</sys:String>
+
+    <!-- Bulb Factory: list toolbar and selected-bulb bar (6.0). -->
+    <sys:String x:Key="HL.Tip.BulbFactory.Show">Shows all bulbs, your favorites, the bulbs on your screen, the bulbs for a holiday or a single category.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.Sort">Changes the order of the bulbs. Original Order lists the 49 bulbs of Holiday Lights 5.4 first.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.View">Tiles show each bulb as it looks on your screen. Details adds its description, like the 2003 list.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.More">Opens your My Bulbs folder, imports every bulb file in a folder, or shows removed or damaged bulbs.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.Favorite">Adds this bulb to your favorites, or removes it from them.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.UseFor">Uses this bulb for the place named above the bulb list. Double-clicking the bulb does the same.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.AddTo">Adds this bulb to an edge or puts it in a corner of your choice.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbFactory.Display">Chooses which display the preview shows.</sys:String>
+
+    <!-- Flash Settings and Bulb Drawing, on Bulb Factory and Home (5.4 popups 112, 113, 119, 120). -->
+    <sys:String x:Key="HL.Tip.FlashSettings.Pattern">Changes the pattern in which the bulbs flash.</sys:String>
+    <sys:String x:Key="HL.Tip.FlashSettings.Speed">Changes the speed at which the bulbs flash. Slower speeds use less of your computer's power.</sys:String>
+    <sys:String x:Key="HL.Tip.FlashSettings.SmoothFading">Light bulbs fade on and off like real bulbs instead of switching instantly.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbDrawing.OnDesktop">Shows the bulbs on your desktop, below all your windows, so they never get in your way.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbDrawing.BehindIcons">Your desktop icons stay in front of the bulbs and keep working. Uncheck it to draw the bulbs in front of the icons, still behind every window.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbDrawing.OnTop">Shows the bulbs above all windows so they're always visible. Clicks go through them, and they hide while a full-screen app is open.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbDrawing.MoreDisplaySettings">Opens General, where you choose displays, bulb size and how the bulbs look.</sys:String>
+
+    <!-- Themes (Appendix A, 3.6). -->
+    <sys:String x:Key="HL.Tip.Themes.LoadTheme">Replaces your bulb, music and screen saver settings with a saved theme.</sys:String>
+    <sys:String x:Key="HL.Tip.Themes.SaveTheme">Saves your current bulb, music and screen saver settings as a theme.</sys:String>
+    <sys:String x:Key="HL.Tip.Themes.Automatic">On a holiday, its theme replaces your bulb, music and screen saver settings. Your previous settings are kept in Recent Settings.</sys:String>
+    <sys:String x:Key="HL.Tip.Themes.EditHolidays">Chooses which holidays change your lights, their dates and the theme each one uses.</sys:String>
+    <sys:String x:Key="HL.Tip.Themes.TellMe">Shows a notification each time Automatic themes change your lights.</sys:String>
+    <sys:String x:Key="HL.Tip.Themes.RestoreBuiltIn">Brings back the themes that came with Holiday Lights, exactly as they were.</sys:String>
+    <sys:String x:Key="HL.Tip.Themes.RecentSettings">Holiday Lights keeps your settings from before the last 5 theme changes.</sys:String>
+
+    <!-- Bulb size, Look and displays, on Home and General (Appendix A, 3.7). -->
+    <sys:String x:Key="HL.Tip.Look.BulbSize">How big the bulbs are, compared with everything else on each display.</sys:String>
+    <sys:String x:Key="HL.Tip.Look.Look">Modern Glow: smooth pixels, a soft glow and fading. Bright Glow: a stronger glow. Classic 2003: exactly like Holiday Lights 5.4.</sys:String>
+    <sys:String x:Key="HL.Tip.Look.Pixels">Smooth keeps the hand-drawn look at any size. Crisp shows square pixels, like 2003.</sys:String>
+    <sys:String x:Key="HL.Tip.Look.Glow">Lit bulbs give off a soft light that brightens the wallpaper around them.</sys:String>
+    <sys:String x:Key="HL.Tip.Displays.ShowOn">Choose which displays get lights.</sys:String>
+    <sys:String x:Key="HL.Tip.Displays.Identify">Shows each display's number on the display.</sys:String>
+    <sys:String x:Key="HL.Tip.Displays.MainDisplayOnly">Turns off the lights on every display except the main one, like Holiday Lights 2003.</sys:String>
+    <sys:String x:Key="HL.Tip.Displays.Frame">Each Display frames every display on its own. All Displays Together puts one frame around your whole desktop.</sys:String>
+
+    <!-- Music Box (5.4 popups 200-208, Appendix A, 3.4). -->
+    <sys:String x:Key="HL.Tip.Music.PlayHolidayMusic">Turns all music on or off. Themes can't turn music on while this is off.</sys:String>
+    <sys:String x:Key="HL.Tip.Music.SongCheckBox">Controls whether Holiday Lights ever picks this song when randomly picking music.</sys:String>
+    <sys:String x:Key="HL.Tip.Music.PlayButton">Plays this song now.</sys:String>
+    <sys:String x:Key="HL.Tip.Music.AddSong">Adds songs to the list. The files are copied to your My Music folder so they're always available.</sys:String>
+    <sys:String x:Key="HL.Tip.Music.Never">Prevents Holiday Lights from playing music at any time.</sys:String>
+    <sys:String x:Key="HL.Tip.Music.OnlyWhenSaverOn">Plays music only when the Holiday Lights screen saver is showing.</sys:String>
+    <sys:String x:Key="HL.Tip.Music.OnlyWhenSaverOff">Plays music only when the Holiday Lights screen saver is not showing.</sys:String>
+    <sys:String x:Key="HL.Tip.Music.Always">Plays music in the background at all times.</sys:String>
+    <sys:String x:Key="HL.Tip.Music.Intermittently">Plays a song in the background at one to three minute random intervals.</sys:String>
+    <sys:String x:Key="HL.Tip.Music.Volume">Changes how loud Holiday Lights plays music. Other apps aren't affected.</sys:String>
+    <sys:String x:Key="HL.Tip.Music.DanceToMusic">The lights play along with the music. It changes the flash pattern in the Bulb Factory.</sys:String>
+    <sys:String x:Key="HL.Tip.Music.Pause">Pauses the song. Resume continues from the same place.</sys:String>
+    <sys:String x:Key="HL.Tip.Music.NextSong">Starts another of your checked songs now.</sys:String>
+    <sys:String x:Key="HL.Tip.Music.Previous">Starts the song again. Press it twice to hear the song that played before.</sys:String>
+    <sys:String x:Key="HL.Tip.Music.Mute">Silences Holiday Lights without changing its volume.</sys:String>
+    <sys:String x:Key="HL.Tip.Music.VolumeMixer">Opens the Windows volume mixer.</sys:String>
+    <sys:String x:Key="HL.Tip.Music.CheckAll">Checks every song shown.</sys:String>
+    <sys:String x:Key="HL.Tip.Music.CheckNone">Unchecks every song shown.</sys:String>
+    <sys:String x:Key="HL.Tip.Music.Categories">Shows only the songs of one category. It doesn't change which songs play.</sys:String>
+    <sys:String x:Key="HL.Tip.Music.MidiOutput">Chooses the synthesizer that plays MIDI songs.</sys:String>
+
+    <!-- Screen Saver (5.4 popups 303-317, Appendix A, 3.5). -->
+    <sys:String x:Key="HL.Tip.Saver.TextMessage">Type any text you want to appear on the screen saver.</sys:String>
+    <sys:String x:Key="HL.Tip.Saver.Clear">Removes the text message from the screen saver.</sys:String>
+    <sys:String x:Key="HL.Tip.Saver.TextFormat">Change the font, size, style and color in which the text message appears.</sys:String>
+    <sys:String x:Key="HL.Tip.Saver.Animation">Animations appear in addition to the bulbs around the edge of the screen. Click an animation to choose it.</sys:String>
+    <sys:String x:Key="HL.Tip.Saver.UseBulbAsAnimation">Lets one of your add-on bulbs float around the screen saver.</sys:String>
+    <sys:String x:Key="HL.Tip.Saver.Style">Chooses a different movement style for the animation. If this box is dimmed, the animation has its own movement that can't be changed.</sys:String>
+    <sys:String x:Key="HL.Tip.Saver.Picture">Chooses the background picture. Right-click a picture to remove it.</sys:String>
+    <sys:String x:Key="HL.Tip.Saver.Placement">Center puts the picture in the middle; Tile repeats it; Stretch makes it the same size as your screen, even if that distorts it.</sys:String>
+    <sys:String x:Key="HL.Tip.Saver.AddPicture">Adds a picture. It's copied to your My Pictures folder.</sys:String>
+    <sys:String x:Key="HL.Tip.Saver.BackgroundColor">The color around the picture, or of the whole background if there's no picture. A picture that covers the screen hides it.</sys:String>
+    <sys:String x:Key="HL.Tip.Saver.Preview">Shows the screen saver now, with the current settings. It doesn't change your Windows screen saver.</sys:String>
+    <sys:String x:Key="HL.Tip.Saver.UseAsScreenSaver">Makes Holiday Lights your Windows screen saver. Stop Using It brings back the one you had.</sys:String>
+    <sys:String x:Key="HL.Tip.Saver.ShowOn">All Displays shows the screen saver on every display. Main Display Only leaves the others black, like Holiday Lights 5.4.</sys:String>
+    <sys:String x:Key="HL.Tip.Saver.SmoothMotion">Moves snow, balloons and text smoothly. Turn it off for the 2003 look.</sys:String>
+    <sys:String x:Key="HL.Tip.Saver.StartAfter">How long your PC must be idle before the screen saver starts.</sys:String>
+    <sys:String x:Key="HL.Tip.Saver.StopUsingIt">Brings back the screen saver you had before.</sys:String>
+    <sys:String x:Key="HL.Tip.Saver.WindowsSettings">Opens Windows Screen Saver Settings, where you can also choose to sign in again when the screen saver ends.</sys:String>
+
+    <!-- General (5.4 popups 501, 505, 506, Appendix A, 3.7). -->
+    <sys:String x:Key="HL.Tip.General.AutoStart">Controls whether Holiday Lights runs automatically each time you sign in to Windows.</sys:String>
+    <sys:String x:Key="HL.Tip.General.HotKey">This is the key combination Holiday Lights uses. To change it, click Change… and press the new keys.</sys:String>
+    <sys:String x:Key="HL.Tip.General.LimitFlashing">Keeps the lights flashing slowly enough to be comfortable for people who are sensitive to flashing lights.</sys:String>
+    <sys:String x:Key="HL.Tip.General.DecorateWindow">Shows a string of your lights across the top of this window.</sys:String>
+    <sys:String x:Key="HL.Tip.General.EnergySaver">What the lights do while Windows Energy Saver is on.</sys:String>
+    <sys:String x:Key="HL.Tip.General.OpenFolder">Opens this folder in File Explorer.</sys:String>
+    <sys:String x:Key="HL.Tip.General.AssociateBul">Lets you double-click a .bul file to add its bulb to Holiday Lights.</sys:String>
+    <sys:String x:Key="HL.Tip.General.ImportDetails">Shows everything that came over from Holiday Lights 5.4.</sys:String>
+    <sys:String x:Key="HL.Tip.General.ImportAgain">Replaces your current settings with the ones from Holiday Lights 5.4. Your themes are kept.</sys:String>
+    <sys:String x:Key="HL.Tip.General.ResetAll">Puts every setting back the way it was when Holiday Lights was installed. Your themes, bulbs, songs and pictures are kept.</sys:String>
+    <sys:String x:Key="HL.Tip.General.Uninstall">Removes Holiday Lights from your PC. You choose whether your bulbs, songs and pictures stay.</sys:String>
+
+    <!-- The Settings window (5.4 popups 1, 2, 51; Appendix A, 2.3). -->
+    <sys:String x:Key="HL.Tip.Window.OK">Closes this window and keeps your changes.</sys:String>
+    <sys:String x:Key="HL.Tip.Window.Cancel">Closes this window and undoes every change made since you opened it. Things you added or saved are kept.</sys:String>
+    <sys:String x:Key="HL.Tip.Window.Help">Shows help for this page.</sys:String>
+    <sys:String x:Key="HL.Tip.Window.Undo">Undo: {0}</sys:String>
+    <sys:String x:Key="HL.Tip.Window.Redo">Redo: {0}</sys:String>
+    <sys:String x:Key="HL.Tip.Window.UndoAll">Undoes every change made since you opened this window, and keeps the window open.</sys:String>
+
+    <!-- Bulb Editing (5.4 popups 2100-2301, Appendix A, 3.3.1). -->
+    <sys:String x:Key="HL.Tip.BulbEditing.Name">Type the name of the bulb. It's shown in the bulb list.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbEditing.Description">Type the description of the bulb. It's shown in the bulb list.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbEditing.Author">Your name and e-mail address. They're shown when someone views the bulb credits.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbEditing.Copyright">A copyright notice. It's shown when someone views the bulb credits.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbEditing.Categories">Check the categories this bulb belongs to. You can then show a single category in the bulb list.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbEditing.NewCategory">Adds a new category to the list.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbEditing.Slot">You can use different GIF animations for different sides or corners. Choose the one you want to preview or change.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbEditing.Flavor">A side can have up to eight different GIF animations. Each animation is called a flavor; they repeat along the edge. If this list is dimmed, you're viewing a corner or the bulb list preview, which have one animation each.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbEditing.Preview">Shows the selected side or corner. With Bulb List Preview selected, drag the white square (or use the arrow keys) to choose the 32 x 32 picture shown in the bulb list.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbEditing.Change">Chooses a new GIF animation for the selected side and flavor.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbEditing.RemoveFlavor">Removes the animation for the selected flavor. If this button is dimmed, the selected flavor can't be removed.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbEditing.CopyToAllSides">Copies this side's flavors to the other three sides.</sys:String>
+    <sys:String x:Key="HL.Tip.BulbEditing.Transparency">Shows a checkerboard behind the picture, so you can see which parts are see-through.</sys:String>
+
+</ResourceDictionary>

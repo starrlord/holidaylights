@@ -1,0 +1,54 @@
+{
+  "schema": "holidaylights.theme/1",
+  "name": "Classic Lights",
+  "shipped": "new",
+  "arrangement": {
+    "top": [
+      "builtin:standard-bulbs"
+    ],
+    "right": [
+      "builtin:standard-bulbs"
+    ],
+    "bottom": [
+      "builtin:standard-bulbs"
+    ],
+    "left": [
+      "builtin:standard-bulbs"
+    ],
+    "topLeft": "builtin:standard-bulbs",
+    "topRight": "builtin:standard-bulbs",
+    "bottomLeft": "builtin:standard-bulbs",
+    "bottomRight": "builtin:standard-bulbs"
+  },
+  "flash": {
+    "pattern": "flashTogether",
+    "interval": 5
+  },
+  "music": {
+    "enabledSongs": [
+      "bundled:Bicycle Built for Two.mid",
+      "bundled:Clementine.mid",
+      "bundled:Danny Boy.mid",
+      "bundled:Greensleeves.mid",
+      "bundled:Yankee Doodle Dandy.mid"
+    ],
+    "mode": "intermittently"
+  },
+  "saver": {
+    "animation": "Balloons",
+    "style": "bounceOffSides",
+    "message": "",
+    "font": {
+      "family": "Arial",
+      "sizePt": 36,
+      "bold": true,
+      "italic": false,
+      "underline": false,
+      "strikeout": false
+    },
+    "color": "#FF0000",
+    "background": "#000000",
+    "picture": "(None)",
+    "placement": "center"
+  }
+}

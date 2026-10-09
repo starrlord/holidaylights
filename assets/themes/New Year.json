@@ -1,0 +1,50 @@
+{
+  "schema": "holidaylights.theme/1",
+  "name": "New Year",
+  "shipped": "classic",
+  "arrangement": {
+    "top": [
+      "builtin:mini-bulbs"
+    ],
+    "right": [
+      "builtin:mini-bulbs"
+    ],
+    "bottom": [
+      "builtin:mini-bulbs",
+      "builtin:party-hats"
+    ],
+    "left": [
+      "builtin:mini-bulbs"
+    ],
+    "topLeft": "builtin:jolly-holly",
+    "topRight": "builtin:jolly-holly",
+    "bottomLeft": null,
+    "bottomRight": null
+  },
+  "flash": {
+    "pattern": "bulbChase",
+    "interval": 1
+  },
+  "music": {
+    "enabledSongs": [
+      "bundled:Auld Lang Syne (Swing).mid",
+      "bundled:Auld Lang Syne.mid"
+    ],
+    "mode": "always"
+  },
+  "saver": {
+    "animation": "Balloons",
+    "message": "Happy New Year!",
+    "font": {
+      "family": "Impact",
+      "sizePt": 48,
+      "bold": false,
+      "italic": false,
+      "underline": false,
+      "strikeout": false
+    },
+    "color": "#FF00FF",
+    "picture": "bundled:New Year Clock.BMP",
+    "placement": "center"
+  }
+}

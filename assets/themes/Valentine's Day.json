@@ -1,0 +1,57 @@
+{
+  "schema": "holidaylights.theme/1",
+  "name": "Valentine's Day",
+  "shipped": "classic",
+  "arrangement": {
+    "top": [
+      "builtin:mezmerized",
+      "builtin:candy-hearts",
+      "builtin:sweet-hearts"
+    ],
+    "right": [
+      "builtin:candy-hearts",
+      "builtin:sweet-hearts",
+      "builtin:mezmerized"
+    ],
+    "bottom": [
+      "builtin:mezmerized",
+      "builtin:candy-hearts",
+      "builtin:sweet-hearts"
+    ],
+    "left": [
+      "builtin:candy-hearts",
+      "builtin:sweet-hearts",
+      "builtin:mezmerized"
+    ],
+    "topLeft": null,
+    "topRight": null,
+    "bottomLeft": null,
+    "bottomRight": null
+  },
+  "flash": {
+    "pattern": "flashTogether",
+    "interval": 5
+  },
+  "music": {
+    "enabledSongs": [
+      "bundled:Bicycle Built for Two.mid",
+      "bundled:Clementine.mid"
+    ],
+    "mode": "intermittently"
+  },
+  "saver": {
+    "animation": "Valentine's Hearts",
+    "message": "Happy Valentine's Day!",
+    "font": {
+      "family": "Mistral",
+      "sizePt": 48,
+      "bold": true,
+      "italic": false,
+      "underline": false,
+      "strikeout": false
+    },
+    "color": "#FF00FF",
+    "picture": "bundled:Hearts.BMP",
+    "placement": "center"
+  }
+}

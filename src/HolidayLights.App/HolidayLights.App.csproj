@@ -1,0 +1,68 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- HolidayLights.exe (also installed as "Holiday Lights.scr"): custom entry point, tray, Settings window and pages,
+       previews, first run, About, Help, screen saver modes, Bulb Editing, installer. Ownership: docs/CONTRACTS.md. -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
+    <SupportedOSPlatformVersion>10.0.22621.0</SupportedOSPlatformVersion>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>HolidayLights</AssemblyName>
+    <RootNamespace>HolidayLights.App</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\HolidayLights.ico</ApplicationIcon>
+    <!-- Program.Main parses the screen saver arguments and enforces single instance before WPF starts. -->
+    <StartupObject>HolidayLights.App.Program</StartupObject>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- Application.ThemeMode (Fluent) is still marked experimental in .NET 10. -->
+    <NoWarn>$(NoWarn);WPF0001</NoWarn>
+  </PropertyGroup>
+
+  <!-- App.xaml is compiled as a page (resources + InitializeComponent) because Program.Main is the entry point. -->
+  <ItemGroup>
+    <ApplicationDefinition Remove="App.xaml" />
+    <Page Include="App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HolidayLights.Core\HolidayLights.Core.csproj" />
+    <ProjectReference Include="..\HolidayLights.Platform\HolidayLights.Platform.csproj" />
+    <ProjectReference Include="..\HolidayLights.Rendering\HolidayLights.Rendering.csproj" />
+    <ProjectReference Include="..\HolidayLights.Audio\HolidayLights.Audio.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="H.NotifyIcon.Wpf" Version="2.4.1" />
+    <PackageReference Include="VirtualizingWrapPanel" Version="2.5.4" />
+  </ItemGroup>
+
+  <!-- Bundled content (content\README.md): the 1,501 add-on bulbs, 46 songs and 11 screen saver pictures, copied next to
+       the exe as Content\Bulbs, Content\Music and Content\Pictures. -->
+  <ItemGroup Label="Bundled content">
+    <Content Include="..\..\content\Bulbs\*.bul" Link="Content\Bulbs\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\content\Music\*.mid" Link="Content\Music\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\content\Pictures\*.BMP" Link="Content\Pictures\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <!-- Branding art (owner: branding-docs). Images and icons are WPF resources (pack://application:,,,/Assets/...);
+       the .bul document icon is also copied next to the exe for the file association's DefaultIcon. -->
+  <ItemGroup Label="Assets">
+    <Resource Include="Assets\**\*.png;Assets\**\*.ico;Assets\**\*.jpg;Assets\**\*.bmp;Assets\**\*.gif" />
+    <Content Include="Assets\BulbDocument.ico" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <!-- Help topics, contents and credits (owner: branding-docs). Logical names: help/<relative path>. -->
+  <ItemGroup Label="Help content">
+    <None Remove="HelpContent\**" />
+    <EmbeddedResource Include="HelpContent\**\*" Exclude="HelpContent\**\README.md" LogicalName="help/%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="HolidayLights.App.Contracts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="HolidayLights.Tests" />
+  </ItemGroup>
+
+</Project>

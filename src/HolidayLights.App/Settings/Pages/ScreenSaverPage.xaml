@@ -1,0 +1,241 @@
+<!--
+  The "Screen Saver" page (owner: settings-ui; PRODUCT-SPEC 3.5): the status card (the only controls that change Windows'
+  screen saver settings), the live preview, Text Message, Animation, Background Picture, Displays and Motion.
+  Logic in ScreenSaverPage.xaml.cs.
+-->
+<UserControl x:Class="HolidayLights.App.Settings.Pages.ScreenSaverPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:HolidayLights.App.Controls"
+             xmlns:core="clr-namespace:HolidayLights.Core.Abstractions;assembly=HolidayLights.Core"
+             AutomationProperties.Name="Screen Saver">
+    <UserControl.Resources>
+        <!-- An 88 x 88 tile of the Animation and Background Picture lists. -->
+        <Style x:Key="SaverTile" TargetType="ListBoxItem">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0,0,8,8" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+            <Setter Property="AutomationProperties.Name" Value="{Binding Name}" />
+            <Setter Property="ToolTip" Value="{Binding Tip}" />
+            <EventSetter Event="MouseDoubleClick" Handler="OnTileDoubleClick" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Grid Width="92" Height="96" Background="Transparent">
+                            <Border x:Name="Chrome" CornerRadius="6" BorderThickness="2" BorderBrush="Transparent" Background="Transparent" />
+                            <ContentPresenter Margin="2" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Chrome" Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Chrome" Property="BorderBrush" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                                <Setter TargetName="Chrome" Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <ItemsPanelTemplate x:Key="TilePanel">
+            <WrapPanel />
+        </ItemsPanelTemplate>
+
+        <DataTemplate x:Key="SaverTileTemplate">
+            <StackPanel>
+                <controls:NightWell Width="84" Height="62">
+                    <ContentPresenter Content="{Binding Art}" />
+                </controls:NightWell>
+                <TextBlock Text="{Binding Name}" FontSize="11" TextAlignment="Center" TextTrimming="CharacterEllipsis" Margin="2,5,2,0" />
+            </StackPanel>
+        </DataTemplate>
+
+        <Style x:Key="Swatch" TargetType="Border">
+            <Setter Property="Width" Value="28" />
+            <Setter Property="Height" Value="28" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="{DynamicResource ControlStrongStrokeColorDefaultBrush}" />
+            <Setter Property="Margin" Value="0,0,8,0" />
+        </Style>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <!-- Status card -->
+        <Border x:Name="StatusCard" CornerRadius="8" BorderThickness="1" Padding="16,12" BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid Width="20" Height="20" VerticalAlignment="Top" Margin="0,1,12,0">
+                    <TextBlock x:Name="StatusCircle" Text="{x:Static controls:Glyphs.CircleFill}" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="20" />
+                    <TextBlock x:Name="StatusGlyph" Text="&#xF13F;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="20"
+                               Foreground="{DynamicResource TextFillColorInverseBrush}" />
+                </Grid>
+                <StackPanel Grid.Column="1">
+                    <!-- A polite live region: the status sentence is announced when it changes (Controls/LiveRegions; review r1 #42). -->
+                    <TextBlock x:Name="StatusText" TextWrapping="Wrap" FontWeight="SemiBold" AutomationProperties.LiveSetting="Polite" />
+                    <WrapPanel Margin="0,8,0,0">
+                        <Button x:Name="UseButton" Content="_Use Holiday Lights as My Screen Saver" Margin="0,0,8,4" Click="OnUseClick"
+                                Style="{DynamicResource AccentButtonStyle}" ContentTemplate="{DynamicResource HL.Template.GlyphLabel}"
+                                ToolTip="{DynamicResource HL.Tip.Saver.UseAsScreenSaver}" />
+                        <Button x:Name="UseNewButton" Content="Use the _New Screen Saver" Margin="0,0,8,4" Click="OnUseClick"
+                                Style="{DynamicResource AccentButtonStyle}" ContentTemplate="{DynamicResource HL.Template.GlyphLabel}" />
+                        <Button x:Name="TurnOnButton" Content="_Turn It On" Margin="0,0,8,4" Click="OnTurnOnClick" />
+                        <StackPanel x:Name="StartAfterPanel" Orientation="Horizontal" Margin="0,0,8,4" ToolTip="{DynamicResource HL.Tip.Saver.StartAfter}">
+                            <Label Content="Start Afte_r" Target="{Binding ElementName=StartAfterBox}" VerticalAlignment="Center" Padding="0,0,8,0"
+                                   Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                            <ComboBox x:Name="StartAfterBox" MinWidth="130" SelectionChanged="OnStartAfterChanged" AutomationProperties.Name="Start After" />
+                        </StackPanel>
+                        <Button x:Name="StopButton" Content="_Stop Using It" Margin="0,0,8,4" Click="OnStopClick" ToolTip="{DynamicResource HL.Tip.Saver.StopUsingIt}" />
+                        <Button Content="_Windows Screen Saver Settings…" Style="{DynamicResource HL.Style.Button.Link}" Margin="0,0,0,4" Click="OnWindowsSettingsClick"
+                                ToolTip="{DynamicResource HL.Tip.Saver.WindowsSettings}" />
+                    </WrapPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <controls:InfoBar x:Name="MessageBar" IsOpen="False" Severity="Warning" Margin="0,12,0,0" />
+
+        <Grid Margin="0,16,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="16" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <controls:Card Header="Preview" Description="See the screen saver now, and make it your Windows screen saver.">
+                <StackPanel>
+                    <controls:NightWell x:Name="PreviewWell" Width="320" Height="180" />
+                    <Button Content="_Preview Screen Saver" Margin="0,12,0,0" HorizontalAlignment="Left" Click="OnPreviewClick"
+                            ToolTip="{DynamicResource HL.Tip.Saver.Preview}" />
+                </StackPanel>
+            </controls:Card>
+            <controls:Card Grid.Column="2" Header="Text Message" Description="{DynamicResource HL.Tip.Saver.TextMessage}">
+                <StackPanel>
+                    <TextBox x:Name="MessageBox" AcceptsReturn="True" TextWrapping="Wrap" MaxLength="255" Height="64" VerticalScrollBarVisibility="Auto"
+                             TextChanged="OnMessageChanged" AutomationProperties.Name="Text message" />
+                    <WrapPanel Margin="0,10,0,0" ToolTip="{DynamicResource HL.Tip.Saver.TextFormat}">
+                        <Label Content="_Font" Target="{Binding ElementName=FontBox}" VerticalAlignment="Center" Padding="0,0,8,0"
+                               Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                        <controls:FontPicker x:Name="FontBox" MinWidth="200" Width="280" Margin="0,0,12,6" AutomationProperties.Name="Font" />
+                        <Label Content="Si_ze" Target="{Binding ElementName=SizeBox}" VerticalAlignment="Center" Padding="0,0,8,0"
+                               Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                        <ComboBox x:Name="SizeBox" IsEditable="True" Width="76" Margin="0,0,12,6" AutomationProperties.Name="Size in points"
+                                  SelectionChanged="OnSizeChanged" LostKeyboardFocus="OnSizeCommitted" KeyDown="OnSizeKeyDown" />
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                            <ToggleButton x:Name="BoldButton" Style="{DynamicResource HL.Style.ToggleButton.Subtle}" Width="32" Height="32" Click="OnFontStyleToggled" Checked="OnFontStyleToggled" Unchecked="OnFontStyleToggled"
+                                          AutomationProperties.Name="Bold" ToolTip="Bold">
+                                <TextBlock Text="&#xE8DD;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="14" />
+                            </ToggleButton>
+                            <ToggleButton x:Name="ItalicButton" Style="{DynamicResource HL.Style.ToggleButton.Subtle}" Width="32" Height="32" Click="OnFontStyleToggled" Checked="OnFontStyleToggled" Unchecked="OnFontStyleToggled"
+                                          AutomationProperties.Name="Italic" ToolTip="Italic">
+                                <TextBlock Text="&#xE8DB;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="14" />
+                            </ToggleButton>
+                            <ToggleButton x:Name="UnderlineButton" Style="{DynamicResource HL.Style.ToggleButton.Subtle}" Width="32" Height="32" Click="OnFontStyleToggled" Checked="OnFontStyleToggled" Unchecked="OnFontStyleToggled"
+                                          AutomationProperties.Name="Underline" ToolTip="Underline">
+                                <TextBlock Text="&#xE8DC;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="14" />
+                            </ToggleButton>
+                            <ToggleButton x:Name="StrikeoutButton" Style="{DynamicResource HL.Style.ToggleButton.Subtle}" Width="32" Height="32" Click="OnFontStyleToggled" Checked="OnFontStyleToggled" Unchecked="OnFontStyleToggled"
+                                          AutomationProperties.Name="Strikeout" ToolTip="Strikeout">
+                                <TextBlock Text="&#xEDE0;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="14" />
+                            </ToggleButton>
+                        </StackPanel>
+                    </WrapPanel>
+                    <Grid Margin="0,4,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <Border x:Name="TextSwatch" Style="{StaticResource Swatch}" />
+                            <Button Content="Text _Color…" Click="OnTextColorClick" />
+                        </StackPanel>
+                        <Button Content="Clear" HorizontalAlignment="Right" Click="OnClearMessageClick" ToolTip="{DynamicResource HL.Tip.Saver.Clear}" />
+                    </Grid>
+                </StackPanel>
+            </controls:Card>
+        </Grid>
+
+        <Grid Margin="0,16,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="16" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <controls:Card Header="Animation" Description="Animations appear in addition to the bulbs around the edge of the screen." ToolTip="{DynamicResource HL.Tip.Saver.Animation}">
+                <StackPanel>
+                    <controls:InfoBar x:Name="AnimationBar" IsOpen="False" Severity="Warning" Margin="0,0,0,10"
+                                      Message="The bulb used for this animation was removed." />
+                    <ListBox x:Name="AnimationList" ItemContainerStyle="{StaticResource SaverTile}" ItemTemplate="{StaticResource SaverTileTemplate}" ItemsPanel="{StaticResource TilePanel}" Background="Transparent" BorderThickness="0" Padding="0"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" MaxHeight="312" SelectionChanged="OnAnimationChanged" AutomationProperties.Name="Animation" />
+                    <Button Content="Use a Bulb as the Ani_mation…" Margin="0,8,0,0" HorizontalAlignment="Left" Click="OnChooseBulbClick"
+                            ToolTip="{DynamicResource HL.Tip.Saver.UseBulbAsAnimation}" />
+                    <StackPanel Orientation="Horizontal" Margin="0,12,0,0" ToolTip="{DynamicResource HL.Tip.Saver.Style}">
+                        <Label Content="St_yle" Target="{Binding ElementName=StyleBox}" VerticalAlignment="Center" Padding="0,0,8,0"
+                               Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                        <ComboBox x:Name="StyleBox" MinWidth="170" SelectionChanged="OnStyleChanged" AutomationProperties.Name="Style">
+                            <ComboBoxItem Content="Bounce Off Sides" Tag="{x:Static core:SaverMovementStyle.BounceOffSides}" />
+                            <ComboBoxItem Content="Gravity Well" Tag="{x:Static core:SaverMovementStyle.GravityWell}" />
+                            <ComboBoxItem Content="Falling Leaves" Tag="{x:Static core:SaverMovementStyle.FallingLeaves}" />
+                            <ComboBoxItem Content="Attraction" Tag="{x:Static core:SaverMovementStyle.Attraction}" />
+                        </ComboBox>
+                    </StackPanel>
+                    <TextBlock x:Name="StyleNote" Margin="0,6,0,0" FontSize="12" TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                </StackPanel>
+            </controls:Card>
+            <controls:Card Grid.Column="2" Header="Background Picture" Description="The picture and color behind the screen saver." ToolTip="{DynamicResource HL.Tip.Saver.Picture}">
+                <StackPanel>
+                    <ListBox x:Name="PictureList" ItemContainerStyle="{StaticResource SaverTile}" ItemTemplate="{StaticResource SaverTileTemplate}" ItemsPanel="{StaticResource TilePanel}" Background="Transparent" BorderThickness="0" Padding="0"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" MaxHeight="312" SelectionChanged="OnPictureChanged" AutomationProperties.Name="Background picture"
+                             ContextMenuOpening="OnPictureMenuOpening">
+                        <ListBox.ContextMenu>
+                            <ContextMenu />
+                        </ListBox.ContextMenu>
+                    </ListBox>
+                    <WrapPanel Margin="0,8,0,0">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,12,6" ToolTip="{DynamicResource HL.Tip.Saver.Placement}">
+                            <Label Content="Placem_ent" Target="{Binding ElementName=PlacementBox}" VerticalAlignment="Center" Padding="0,0,8,0"
+                                   Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                            <ComboBox x:Name="PlacementBox" MinWidth="110" SelectionChanged="OnPlacementChanged" AutomationProperties.Name="Placement">
+                                <ComboBoxItem Content="Center" Tag="{x:Static core:PicturePlacement.Center}" />
+                                <ComboBoxItem Content="Tile" Tag="{x:Static core:PicturePlacement.Tile}" />
+                                <ComboBoxItem Content="Stretch" Tag="{x:Static core:PicturePlacement.Stretch}" />
+                                <ComboBoxItem Content="Fit" Tag="{x:Static core:PicturePlacement.Fit}" />
+                            </ComboBox>
+                        </StackPanel>
+                        <Button Content="_Add…" Margin="0,0,8,6" Click="OnAddPictureClick" ToolTip="{DynamicResource HL.Tip.Saver.AddPicture}" />
+                        <Button x:Name="PicturesMoreButton" Style="{DynamicResource HL.Style.Button.Subtle}" Width="36" Height="32" Margin="0,0,0,6"
+                                Click="OnPicturesMoreClick" AutomationProperties.Name="More Picture Commands" ToolTip="More picture commands">
+                            <TextBlock Text="&#xE712;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="14" />
+                        </Button>
+                    </WrapPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                        <Border x:Name="BackgroundSwatch" Style="{StaticResource Swatch}" />
+                        <Button Content="_Background Color…" Click="OnBackgroundColorClick" ToolTip="{DynamicResource HL.Tip.Saver.BackgroundColor}" />
+                    </StackPanel>
+                </StackPanel>
+            </controls:Card>
+        </Grid>
+
+        <controls:Card Header="Displays and Motion" Description="Which displays show the screen saver, and how things move." Margin="0,16,0,0">
+            <WrapPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,24,0" ToolTip="{DynamicResource HL.Tip.Saver.ShowOn}">
+                    <Label Content="Show _On" Target="{Binding ElementName=ShowOnBox}" VerticalAlignment="Center" Padding="0,0,8,0"
+                           Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                    <ComboBox x:Name="ShowOnBox" MinWidth="170" SelectionChanged="OnShowOnChanged" AutomationProperties.Name="Show On">
+                        <ComboBoxItem Content="All Displays" Tag="{x:Static core:SaverDisplays.All}" />
+                        <ComboBoxItem Content="Main Display Only" Tag="{x:Static core:SaverDisplays.MainOnly}" />
+                    </ComboBox>
+                </StackPanel>
+                <CheckBox x:Name="SmoothMotionCheck" Content="Smooth Mot_ion" VerticalAlignment="Center" Click="OnSmoothMotionToggled" Checked="OnSmoothMotionToggled" Unchecked="OnSmoothMotionToggled"
+                          ToolTip="{DynamicResource HL.Tip.Saver.SmoothMotion}" />
+            </WrapPanel>
+        </controls:Card>
+
+        <WrapPanel Margin="0,16,0,0">
+            <Button Content="_Load Theme…" Margin="0,0,8,0" Click="OnLoadThemeClick" ToolTip="{DynamicResource HL.Tip.Themes.LoadTheme}" />
+            <Button Content="Sa_ve Settings As Theme…" Click="OnSaveThemeClick" ToolTip="{DynamicResource HL.Tip.Themes.SaveTheme}" />
+        </WrapPanel>
+    </StackPanel>
+</UserControl>

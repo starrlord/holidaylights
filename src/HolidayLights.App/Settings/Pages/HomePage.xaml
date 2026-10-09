@@ -1,0 +1,164 @@
+<!--
+  The "Home" page (owner: settings-ui; PRODUCT-SPEC 3.1): the real lights of every display, Show Lights with its status
+  line, eight theme cards, Flash Settings, Bulb Drawing, Bulb Size and Music. Logic in HomePage.xaml.cs.
+-->
+<UserControl x:Class="HolidayLights.App.Settings.Pages.HomePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:HolidayLights.App.Controls"
+             xmlns:preview="clr-namespace:HolidayLights.App.Preview"
+             xmlns:groups="clr-namespace:HolidayLights.App.Settings.Groups"
+             xmlns:settings="clr-namespace:HolidayLights.App.Settings"
+             xmlns:core="clr-namespace:HolidayLights.Core.Abstractions;assembly=HolidayLights.Core"
+             x:Name="Root"
+             AutomationProperties.Name="Home">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="Visible" />
+
+        <!-- A theme card (152 x 124): the preview on the main display, the name and the calendar dates. -->
+        <Style x:Key="ThemeCardButton" TargetType="Button">
+            <Setter Property="Width" Value="152" />
+            <Setter Property="Height" Value="124" />
+            <Setter Property="Margin" Value="0,0,8,8" />
+            <Setter Property="Padding" Value="4,4,4,2" />
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
+            <Setter Property="AutomationProperties.Name" Value="{Binding AccessibleName}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Border x:Name="Chrome" CornerRadius="8" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="1" />
+                            <Border x:Name="Ring" CornerRadius="8" BorderThickness="2" BorderBrush="{DynamicResource AccentFillColorDefaultBrush}"
+                                    Visibility="{Binding IsSelected, Converter={StaticResource Visible}}" />
+                            <ContentPresenter Margin="{TemplateBinding Padding}" />
+                            <Border Width="18" Height="18" CornerRadius="9" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-5,-5,0"
+                                    Background="{DynamicResource AccentFillColorDefaultBrush}" Visibility="{Binding IsSelected, Converter={StaticResource Visible}}">
+                                <TextBlock Text="&#xE73E;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="10" HorizontalAlignment="Center"
+                                           VerticalAlignment="Center" Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}" />
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Chrome" Property="Background" Value="{DynamicResource CardBackgroundFillColorSecondaryBrush}" />
+                                <Setter Property="preview:PreviewAnimation.IsHot" Value="True" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter Property="preview:PreviewAnimation.IsHot" Value="True" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Chrome" Property="Background" Value="{DynamicResource ControlFillColorTertiaryBrush}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate x:Key="ThemeCardTemplate" DataType="{x:Type settings:ThemeCardItem}">
+            <Button Style="{StaticResource ThemeCardButton}" Click="OnThemeCardClick" MouseEnter="OnThemeCardHot" MouseLeave="OnThemeCardCold"
+                    GotKeyboardFocus="OnThemeCardHot" LostKeyboardFocus="OnThemeCardCold" ContextMenuOpening="OnThemeCardMenu">
+                <Button.ContextMenu>
+                    <ContextMenu />
+                </Button.ContextMenu>
+                <StackPanel>
+                    <Grid Width="144" Height="81">
+                        <preview:LightStage Services="{Binding Services, ElementName=Root}" Geometry="DisplayAlone" ShowStatusOverlays="False"
+                                            Arrangement="{Binding Arrangement}" Flash="{Binding Flash}" Interval="{Binding Interval}"
+                                            IsAnimated="{Binding (preview:PreviewAnimation.IsHot), RelativeSource={RelativeSource Self}}"
+                                            EmptyText="" IsHitTestVisible="False" Focusable="False" />
+                        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4" CornerRadius="4" Padding="4,1,4,2"
+                                Background="{DynamicResource HL.Brush.StagePill}" Visibility="{Binding IsAutomatic, Converter={StaticResource Visible}}">
+                            <TextBlock Text="&#xE787;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="11" Foreground="{DynamicResource HL.Brush.OnNightWell}" />
+                        </Border>
+                    </Grid>
+                    <TextBlock Text="{Binding Name}" FontSize="13" FontWeight="SemiBold" Margin="2,3,2,0" TextTrimming="CharacterEllipsis" />
+                    <TextBlock Text="{Binding DateText}" FontSize="11" Margin="2,0,2,0" TextTrimming="CharacterEllipsis"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                </StackPanel>
+            </Button>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <Border x:Name="StageFrame" Height="240" CornerRadius="8" Padding="12" Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+            <preview:LightStage x:Name="Stage" ShowAllDisplays="True" ShowStatusOverlays="True" Focusable="True" Cursor="Hand"
+                                FocusVisualStyle="{DynamicResource DefaultControlFocusVisualStyle}" KeyDown="OnStageKeyDown"
+                                AutomationProperties.Name="Preview of your lights"
+                                EmptyText="No bulbs yet. Open Bulb Factory to choose bulbs." />
+        </Border>
+
+        <controls:Card Header="Lights" Margin="0,16,0,0" Description="Turns your lights on or off, and says what they're doing right now.">
+            <StackPanel>
+                <CheckBox x:Name="ShowLightsToggle" Style="{DynamicResource HL.Style.ToggleSwitch}" Content="Show _Lights" Click="OnShowLightsClick" Checked="OnShowLightsClick" Unchecked="OnShowLightsClick"
+                          AutomationProperties.Name="Show Lights" />
+                <WrapPanel Margin="0,6,0,0">
+                    <TextBlock x:Name="StatusText" TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                               AutomationProperties.LiveSetting="Polite" Margin="0,0,8,0" VerticalAlignment="Center" />
+                    <Button x:Name="StatusLink" Style="{DynamicResource HL.Style.Button.Link}" Click="OnStatusActionClick" Visibility="Collapsed"
+                            Margin="-4,0,0,0" />
+                </WrapPanel>
+            </StackPanel>
+        </controls:Card>
+
+        <Grid Margin="0,24,0,8">
+            <TextBlock Text="Choose a Theme" Style="{DynamicResource HL.Style.Text.BodyStrong}" VerticalAlignment="Center"
+                       AutomationProperties.HeadingLevel="Level2" />
+            <Button Content="_All Themes…" HorizontalAlignment="Right" Click="OnAllThemesClick" />
+        </Grid>
+        <ItemsControl x:Name="ThemeCards" ItemTemplate="{StaticResource ThemeCardTemplate}" Focusable="False"
+                      KeyboardNavigation.TabNavigation="Once" KeyboardNavigation.DirectionalNavigation="Contained"
+                      AutomationProperties.Name="Choose a Theme">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+
+        <Grid Margin="0,16,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="12" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <groups:FlashSettingsGroup x:Name="FlashGroup" />
+            <groups:BulbDrawingGroup x:Name="DrawingGroup" Grid.Column="2" IsCompact="True" />
+        </Grid>
+
+        <controls:Card Header="Bulb Size" Margin="0,16,0,0" Description="{DynamicResource HL.Tip.Look.BulbSize}">
+            <WrapPanel>
+                <RadioButton x:Name="SmallRadio" GroupName="HomeBulbSize" Content="_Small" Margin="0,0,20,4" Click="OnBulbSizeClick" Checked="OnBulbSizeClick" Tag="{x:Static core:BulbSize.Small}" />
+                <RadioButton x:Name="StandardRadio" GroupName="HomeBulbSize" Content="Sta_ndard" Margin="0,0,20,4" Click="OnBulbSizeClick" Checked="OnBulbSizeClick" Tag="{x:Static core:BulbSize.Standard}" />
+                <RadioButton x:Name="LargeRadio" GroupName="HomeBulbSize" Content="Lar_ge" Margin="0,0,20,4" Click="OnBulbSizeClick" Checked="OnBulbSizeClick" Tag="{x:Static core:BulbSize.Large}" />
+                <RadioButton x:Name="ExtraLargeRadio" GroupName="HomeBulbSize" Content="E_xtra Large" Margin="0,0,28,4" Click="OnBulbSizeClick" Checked="OnBulbSizeClick" Tag="{x:Static core:BulbSize.ExtraLarge}" />
+                <TextBlock x:Name="SizeCaption" VerticalAlignment="Center" Margin="0,0,0,4" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+            </WrapPanel>
+        </controls:Card>
+
+        <controls:Card Header="Music" Margin="0,16,0,0" Description="Holiday songs that play with your lights. Choose the songs and when they play in Music Box.">
+            <StackPanel>
+                <CheckBox x:Name="MusicToggle" Style="{DynamicResource HL.Style.ToggleSwitch}" Content="Play _Holiday Music" Click="OnMusicClick" Checked="OnMusicClick" Unchecked="OnMusicClick"
+                          ToolTip="{DynamicResource HL.Tip.Music.PlayHolidayMusic}" AutomationProperties.Name="Play Holiday Music" />
+                <Grid Margin="0,6,0,0">
+                    <WrapPanel VerticalAlignment="Center" Margin="0,0,140,0">
+                        <TextBlock x:Name="MusicText" TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}" VerticalAlignment="Center"
+                                   AutomationProperties.LiveSetting="Polite" Margin="0,0,8,0" />
+                        <Button x:Name="PauseButton" Style="{DynamicResource HL.Style.Button.Link}" Content="Pause" Click="OnPauseClick" Visibility="Collapsed" />
+                        <Button x:Name="NextSongButton" Style="{DynamicResource HL.Style.Button.Link}" Content="Next Song" Click="OnNextSongClick" Visibility="Collapsed" />
+                    </WrapPanel>
+                    <Button Content="Music _Box…" HorizontalAlignment="Right" VerticalAlignment="Center" Click="OnMusicBoxClick" />
+                </Grid>
+            </StackPanel>
+        </controls:Card>
+
+        <WrapPanel Margin="0,16,0,0">
+            <Button Content="_Change Bulbs…" Margin="0,0,8,0" Click="OnChangeBulbsClick" />
+            <Button Content="Sc_reen Saver…" Click="OnScreenSaverClick" />
+        </WrapPanel>
+    </StackPanel>
+</UserControl>

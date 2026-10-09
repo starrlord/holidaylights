@@ -1,0 +1,53 @@
+{
+  "schema": "holidaylights.theme/1",
+  "name": "Autumn Harvest",
+  "shipped": "new",
+  "arrangement": {
+    "top": [
+      "builtin:autumn-leaves"
+    ],
+    "right": [
+      "builtin:autumn-leaves"
+    ],
+    "bottom": [
+      "builtin:cornucopias",
+      "builtin:autumn-leaves"
+    ],
+    "left": [
+      "builtin:autumn-leaves"
+    ],
+    "topLeft": "builtin:cornucopias",
+    "topRight": "builtin:cornucopias",
+    "bottomLeft": "builtin:cornucopias",
+    "bottomRight": "builtin:cornucopias"
+  },
+  "flash": {
+    "pattern": "alternating",
+    "interval": 6
+  },
+  "music": {
+    "enabledSongs": [
+      "bundled:Greensleeves.mid",
+      "bundled:Joy of Man's Desire.mid",
+      "bundled:Danny Boy.mid"
+    ],
+    "mode": "intermittently"
+  },
+  "saver": {
+    "animation": "Leaves",
+    "style": "fallingLeaves",
+    "message": "Happy Autumn!",
+    "font": {
+      "family": "Georgia",
+      "sizePt": 42,
+      "bold": true,
+      "italic": false,
+      "underline": false,
+      "strikeout": false
+    },
+    "color": "#F28C28",
+    "background": "#000000",
+    "picture": "bundled:Pumpkin.BMP",
+    "placement": "center"
+  }
+}

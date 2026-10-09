@@ -1,0 +1,247 @@
+<!--
+  The "Music Box" page (owner: settings-ui; PRODUCT-SPEC 3.4): Play Holiday Music and Now Playing, the songs with their
+  category chips, Play the Chosen Songs, Lights and Music, Advanced. Logic in MusicBoxPage.xaml.cs.
+-->
+<UserControl x:Class="HolidayLights.App.Settings.Pages.MusicBoxPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:HolidayLights.App.Controls"
+             xmlns:settings="clr-namespace:HolidayLights.App.Settings"
+             xmlns:core="clr-namespace:HolidayLights.Core.Abstractions;assembly=HolidayLights.Core"
+             AutomationProperties.Name="Music Box">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="Visible" />
+
+        <Style x:Key="SongRow" TargetType="ListBoxItem">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+            <Setter Property="AutomationProperties.Name" Value="{Binding AccessibleName}" />
+            <EventSetter Event="MouseDoubleClick" Handler="OnSongDoubleClick" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Grid Background="Transparent">
+                            <Border x:Name="Chrome" CornerRadius="4" Background="Transparent" />
+                            <Border x:Name="Pill" Width="3" Height="14" CornerRadius="1.5" HorizontalAlignment="Left"
+                                    Background="{DynamicResource AccentFillColorDefaultBrush}" Visibility="Collapsed" />
+                            <ContentPresenter Margin="6,0,6,0" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Chrome" Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Chrome" Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+                                <Setter TargetName="Pill" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate x:Key="SongTemplate" DataType="{x:Type settings:SongRow}">
+            <Grid Height="36">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="32" />
+                    <ColumnDefinition Width="36" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="56" />
+                    <ColumnDefinition Width="56" />
+                    <ColumnDefinition Width="170" />
+                </Grid.ColumnDefinitions>
+                <CheckBox IsChecked="{Binding IsChecked, Mode=OneWay}" Click="OnSongCheckChanged" Checked="OnSongCheckChanged" Unchecked="OnSongCheckChanged" Focusable="False" VerticalAlignment="Center" MinWidth="0"
+                          ToolTip="{DynamicResource HL.Tip.Music.SongCheckBox}" AutomationProperties.Name="{Binding Title, StringFormat='Play {0} in the Music Box'}" />
+                <Button Grid.Column="1" Style="{DynamicResource HL.Style.Button.Subtle}" Width="30" Height="28" Click="OnPlayNowClick" Focusable="False"
+                        ToolTip="{DynamicResource HL.Tip.Music.PlayButton}" AutomationProperties.Name="{Binding Title, StringFormat='Play {0} now'}">
+                    <Grid>
+                        <TextBlock Text="&#xE768;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="12"
+                                   Visibility="{Binding IsNotPlaying, Converter={StaticResource Visible}}" />
+                        <TextBlock Text="&#xE9E9;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="14" Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
+                                   Visibility="{Binding IsPlaying, Converter={StaticResource Visible}}" />
+                    </Grid>
+                </Button>
+                <DockPanel Grid.Column="2" VerticalAlignment="Center" Margin="0,0,8,0">
+                    <TextBlock DockPanel.Dock="Left" Text="&#xE7BA;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="12" Margin="0,1,6,0"
+                               Foreground="{DynamicResource SystemFillColorCautionBrush}" Visibility="{Binding IsUnplayable, Converter={StaticResource Visible}}"
+                               ToolTip="Holiday Lights can't play this kind of file." />
+                    <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" ToolTip="{Binding Title}" />
+                </DockPanel>
+                <TextBlock Grid.Column="3" Text="{Binding LengthText}" VerticalAlignment="Center" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                <TextBlock Grid.Column="4" Text="{Binding TypeText}" VerticalAlignment="Center" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                <TextBlock Grid.Column="5" Text="{Binding Arranger}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"
+                           Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <StackPanel x:Name="ProblemBars">
+            <controls:InfoBar x:Name="ProblemBar" IsOpen="False" Severity="Warning" Margin="0,0,0,12" />
+            <controls:InfoBar x:Name="ImportBar" IsOpen="False" Severity="Warning" Margin="0,0,0,12" />
+        </StackPanel>
+
+        <!-- Play Holiday Music and Now Playing -->
+        <controls:Card>
+            <StackPanel>
+                <CheckBox x:Name="MusicToggle" Style="{DynamicResource HL.Style.ToggleSwitch}" Content="Play Holiday _Music" Click="OnMusicToggled" Checked="OnMusicToggled" Unchecked="OnMusicToggled"
+                          ToolTip="{DynamicResource HL.Tip.Music.PlayHolidayMusic}" AutomationProperties.Name="Play Holiday Music" FontSize="16" />
+                <Grid Margin="0,14,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock x:Name="SongTitle" FontWeight="SemiBold" FontSize="14" TextTrimming="CharacterEllipsis" AutomationProperties.LiveSetting="Polite" />
+                        <TextBlock x:Name="SongArranger" FontSize="12" TextTrimming="CharacterEllipsis" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                    <StackPanel x:Name="ProgressPanel" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock x:Name="ElapsedText" VerticalAlignment="Center" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                        <Slider x:Name="ProgressSlider" Width="220" Margin="10,0,10,0" VerticalAlignment="Center" Minimum="0" IsMoveToPointEnabled="True"
+                                AutomationProperties.Name="Song position" PreviewMouseLeftButtonUp="OnProgressReleased" PreviewKeyDown="OnProgressKeyDown"
+                                KeyUp="OnProgressKeyUp" />
+                        <TextBlock x:Name="LengthText" VerticalAlignment="Center" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                </Grid>
+                <Grid Margin="0,12,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="PreviousButton" Margin="0,0,6,0" Click="OnPreviousClick" ToolTip="{DynamicResource HL.Tip.Music.Previous}" AutomationProperties.Name="Previous"
+                                Content="Previous" controls:ButtonContent.Glyph="&#xE892;" ContentTemplate="{DynamicResource HL.Template.GlyphLabel}" />
+                        <Button x:Name="PauseButton" Margin="0,0,6,0" Click="OnPauseClick" ToolTip="{DynamicResource HL.Tip.Music.Pause}"
+                                Content="_Pause" controls:ButtonContent.Glyph="&#xE769;" ContentTemplate="{DynamicResource HL.Template.GlyphLabel}" />
+                        <Button x:Name="NextButton" Click="OnNextClick" ToolTip="{DynamicResource HL.Tip.Music.NextSong}" AutomationProperties.Name="Next Song"
+                                Content="Ne_xt Song" controls:ButtonContent.Glyph="&#xE893;" ContentTemplate="{DynamicResource HL.Template.GlyphLabel}" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" ToolTip="{DynamicResource HL.Tip.Music.Volume}">
+                        <ToggleButton x:Name="MuteButton" Style="{DynamicResource HL.Style.ToggleButton.Subtle}" Width="36" Height="32" Click="OnMuteToggled" Checked="OnMuteToggled" Unchecked="OnMuteToggled"
+                                      ToolTip="{DynamicResource HL.Tip.Music.Mute}" AutomationProperties.Name="Mute">
+                            <TextBlock x:Name="MuteGlyph" Text="&#xE767;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="14" />
+                        </ToggleButton>
+                        <TextBlock Text="Volume" VerticalAlignment="Center" Margin="8,0,8,0" />
+                        <Slider x:Name="VolumeSlider" Width="160" Minimum="0" Maximum="100" SmallChange="1" LargeChange="10" VerticalAlignment="Center"
+                                IsMoveToPointEnabled="True" ValueChanged="OnVolumeChanged" AutomationProperties.Name="Volume" />
+                        <TextBlock x:Name="VolumeText" Width="44" TextAlignment="Right" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Grid>
+                <Button Content="_Windows Volume Mixer" Style="{DynamicResource HL.Style.Button.Link}" HorizontalAlignment="Right" Margin="0,4,-4,0"
+                        Click="OnVolumeMixerClick" ToolTip="{DynamicResource HL.Tip.Music.VolumeMixer}" />
+            </StackPanel>
+        </controls:Card>
+
+        <!-- The songs with the play mode and Lights and Music beside them; below them on narrow windows (MusicBoxPage.xaml.cs). -->
+        <Grid x:Name="SongsGrid" Margin="0,16,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition x:Name="SideGapColumn" Width="16" />
+                <ColumnDefinition x:Name="SideColumn" Width="300" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition x:Name="SideGapRow" Height="0" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- Songs -->
+            <controls:Card Header="Songs" Description="The songs Holiday Lights picks from. Check the ones you want to hear.">
+                <StackPanel>
+                    <controls:SearchBox x:Name="SongSearch" Margin="0,0,0,10" AutomationProperties.Name="Search songs" SearchChanged="OnSongSearchChanged" />
+                    <WrapPanel x:Name="Chips" AutomationProperties.Name="Song categories" ToolTip="{DynamicResource HL.Tip.Music.Categories}" />
+                    <TextBlock x:Name="SongCount" Margin="0,2,0,8" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                               AutomationProperties.LiveSetting="Polite" />
+                    <Grid Margin="6,0,6,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="68" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="56" />
+                            <ColumnDefinition Width="56" />
+                            <ColumnDefinition Width="170" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="1" Text="Song" FontSize="12" FontWeight="SemiBold" />
+                        <TextBlock Grid.Column="2" Text="Length" FontSize="12" FontWeight="SemiBold" />
+                        <TextBlock Grid.Column="3" Text="Type" FontSize="12" FontWeight="SemiBold" />
+                        <TextBlock Grid.Column="4" Text="Arranger" FontSize="12" FontWeight="SemiBold" />
+                    </Grid>
+                    <Grid>
+                        <ListBox x:Name="SongList" Height="340" ItemContainerStyle="{StaticResource SongRow}" ItemTemplate="{StaticResource SongTemplate}"
+                                 Background="Transparent" BorderThickness="0" SelectionMode="Single" VirtualizingPanel.IsVirtualizing="True"
+                                 VirtualizingPanel.ScrollUnit="Pixel" ScrollViewer.HorizontalScrollBarVisibility="Disabled" AutomationProperties.Name="Songs"
+                                 PreviewKeyDown="OnSongKeyDown" ContextMenuOpening="OnSongMenuOpening" IsTextSearchEnabled="True" TextSearch.TextPath="Title">
+                            <ListBox.ContextMenu>
+                                <ContextMenu />
+                            </ListBox.ContextMenu>
+                        </ListBox>
+                        <TextBlock x:Name="EmptySongs" Text="There are no songs. Click Add Song…, or Restore Removed Songs." TextWrapping="Wrap" Margin="12"
+                                   HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="Collapsed" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                    </Grid>
+                    <TextBlock Margin="0,8,0,8" FontSize="12" TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                               Text="To turn a song on or off, click its check box. To hear a song now, click its play button." />
+                    <WrapPanel>
+                        <Button Content="Chec_k All" Margin="0,0,8,0" Click="OnCheckAllClick" ToolTip="{DynamicResource HL.Tip.Music.CheckAll}" />
+                        <Button Content="Check Non_e" Margin="0,0,8,0" Click="OnCheckNoneClick" ToolTip="{DynamicResource HL.Tip.Music.CheckNone}" />
+                        <Button Content="Add _Song…" Margin="0,0,8,0" Click="OnAddSongClick" ToolTip="{DynamicResource HL.Tip.Music.AddSong}" />
+                        <Button x:Name="SongsMoreButton" Style="{DynamicResource HL.Style.Button.Subtle}" Width="36" Height="32" Click="OnSongsMoreClick"
+                                AutomationProperties.Name="More Song Commands" ToolTip="More song commands">
+                            <TextBlock Text="&#xE712;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="14" />
+                        </Button>
+                    </WrapPanel>
+                </StackPanel>
+            </controls:Card>
+
+            <StackPanel x:Name="SidePanel" Grid.Column="2">
+                <!-- Play the Chosen Songs -->
+                <controls:Card Header="Play the Chosen Songs" Description="When the checked songs play.">
+                    <StackPanel>
+                        <controls:InfoBar x:Name="MusicOffBar" IsOpen="False" Severity="Informational" IsClosable="False" Margin="0,0,0,10"
+                                          Message="Music is turned off. Turn on Play Holiday Music to hear the chosen songs." ActionText="Turn On" />
+                        <RadioButton x:Name="NeverRadio" GroupName="PlayMode" Content="_Never" Click="OnPlayModeChosen" Checked="OnPlayModeChosen" Tag="{x:Static core:PlayMode.Never}"
+                                     ToolTip="{DynamicResource HL.Tip.Music.Never}" />
+                        <RadioButton x:Name="SaverOnRadio" GroupName="PlayMode" Content="Only When the Screen Saver is _On" Margin="0,8,0,0" Click="OnPlayModeChosen" Checked="OnPlayModeChosen"
+                                     Tag="{x:Static core:PlayMode.SaverOn}" ToolTip="{DynamicResource HL.Tip.Music.OnlyWhenSaverOn}" />
+                        <RadioButton x:Name="SaverOffRadio" GroupName="PlayMode" Content="Only When the Screen Saver is O_ff" Margin="0,8,0,0" Click="OnPlayModeChosen" Checked="OnPlayModeChosen"
+                                     Tag="{x:Static core:PlayMode.SaverOff}" ToolTip="{DynamicResource HL.Tip.Music.OnlyWhenSaverOff}" />
+                        <RadioButton x:Name="AlwaysRadio" GroupName="PlayMode" Content="_Always" Margin="0,8,0,0" Click="OnPlayModeChosen" Checked="OnPlayModeChosen"
+                                     Tag="{x:Static core:PlayMode.Always}" ToolTip="{DynamicResource HL.Tip.Music.Always}" />
+                        <RadioButton x:Name="IntermittentRadio" GroupName="PlayMode" Margin="0,8,0,0" Click="OnPlayModeChosen" Checked="OnPlayModeChosen" Tag="{x:Static core:PlayMode.Intermittently}"
+                                     ToolTip="{DynamicResource HL.Tip.Music.Intermittently}" ContentTemplate="{DynamicResource HL.Template.TwoLine}"
+                                     AutomationProperties.Name="Intermittently">
+                            <controls:TwoLineLabel Label="_Intermittently" Description="A song every 1 to 3 minutes." />
+                        </RadioButton>
+                    </StackPanel>
+                </controls:Card>
+
+                <!-- Lights and Music -->
+                <controls:Card Header="Lights and Music" Description="How the lights follow the music." Margin="0,16,0,0">
+                    <CheckBox x:Name="DanceCheck" Click="OnDanceToggled" Checked="OnDanceToggled" Unchecked="OnDanceToggled" ContentTemplate="{DynamicResource HL.Template.TwoLine}"
+                              ToolTip="{DynamicResource HL.Tip.Music.DanceToMusic}" AutomationProperties.Name="Make the Lights Dance to the Music">
+                        <controls:TwoLineLabel Label="Make the Lights _Dance to the Music"
+                                               Description="Changes the flash pattern in the Bulb Factory. Classic patterns always keep their own timing." />
+                    </CheckBox>
+                </controls:Card>
+            </StackPanel>
+        </Grid>
+
+        <Expander Margin="0,16,0,0" AutomationProperties.Name="Advanced">
+            <Expander.Header>
+                <AccessText Text="Advan_ced" />
+            </Expander.Header>
+            <StackPanel Orientation="Horizontal" Margin="0,8,0,0" ToolTip="{DynamicResource HL.Tip.Music.MidiOutput}">
+                <Label Content="MIDI O_utput:" Target="{Binding ElementName=MidiBox}" VerticalAlignment="Center" Padding="0,0,12,0"
+                       Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                <ComboBox x:Name="MidiBox" MinWidth="260" SelectionChanged="OnMidiChanged" AutomationProperties.Name="MIDI Output" />
+            </StackPanel>
+        </Expander>
+
+        <WrapPanel Margin="0,16,0,0">
+            <Button Content="_Load Theme…" Margin="0,0,8,0" Click="OnLoadThemeClick" ToolTip="{DynamicResource HL.Tip.Themes.LoadTheme}" />
+            <Button Content="Sa_ve Settings As Theme…" Click="OnSaveThemeClick" ToolTip="{DynamicResource HL.Tip.Themes.SaveTheme}" />
+        </WrapPanel>
+    </StackPanel>
+</UserControl>

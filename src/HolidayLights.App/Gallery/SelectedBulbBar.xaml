@@ -1,0 +1,102 @@
+<!--
+  The selected-bulb bar at the bottom of the Bulb List (owner: settings-ui; PRODUCT-SPEC 3.2.6): art, name, facts,
+  credits, where the bulb is on the screen, and the commands. Logic in SelectedBulbBar.xaml.cs.
+-->
+<UserControl x:Class="HolidayLights.App.Gallery.SelectedBulbBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:HolidayLights.App.Controls"
+             xmlns:preview="clr-namespace:HolidayLights.App.Preview"
+             AutomationProperties.Name="Selected bulb">
+    <Border BorderThickness="0,1,0,0" BorderBrush="{DynamicResource DividerStrokeColorDefaultBrush}" Padding="0,12,0,0">
+        <Grid>
+            <TextBlock x:Name="NothingText" TextWrapping="Wrap" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                       Text="Select a bulb to see it here. Double-click a bulb to use it, or drag it into a box." Margin="0,0,0,4" />
+
+            <StackPanel x:Name="ManyPanel" Visibility="Collapsed">
+                <TextBlock x:Name="ManyText" FontWeight="SemiBold" Margin="0,0,0,8" AutomationProperties.LiveSetting="Polite" />
+                <WrapPanel>
+                    <Button x:Name="ManyAddToButton" Margin="0,0,8,6" Click="OnAddToClick" ToolTip="{DynamicResource HL.Tip.BulbFactory.AddTo}"
+                            AutomationProperties.Name="Add To">
+                        <StackPanel Orientation="Horizontal">
+                            <AccessText Text="Add T_o…" />
+                            <TextBlock Text="&#xE70D;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="10" Margin="8,2,0,0" />
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="ManyFavoritesButton" Content="Add to Favorite_s" Margin="0,0,8,6" Click="OnManyFavoritesClick" />
+                </WrapPanel>
+            </StackPanel>
+
+            <Grid x:Name="OnePanel" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <controls:NightWell Width="128" Height="72" VerticalAlignment="Top">
+                        <preview:LightStrip x:Name="Run" Side="Top" BulbHeight="56" Glow="On" FallbackToListPreview="True" CropRun="True" VerticalAlignment="Center"
+                                            preview:PreviewAnimation.IsHot="True" />
+                    </controls:NightWell>
+                    <controls:NightWell x:Name="CornerWell" Grid.Column="1" Width="56" Height="72" Margin="6,0,0,0" VerticalAlignment="Top">
+                        <controls:BulbThumbnail x:Name="CornerArt" Slot="TopLeft" IsAnimated="True" MaxArtScale="1.5" Margin="4" />
+                    </controls:NightWell>
+                    <StackPanel Grid.Column="2" Margin="12,0,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="NameText" FontWeight="SemiBold" FontSize="14" TextTrimming="CharacterEllipsis" MaxWidth="220" />
+                            <ToggleButton x:Name="StarButton" Style="{DynamicResource HL.Style.ToggleButton.Subtle}" Width="28" Height="24" Margin="4,-2,0,0"
+                                          Click="OnStarClick" Checked="OnStarClick" Unchecked="OnStarClick" ToolTip="{DynamicResource HL.Tip.BulbFactory.Favorite}" AutomationProperties.Name="Favorite">
+                                <TextBlock x:Name="StarGlyph" Text="&#xE734;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="14" />
+                            </ToggleButton>
+                        </StackPanel>
+                        <TextBlock x:Name="FactsText" FontSize="12" Margin="0,2,0,0" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                   TextTrimming="CharacterEllipsis" />
+                        <DockPanel Margin="0,4,0,0">
+                            <Border DockPanel.Dock="Left" Style="{DynamicResource HL.Style.Badge}" Margin="0,0,6,0" VerticalAlignment="Center">
+                                <TextBlock x:Name="SourceText" Style="{DynamicResource HL.Style.Text.Badge}" Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                            </Border>
+                            <Border x:Name="BigBadge" DockPanel.Dock="Left" Style="{DynamicResource HL.Style.Badge}" Margin="0,0,6,0" VerticalAlignment="Center"
+                                    ToolTip="{DynamicResource HL.Tip.BulbFactory.BigBulb}">
+                                <TextBlock Text="Big" Style="{DynamicResource HL.Style.Text.Badge}" Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                            </Border>
+                            <TextBlock x:Name="UsageText" FontSize="12" VerticalAlignment="Center" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                       TextTrimming="CharacterEllipsis" />
+                        </DockPanel>
+                    </StackPanel>
+                </Grid>
+                <TextBlock x:Name="DescriptionText" Grid.Row="1" TextTrimming="CharacterEllipsis" Margin="0,8,0,0" />
+                <!-- The credits (PRODUCT-SPEC 3.2.6): "Art: <author> - <copyright>" and the 5.4 permission sentence on its own wrapped line. -->
+                <StackPanel x:Name="CreditsPanel" Grid.Row="2" Margin="0,2,0,0">
+                    <TextBlock x:Name="CreditsText" FontSize="12" TextTrimming="CharacterEllipsis"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                    <TextBlock x:Name="PermissionLine" FontSize="12" TextWrapping="Wrap"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                </StackPanel>
+                <WrapPanel x:Name="Commands" Grid.Row="3" Margin="0,8,0,0">
+                    <Button x:Name="UseButton" Style="{DynamicResource AccentButtonStyle}" ContentTemplate="{DynamicResource HL.Template.GlyphLabel}" Margin="0,0,8,6" Click="OnUseClick"
+                            ToolTip="{DynamicResource HL.Tip.BulbFactory.UseFor}" />
+                    <Button x:Name="AddToButton" Margin="0,0,8,6" Click="OnAddToClick" ToolTip="{DynamicResource HL.Tip.BulbFactory.AddTo}"
+                            AutomationProperties.Name="Add To">
+                        <StackPanel Orientation="Horizontal">
+                            <AccessText Text="Add T_o…" />
+                            <TextBlock Text="&#xE70D;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="10" Margin="8,2,0,0" />
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="EditButton" Margin="0,0,8,6" Click="OnEditClick" ToolTip="{DynamicResource HL.Tip.BulbFactory.EditBulb}" />
+                    <Button x:Name="CreditsButton" Content="Bulb _Credits" Margin="0,0,8,6" Click="OnCreditsClick"
+                            ToolTip="{DynamicResource HL.Tip.BulbFactory.BulbCredits}" />
+                    <Button x:Name="MoreButton" Style="{DynamicResource HL.Style.Button.Subtle}" Width="36" Height="32" Margin="0,0,0,6"
+                            Click="OnMoreClick" AutomationProperties.Name="More Commands for This Bulb" ToolTip="More commands for this bulb">
+                        <TextBlock Text="&#xE712;" FontFamily="{DynamicResource HL.Font.Icons}" FontSize="14" />
+                    </Button>
+                </WrapPanel>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

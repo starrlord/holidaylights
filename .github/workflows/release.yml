@@ -1,0 +1,154 @@
+# Builds, tests and packages a release, then publishes it on GitHub (docs/RELEASING.md).
+#
+# Push a tag v<major>.<minor>.<patch> (optionally -<pre-release>) that matches <Version> in Directory.Build.props, or
+# run it by hand: from a tag, or from a branch with the "tag" input (the tag is then created on that commit).
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Tag to release, for example v6.0.1. Leave empty when running from a tag. A new tag is created on the selected branch's commit.
+        required: false
+        type: string
+      draft:
+        description: Create the release as a draft (publish it yourself on the Releases page).
+        required: false
+        type: boolean
+        default: true
+      create-release:
+        description: Create the GitHub release. Clear it to only build and test, and download the zips from this run.
+        required: false
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ inputs.tag || github.ref }}
+  cancel-in-progress: false
+
+env:
+  DOTNET_NOLOGO: 'true'
+  DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
+  NUGET_XMLDOC_MODE: skip
+
+jobs:
+  build:
+    name: Build, test and package
+    runs-on: windows-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: pwsh
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      tag: ${{ steps.version.outputs.tag }}
+      prerelease: ${{ steps.version.outputs.prerelease }}
+    steps:
+      - name: Check out
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Check the version
+        id: version
+        env:
+          REF_TYPE: ${{ github.ref_type }}
+          REF_NAME: ${{ github.ref_name }}
+          INPUT_TAG: ${{ inputs.tag }}
+        run: |
+          $tag = if ($env:REF_TYPE -eq 'tag') { $env:REF_NAME } else { $env:INPUT_TAG }
+          if ($env:REF_TYPE -eq 'tag' -and $env:INPUT_TAG -and $env:INPUT_TAG -ne $env:REF_NAME) {
+            throw "This run is for the tag $env:REF_NAME, but the tag input says $env:INPUT_TAG. Leave the input empty when running from a tag."
+          }
+          ./tools/ci/Get-ReleaseVersion.ps1 -Tag $tag
+
+      - name: Set up .NET (global.json)
+        uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v6
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('global.json', 'Directory.Build.props', '**/*.csproj') }}
+          restore-keys: |
+            nuget-${{ runner.os }}-
+
+      - name: Restore
+        run: dotnet restore HolidayLights.sln
+
+      - name: Build (Release, warnings are errors)
+        run: dotnet build HolidayLights.sln --configuration Release --no-restore -warnaserror
+
+      - name: Test (without the Live, Desktop and Audio tests)
+        run: ./tools/ci/Test.ps1 -Configuration Release -NoBuild -ResultsDirectory "$env:RUNNER_TEMP/TestResults"
+
+      - name: Upload test results
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-results
+          path: ${{ runner.temp }}/TestResults
+          if-no-files-found: warn
+          retention-days: 14
+          overwrite: true
+
+      - name: Package (self-contained and framework-dependent zips, checksums, notes)
+        id: package
+        env:
+          RELEASE_TAG: ${{ steps.version.outputs.tag }}
+        run: ./tools/ci/New-ReleaseAssets.ps1 -Tag $env:RELEASE_TAG -Output "$env:RUNNER_TEMP/release"
+
+      - name: Upload the release files
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-${{ steps.version.outputs.tag }}
+          path: |
+            ${{ runner.temp }}/release/assets
+            ${{ runner.temp }}/release/release-notes.md
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 30
+          overwrite: true
+
+  publish:
+    name: Publish the GitHub release
+    needs: build
+    if: ${{ github.event_name == 'push' || inputs.create-release }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - name: Check out the release scripts
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          sparse-checkout: tools/ci
+
+      - name: Download the release files
+        uses: actions/download-artifact@v8
+        with:
+          name: release-${{ needs.build.outputs.tag }}
+          path: release
+
+      - name: Create the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ needs.build.outputs.tag }}
+          VERSION: ${{ needs.build.outputs.version }}
+          PRERELEASE: ${{ needs.build.outputs.prerelease }}
+          DRAFT: ${{ github.event_name == 'workflow_dispatch' && inputs.draft }}
+          TAG_PUSHED: ${{ github.ref_type == 'tag' }}
+          COMMIT: ${{ github.sha }}
+        run: ./tools/ci/Publish-GitHubRelease.ps1 -Folder release

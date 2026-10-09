@@ -1,0 +1,7 @@
+{
+ "_comment": "Translated from golden default-themes.json, theme \"St. Patrick's Day\", value 'Bulb Settings' (32 x int32: per side 6 bulb ids + 2 corner ids; ids are legacy built-in bulb ids).",
+ "top": {"bulbs": [18, -1, -1, -1, -1, -1], "corners": [-1, -1]},
+ "right": {"bulbs": [18, -1, -1, -1, -1, -1], "corners": [-1, -1]},
+ "bottom": {"bulbs": [18, 22, -1, -1, -1, -1], "corners": [-1, -1]},
+ "left": {"bulbs": [18, -1, -1, -1, -1, -1], "corners": [-1, -1]}
+}

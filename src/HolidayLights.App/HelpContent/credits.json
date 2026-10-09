@@ -1,0 +1,1733 @@
+{
+  "schema": "holidaylights.credits/1",
+  "originalProgram": "Holiday Lights 5.4 for Windows, Copyright 1993-2003 Tiger Technologies. Holiday Lights was created by Tiger Technologies. Holiday Lights is a registered trademark of Tiger Technologies.",
+  "builtInArtists": [
+    {
+      "name": "Joe Lachoff",
+      "bulbs": [
+        "Standard Bulbs",
+        "Jolly Holly",
+        "Snow Family",
+        "Indoor Bulbs",
+        "Mini Bulbs",
+        "Shiny Baubles",
+        "Christmas Trees",
+        "Candy Canes",
+        "Santa Claus",
+        "Carolers",
+        "Stockings",
+        "Gifts",
+        "Dreidels",
+        "Menorahs",
+        "Mezmerized",
+        "Candy Hearts",
+        "Shamrocks",
+        "Pastel Easter Eggs",
+        "Striped Easter Eggs",
+        "Old Glory Bulbs",
+        "Chili Peppers",
+        "Have A Nice Day!",
+        "Paper Dolls",
+        "Paper Lanterns",
+        "Laundry",
+        "Tasty Donuts",
+        "Schtanna",
+        "Religious Icons",
+        "Sun",
+        "Moon",
+        "Planets",
+        "Flags of the World",
+        "16 Pixel Spacer",
+        "32 Pixel Spacer",
+        "50 Pixel Spacer"
+      ],
+      "bulbCount": 35,
+      "note": "Old Glory Bulbs with Robert L. Mathews"
+    },
+    {
+      "name": "Robert L. Mathews",
+      "bulbs": [
+        "Heavy Duty Bulbs",
+        "Sweet Hearts",
+        "Old Glory Bulbs"
+      ],
+      "bulbCount": 3,
+      "note": "Old Glory Bulbs with Joe Lachoff"
+    },
+    {
+      "name": "Mark Pettus, Mighty Toad Software",
+      "bulbs": [
+        "Jack-O-Lanterns",
+        "Zombie Tombstones",
+        "The Grim Reaper",
+        "Autumn Leaves",
+        "Cornucopias",
+        "Live Turkeys",
+        "Dead Turkeys"
+      ],
+      "bulbCount": 7,
+      "note": null
+    },
+    {
+      "name": "Mary Lee Seward",
+      "bulbs": [
+        "Spring Flowers",
+        "Ghosts"
+      ],
+      "bulbCount": 2,
+      "note": null
+    },
+    {
+      "name": "Gail Allinson",
+      "bulbs": [
+        "North Pole Express",
+        "Flight Lights"
+      ],
+      "bulbCount": 2,
+      "note": null
+    },
+    {
+      "name": "Apple Computer, Inc.",
+      "bulbs": [
+        "Party Hats"
+      ],
+      "bulbCount": 1,
+      "note": "based on art included with Mac OS, Copyright 1983-1997 Apple Computer, Inc."
+    }
+  ],
+  "addOnArtists": [
+    {
+      "name": "Ahmed Saadoon Subhani",
+      "bulbCount": 1
+    },
+    {
+      "name": "Alan",
+      "bulbCount": 1
+    },
+    {
+      "name": "Alice Snyder",
+      "bulbCount": 1
+    },
+    {
+      "name": "Amanda Harkins",
+      "bulbCount": 1
+    },
+    {
+      "name": "amanda staub",
+      "bulbCount": 2
+    },
+    {
+      "name": "An Vo",
+      "bulbCount": 1
+    },
+    {
+      "name": "Andrea Bogaty",
+      "bulbCount": 14
+    },
+    {
+      "name": "Andrea Marie Connors",
+      "bulbCount": 1
+    },
+    {
+      "name": "Andrew Carr",
+      "bulbCount": 1
+    },
+    {
+      "name": "Andy Jones",
+      "bulbCount": 1
+    },
+    {
+      "name": "Andy Lam",
+      "bulbCount": 1
+    },
+    {
+      "name": "Angela Gonyea",
+      "bulbCount": 8
+    },
+    {
+      "name": "Angela Rice",
+      "bulbCount": 1
+    },
+    {
+      "name": "Anne Margit Kemi",
+      "bulbCount": 2
+    },
+    {
+      "name": "Ashwin Gopwani",
+      "bulbCount": 1
+    },
+    {
+      "name": "Bascakes",
+      "bulbCount": 2
+    },
+    {
+      "name": "Beautiful Eagles created by Sonny Del Castillo. © Poison's Icons",
+      "bulbCount": 1
+    },
+    {
+      "name": "Ben Palazzolo",
+      "bulbCount": 1
+    },
+    {
+      "name": "Bert Gervais",
+      "bulbCount": 1
+    },
+    {
+      "name": "Beth",
+      "bulbCount": 1
+    },
+    {
+      "name": "Betty Chaffin",
+      "bulbCount": 1
+    },
+    {
+      "name": "Betty Lucele Weaver",
+      "bulbCount": 1
+    },
+    {
+      "name": "Biratheeban",
+      "bulbCount": 4
+    },
+    {
+      "name": "Bo McGee",
+      "bulbCount": 2
+    },
+    {
+      "name": "Bob Bendorf",
+      "bulbCount": 2
+    },
+    {
+      "name": "Bob Seaman",
+      "bulbCount": 2
+    },
+    {
+      "name": "Bogdan Arsenie",
+      "bulbCount": 1
+    },
+    {
+      "name": "Branden's",
+      "bulbCount": 2
+    },
+    {
+      "name": "Brandon Geyer",
+      "bulbCount": 2
+    },
+    {
+      "name": "Brian Miller",
+      "bulbCount": 1
+    },
+    {
+      "name": "Brian Walsh",
+      "bulbCount": 1
+    },
+    {
+      "name": "Buzz Sandstrom",
+      "bulbCount": 2
+    },
+    {
+      "name": "C. Seitz",
+      "bulbCount": 1
+    },
+    {
+      "name": "Captain Lobotomy",
+      "bulbCount": 1
+    },
+    {
+      "name": "Carey Feldman",
+      "bulbCount": 3
+    },
+    {
+      "name": "Carol Vagias",
+      "bulbCount": 1
+    },
+    {
+      "name": "Charlotte E. Maarfi",
+      "bulbCount": 1
+    },
+    {
+      "name": "Chenry",
+      "bulbCount": 4
+    },
+    {
+      "name": "Cheri Delmonte",
+      "bulbCount": 3
+    },
+    {
+      "name": "Cheryl Boswell",
+      "bulbCount": 2
+    },
+    {
+      "name": "Cheryl Elias",
+      "bulbCount": 2
+    },
+    {
+      "name": "Chris Allen",
+      "bulbCount": 1
+    },
+    {
+      "name": "Chris Carrier",
+      "bulbCount": 2
+    },
+    {
+      "name": "Chris Kallinen",
+      "bulbCount": 1
+    },
+    {
+      "name": "Chris Nevett",
+      "bulbCount": 1
+    },
+    {
+      "name": "chris wolkowicz",
+      "bulbCount": 2
+    },
+    {
+      "name": "Christine Henry",
+      "bulbCount": 3
+    },
+    {
+      "name": "Christine Thomas",
+      "bulbCount": 1
+    },
+    {
+      "name": "Christopher C. Krieger",
+      "bulbCount": 1
+    },
+    {
+      "name": "Christopher La Roche",
+      "bulbCount": 1
+    },
+    {
+      "name": "Colin Cogle",
+      "bulbCount": 1
+    },
+    {
+      "name": "conniew26",
+      "bulbCount": 1
+    },
+    {
+      "name": "Conrad Brinker",
+      "bulbCount": 1
+    },
+    {
+      "name": "Craig Waggett",
+      "bulbCount": 2
+    },
+    {
+      "name": "CRC Ordinateurs Inc",
+      "bulbCount": 2
+    },
+    {
+      "name": "Cristina Young",
+      "bulbCount": 3
+    },
+    {
+      "name": "Cyberkidsdomain.com",
+      "bulbCount": 1
+    },
+    {
+      "name": "Cyberkidsdomain.net",
+      "bulbCount": 15
+    },
+    {
+      "name": "CYNTHIA H. KENT",
+      "bulbCount": 19
+    },
+    {
+      "name": "D. Stotz",
+      "bulbCount": 3
+    },
+    {
+      "name": "DAN",
+      "bulbCount": 1
+    },
+    {
+      "name": "Daniel Warner",
+      "bulbCount": 1
+    },
+    {
+      "name": "Darin Bronson",
+      "bulbCount": 2
+    },
+    {
+      "name": "Darlan Brandt",
+      "bulbCount": 1
+    },
+    {
+      "name": "Darren Denenberg",
+      "bulbCount": 1
+    },
+    {
+      "name": "Dave Sechrist",
+      "bulbCount": 3
+    },
+    {
+      "name": "David Myers",
+      "bulbCount": 1
+    },
+    {
+      "name": "David Rozic",
+      "bulbCount": 1
+    },
+    {
+      "name": "David Sams",
+      "bulbCount": 1
+    },
+    {
+      "name": "David Zoffer",
+      "bulbCount": 1
+    },
+    {
+      "name": "Deanna Irwin",
+      "bulbCount": 26
+    },
+    {
+      "name": "Deb Johnson",
+      "bulbCount": 2
+    },
+    {
+      "name": "Debby Danielson Cotta",
+      "bulbCount": 1
+    },
+    {
+      "name": "Debra Coffman",
+      "bulbCount": 1
+    },
+    {
+      "name": "Dee Trejo",
+      "bulbCount": 2
+    },
+    {
+      "name": "Denise Scharf",
+      "bulbCount": 1
+    },
+    {
+      "name": "Diane Davis",
+      "bulbCount": 2
+    },
+    {
+      "name": "Diane Karp",
+      "bulbCount": 1
+    },
+    {
+      "name": "Didi Noyan",
+      "bulbCount": 1
+    },
+    {
+      "name": "Dimitrios Karas",
+      "bulbCount": 20
+    },
+    {
+      "name": "diva_sarah",
+      "bulbCount": 9
+    },
+    {
+      "name": "dnardone",
+      "bulbCount": 2
+    },
+    {
+      "name": "Donald W West",
+      "bulbCount": 1
+    },
+    {
+      "name": "Donna H",
+      "bulbCount": 1
+    },
+    {
+      "name": "Doris Baird",
+      "bulbCount": 2
+    },
+    {
+      "name": "Doug McCuistion",
+      "bulbCount": 2
+    },
+    {
+      "name": "Douglas Wallace",
+      "bulbCount": 13
+    },
+    {
+      "name": "Drema Atkins",
+      "bulbCount": 4
+    },
+    {
+      "name": "Duffy Worcester",
+      "bulbCount": 2
+    },
+    {
+      "name": "Dusterjo",
+      "bulbCount": 3
+    },
+    {
+      "name": "Dustin MacDonald",
+      "bulbCount": 5
+    },
+    {
+      "name": "E. Skoviak",
+      "bulbCount": 1
+    },
+    {
+      "name": "Eleanna Kara",
+      "bulbCount": 1
+    },
+    {
+      "name": "Eli Edward Chupp",
+      "bulbCount": 5
+    },
+    {
+      "name": "Elizabeth Blackwell",
+      "bulbCount": 1
+    },
+    {
+      "name": "Elizabeth Tetley",
+      "bulbCount": 1
+    },
+    {
+      "name": "Elyn Zerfas",
+      "bulbCount": 3
+    },
+    {
+      "name": "Eman V",
+      "bulbCount": 1
+    },
+    {
+      "name": "Eric Brill",
+      "bulbCount": 3
+    },
+    {
+      "name": "Eric Miller",
+      "bulbCount": 27
+    },
+    {
+      "name": "Eulonda Wright",
+      "bulbCount": 1
+    },
+    {
+      "name": "Evelyn Martinez",
+      "bulbCount": 1
+    },
+    {
+      "name": "farnas",
+      "bulbCount": 1
+    },
+    {
+      "name": "Faye-Linda McGovern",
+      "bulbCount": 2
+    },
+    {
+      "name": "Franzke",
+      "bulbCount": 1
+    },
+    {
+      "name": "Frederik Kamp",
+      "bulbCount": 1
+    },
+    {
+      "name": "Fuentes Piedra",
+      "bulbCount": 2
+    },
+    {
+      "name": "G Jatt",
+      "bulbCount": 1
+    },
+    {
+      "name": "G.P.Barsby",
+      "bulbCount": 66
+    },
+    {
+      "name": "Gail Allinson",
+      "bulbCount": 44
+    },
+    {
+      "name": "gailla01",
+      "bulbCount": 2
+    },
+    {
+      "name": "Gareth Barsby",
+      "bulbCount": 12
+    },
+    {
+      "name": "Gary A Jenkins",
+      "bulbCount": 1
+    },
+    {
+      "name": "GC Martin",
+      "bulbCount": 2
+    },
+    {
+      "name": "Gene Hall",
+      "bulbCount": 1
+    },
+    {
+      "name": "Gina Herman",
+      "bulbCount": 1
+    },
+    {
+      "name": "Glenn Love",
+      "bulbCount": 1
+    },
+    {
+      "name": "Gloria Koshinski",
+      "bulbCount": 1
+    },
+    {
+      "name": "Goh Zhang Quan",
+      "bulbCount": 1
+    },
+    {
+      "name": "Grace Sylvan for The Kid's Domain",
+      "bulbCount": 1
+    },
+    {
+      "name": "grdinich",
+      "bulbCount": 1
+    },
+    {
+      "name": "Greg Leffler",
+      "bulbCount": 1
+    },
+    {
+      "name": "Gregory Glidden",
+      "bulbCount": 2
+    },
+    {
+      "name": "Gretchen l Pugh",
+      "bulbCount": 4
+    },
+    {
+      "name": "Griff",
+      "bulbCount": 1
+    },
+    {
+      "name": "Hank Weaver",
+      "bulbCount": 5
+    },
+    {
+      "name": "Helen McGinley",
+      "bulbCount": 5
+    },
+    {
+      "name": "Helena Faford",
+      "bulbCount": 8
+    },
+    {
+      "name": "Ian Kotowich",
+      "bulbCount": 1
+    },
+    {
+      "name": "Infinet Systems",
+      "bulbCount": 1
+    },
+    {
+      "name": "Irlene Flansburg",
+      "bulbCount": 1
+    },
+    {
+      "name": "J Perkins",
+      "bulbCount": 58
+    },
+    {
+      "name": "Jack Odom",
+      "bulbCount": 1
+    },
+    {
+      "name": "Jade Spiritiger",
+      "bulbCount": 8
+    },
+    {
+      "name": "James and Bobby Wilson",
+      "bulbCount": 2
+    },
+    {
+      "name": "James Dainty",
+      "bulbCount": 1
+    },
+    {
+      "name": "James Stiles",
+      "bulbCount": 1
+    },
+    {
+      "name": "James Wilson",
+      "bulbCount": 1
+    },
+    {
+      "name": "Jamie Redgate age 11",
+      "bulbCount": 1
+    },
+    {
+      "name": "Janet Lynn",
+      "bulbCount": 1
+    },
+    {
+      "name": "janey rachal",
+      "bulbCount": 1
+    },
+    {
+      "name": "JANUSZ JULIAN",
+      "bulbCount": 1
+    },
+    {
+      "name": "Jason & Melissa Talcott",
+      "bulbCount": 1
+    },
+    {
+      "name": "Jason de Vine",
+      "bulbCount": 1
+    },
+    {
+      "name": "Jason Shriner",
+      "bulbCount": 9
+    },
+    {
+      "name": "Jasonl Shriner",
+      "bulbCount": 1
+    },
+    {
+      "name": "Javier Martinez",
+      "bulbCount": 3
+    },
+    {
+      "name": "JB Jones",
+      "bulbCount": 1
+    },
+    {
+      "name": "JC Johnson",
+      "bulbCount": 31
+    },
+    {
+      "name": "Jean Ann Nelson",
+      "bulbCount": 4
+    },
+    {
+      "name": "JEFFREY AND BRIDGETT HAGA",
+      "bulbCount": 6
+    },
+    {
+      "name": "Jen Rondello",
+      "bulbCount": 1
+    },
+    {
+      "name": "Jen Schexnayder",
+      "bulbCount": 1
+    },
+    {
+      "name": "Jenny Tso",
+      "bulbCount": 1
+    },
+    {
+      "name": "Jim Kelley",
+      "bulbCount": 2
+    },
+    {
+      "name": "Jim Mac Donald",
+      "bulbCount": 3
+    },
+    {
+      "name": "Jo",
+      "bulbCount": 1
+    },
+    {
+      "name": "JODY LYNN RENNIE",
+      "bulbCount": 1
+    },
+    {
+      "name": "JOE ENIGMA 2K",
+      "bulbCount": 3
+    },
+    {
+      "name": "Joe Lachoff, for Tiger Technologies",
+      "bulbCount": 1
+    },
+    {
+      "name": "JOE PARKER",
+      "bulbCount": 1
+    },
+    {
+      "name": "Joel D. Kohler",
+      "bulbCount": 1
+    },
+    {
+      "name": "Joel Kohler",
+      "bulbCount": 3
+    },
+    {
+      "name": "Johanna Karolina Kemi",
+      "bulbCount": 1
+    },
+    {
+      "name": "John & Lisa Steele",
+      "bulbCount": 1
+    },
+    {
+      "name": "John Haly",
+      "bulbCount": 1
+    },
+    {
+      "name": "Johnathan Smith",
+      "bulbCount": 1
+    },
+    {
+      "name": "Jon Shauberger",
+      "bulbCount": 1
+    },
+    {
+      "name": "Jonathan Hamilton",
+      "bulbCount": 5
+    },
+    {
+      "name": "Jordan Bauman",
+      "bulbCount": 1
+    },
+    {
+      "name": "Joseph A. Zullo",
+      "bulbCount": 2
+    },
+    {
+      "name": "JSKINNER",
+      "bulbCount": 7
+    },
+    {
+      "name": "Julia Dade",
+      "bulbCount": 2
+    },
+    {
+      "name": "Julia Spedaliere",
+      "bulbCount": 1
+    },
+    {
+      "name": "Julie Zucker",
+      "bulbCount": 17
+    },
+    {
+      "name": "Justin Baker",
+      "bulbCount": 1
+    },
+    {
+      "name": "Justin D. Johnson",
+      "bulbCount": 1
+    },
+    {
+      "name": "K Casazza",
+      "bulbCount": 1
+    },
+    {
+      "name": "K R Ross",
+      "bulbCount": 16
+    },
+    {
+      "name": "K. Ford",
+      "bulbCount": 2
+    },
+    {
+      "name": "Kaleigh Knight",
+      "bulbCount": 8
+    },
+    {
+      "name": "Kameron VanWoerkom &Landon Gaus",
+      "bulbCount": 1
+    },
+    {
+      "name": "KAREN TATEM",
+      "bulbCount": 6
+    },
+    {
+      "name": "Karla Fulfer",
+      "bulbCount": 1
+    },
+    {
+      "name": "Karman Foo",
+      "bulbCount": 1
+    },
+    {
+      "name": "Kathryn Kite",
+      "bulbCount": 1
+    },
+    {
+      "name": "Kathy",
+      "bulbCount": 2
+    },
+    {
+      "name": "Kathy Coomey",
+      "bulbCount": 9
+    },
+    {
+      "name": "Kayli Harden",
+      "bulbCount": 36
+    },
+    {
+      "name": "Kelly Ransier-Ros",
+      "bulbCount": 1
+    },
+    {
+      "name": "Kelly Ransier-Ross",
+      "bulbCount": 4
+    },
+    {
+      "name": "Kelly Ross",
+      "bulbCount": 1
+    },
+    {
+      "name": "Kelly Towles",
+      "bulbCount": 1
+    },
+    {
+      "name": "Kellyann Binari",
+      "bulbCount": 1
+    },
+    {
+      "name": "Kelvin Mathews",
+      "bulbCount": 2
+    },
+    {
+      "name": "Kevin Sean Mayo",
+      "bulbCount": 3
+    },
+    {
+      "name": "Kivi Fransson",
+      "bulbCount": 1
+    },
+    {
+      "name": "Kyle Mulrain",
+      "bulbCount": 1
+    },
+    {
+      "name": "l33t666",
+      "bulbCount": 1
+    },
+    {
+      "name": "ladydairhean",
+      "bulbCount": 1
+    },
+    {
+      "name": "Larry Faubert",
+      "bulbCount": 1
+    },
+    {
+      "name": "Lauren",
+      "bulbCount": 1
+    },
+    {
+      "name": "Lee Hericks",
+      "bulbCount": 3
+    },
+    {
+      "name": "Leigh McVey",
+      "bulbCount": 9
+    },
+    {
+      "name": "Lena Brorsson",
+      "bulbCount": 2
+    },
+    {
+      "name": "Linda Smith",
+      "bulbCount": 17
+    },
+    {
+      "name": "Lisa Harshman",
+      "bulbCount": 8
+    },
+    {
+      "name": "Lisa M. Harshman",
+      "bulbCount": 6
+    },
+    {
+      "name": "Lisa Rothbrust",
+      "bulbCount": 2
+    },
+    {
+      "name": "Loraine Wauer-Ferus",
+      "bulbCount": 19
+    },
+    {
+      "name": "LottiGirl",
+      "bulbCount": 1
+    },
+    {
+      "name": "Luis Sabino Martinez",
+      "bulbCount": 1
+    },
+    {
+      "name": "M ZULFIQAR KHAN",
+      "bulbCount": 1
+    },
+    {
+      "name": "M.C. Dooley",
+      "bulbCount": 1
+    },
+    {
+      "name": "M.H. MIRANDA",
+      "bulbCount": 1
+    },
+    {
+      "name": "Manuel Rodriguez Jr",
+      "bulbCount": 1
+    },
+    {
+      "name": "Marc Dailey",
+      "bulbCount": 1
+    },
+    {
+      "name": "Marc S",
+      "bulbCount": 6
+    },
+    {
+      "name": "Maria Tracy",
+      "bulbCount": 1
+    },
+    {
+      "name": "Marie (frog) Larsson",
+      "bulbCount": 3
+    },
+    {
+      "name": "Marie Karrer",
+      "bulbCount": 2
+    },
+    {
+      "name": "Mark Dillon",
+      "bulbCount": 130
+    },
+    {
+      "name": "Mark J Neis",
+      "bulbCount": 1
+    },
+    {
+      "name": "Mark Pettus",
+      "bulbCount": 1
+    },
+    {
+      "name": "Mark S. Lampe",
+      "bulbCount": 1
+    },
+    {
+      "name": "Marko Marcus Krajsha",
+      "bulbCount": 4
+    },
+    {
+      "name": "Martin",
+      "bulbCount": 15
+    },
+    {
+      "name": "Mary A. Scarborough",
+      "bulbCount": 1
+    },
+    {
+      "name": "Mary Ann McDermott",
+      "bulbCount": 2
+    },
+    {
+      "name": "Mary C. Dooley",
+      "bulbCount": 1
+    },
+    {
+      "name": "Mary Dooley",
+      "bulbCount": 17
+    },
+    {
+      "name": "Mary Landon",
+      "bulbCount": 1
+    },
+    {
+      "name": "Mary M. White",
+      "bulbCount": 17
+    },
+    {
+      "name": "Mary Rush",
+      "bulbCount": 2
+    },
+    {
+      "name": "Matt Woodworth",
+      "bulbCount": 1
+    },
+    {
+      "name": "Meaghan Devlin",
+      "bulbCount": 1
+    },
+    {
+      "name": "Melissa Eisele",
+      "bulbCount": 4
+    },
+    {
+      "name": "Merlin the Ex-Druid",
+      "bulbCount": 1
+    },
+    {
+      "name": "Michael Anderson",
+      "bulbCount": 2
+    },
+    {
+      "name": "Michael Candelori",
+      "bulbCount": 1
+    },
+    {
+      "name": "Michael Woodworth",
+      "bulbCount": 1
+    },
+    {
+      "name": "Michele Copeland",
+      "bulbCount": 4
+    },
+    {
+      "name": "Mik",
+      "bulbCount": 1
+    },
+    {
+      "name": "Mike Raidt",
+      "bulbCount": 1
+    },
+    {
+      "name": "Mr. Zafar Iqbal",
+      "bulbCount": 1
+    },
+    {
+      "name": "Nathaniel Jilk",
+      "bulbCount": 1
+    },
+    {
+      "name": "Neil and Lisa",
+      "bulbCount": 1
+    },
+    {
+      "name": "Neil Dixon",
+      "bulbCount": 3
+    },
+    {
+      "name": "Neil Martin",
+      "bulbCount": 3
+    },
+    {
+      "name": "Neo-Link",
+      "bulbCount": 2
+    },
+    {
+      "name": "nerguven",
+      "bulbCount": 1
+    },
+    {
+      "name": "Nick McGuire",
+      "bulbCount": 1
+    },
+    {
+      "name": "Nicola Petre",
+      "bulbCount": 1
+    },
+    {
+      "name": "Nicole Cooper",
+      "bulbCount": 2
+    },
+    {
+      "name": "Nicole Marques",
+      "bulbCount": 3
+    },
+    {
+      "name": "Nigel",
+      "bulbCount": 1
+    },
+    {
+      "name": "Nightmare Factory",
+      "bulbCount": 1
+    },
+    {
+      "name": "Norma Phelps",
+      "bulbCount": 18
+    },
+    {
+      "name": "Pam Scheanwald",
+      "bulbCount": 2
+    },
+    {
+      "name": "Pat Butler",
+      "bulbCount": 68
+    },
+    {
+      "name": "Pat Glover",
+      "bulbCount": 18
+    },
+    {
+      "name": "Pat Throckmorton",
+      "bulbCount": 1
+    },
+    {
+      "name": "Patrick Kroes",
+      "bulbCount": 1
+    },
+    {
+      "name": "Patrick Weber",
+      "bulbCount": 1
+    },
+    {
+      "name": "Paul Kinnear",
+      "bulbCount": 8
+    },
+    {
+      "name": "Paul M. Galloway",
+      "bulbCount": 1
+    },
+    {
+      "name": "Paul Minczer",
+      "bulbCount": 4
+    },
+    {
+      "name": "Paul Sampson",
+      "bulbCount": 2
+    },
+    {
+      "name": "Paul Taylor",
+      "bulbCount": 2
+    },
+    {
+      "name": "Paul William Kitchener",
+      "bulbCount": 1
+    },
+    {
+      "name": "Paula J. Hussey",
+      "bulbCount": 2
+    },
+    {
+      "name": "Peter Barfuss",
+      "bulbCount": 1
+    },
+    {
+      "name": "Phewww",
+      "bulbCount": 1
+    },
+    {
+      "name": "Phillip Andrew",
+      "bulbCount": 1
+    },
+    {
+      "name": "Pina Fragale",
+      "bulbCount": 1
+    },
+    {
+      "name": "Pinto Luis",
+      "bulbCount": 1
+    },
+    {
+      "name": "PNolan",
+      "bulbCount": 1
+    },
+    {
+      "name": "Polly Clancy",
+      "bulbCount": 1
+    },
+    {
+      "name": "Polly Shingler",
+      "bulbCount": 1
+    },
+    {
+      "name": "Pranav Sharma",
+      "bulbCount": 1
+    },
+    {
+      "name": "Prefered Customer",
+      "bulbCount": 1
+    },
+    {
+      "name": "R and K Ross",
+      "bulbCount": 5
+    },
+    {
+      "name": "Ramona Blackmon",
+      "bulbCount": 3
+    },
+    {
+      "name": "Randy Buckspan",
+      "bulbCount": 3
+    },
+    {
+      "name": "Rebecca Fung",
+      "bulbCount": 1
+    },
+    {
+      "name": "Rebecca Yocum",
+      "bulbCount": 1
+    },
+    {
+      "name": "Rhonda A Love",
+      "bulbCount": 7
+    },
+    {
+      "name": "Rhonda Youst",
+      "bulbCount": 1
+    },
+    {
+      "name": "Rich & Brenda Zambroski",
+      "bulbCount": 2
+    },
+    {
+      "name": "RITA HOYLE",
+      "bulbCount": 4
+    },
+    {
+      "name": "Rob Lasky",
+      "bulbCount": 1
+    },
+    {
+      "name": "Rob Neyts",
+      "bulbCount": 1
+    },
+    {
+      "name": "Robert Brower",
+      "bulbCount": 2
+    },
+    {
+      "name": "Robert Dement Jr",
+      "bulbCount": 1
+    },
+    {
+      "name": "Robert J. Harshman",
+      "bulbCount": 4
+    },
+    {
+      "name": "Robert L Mathews",
+      "bulbCount": 13
+    },
+    {
+      "name": "Robert Lasky",
+      "bulbCount": 3
+    },
+    {
+      "name": "Robert M. Lasky, Jr",
+      "bulbCount": 2
+    },
+    {
+      "name": "Robroy V. Langston",
+      "bulbCount": 1
+    },
+    {
+      "name": "Robyn J. Henke",
+      "bulbCount": 2
+    },
+    {
+      "name": "Rodell Family",
+      "bulbCount": 3
+    },
+    {
+      "name": "Ron Lightfoot",
+      "bulbCount": 2
+    },
+    {
+      "name": "Ronald Rae M. Yu",
+      "bulbCount": 1
+    },
+    {
+      "name": "Ross Farquhar",
+      "bulbCount": 1
+    },
+    {
+      "name": "RSL 2112",
+      "bulbCount": 8
+    },
+    {
+      "name": "Ruben Martinez",
+      "bulbCount": 1
+    },
+    {
+      "name": "Russell Davis",
+      "bulbCount": 2
+    },
+    {
+      "name": "Ruth Carpenter",
+      "bulbCount": 2
+    },
+    {
+      "name": "Ruud Anninga",
+      "bulbCount": 2
+    },
+    {
+      "name": "Ryan Sawyer",
+      "bulbCount": 1
+    },
+    {
+      "name": "Ryan Thomas Ross",
+      "bulbCount": 1
+    },
+    {
+      "name": "S.R. Farr",
+      "bulbCount": 10
+    },
+    {
+      "name": "Sandi Fulmer",
+      "bulbCount": 1
+    },
+    {
+      "name": "Sandra Mulvenna",
+      "bulbCount": 2
+    },
+    {
+      "name": "Sandra Rath",
+      "bulbCount": 1
+    },
+    {
+      "name": "Sara R. Farr",
+      "bulbCount": 2
+    },
+    {
+      "name": "Scott",
+      "bulbCount": 2
+    },
+    {
+      "name": "SCP2XG8-64/B",
+      "bulbCount": 7
+    },
+    {
+      "name": "Sean Sabbage",
+      "bulbCount": 1
+    },
+    {
+      "name": "Shannon & Shannon",
+      "bulbCount": 1
+    },
+    {
+      "name": "Sharon L. Wolfe",
+      "bulbCount": 6
+    },
+    {
+      "name": "Sheila Ullery",
+      "bulbCount": 1
+    },
+    {
+      "name": "Sher Stavos",
+      "bulbCount": 1
+    },
+    {
+      "name": "SheriBerry Graphics",
+      "bulbCount": 2
+    },
+    {
+      "name": "Shur an twas created by a *tru* Irish Colleen!!!",
+      "bulbCount": 1
+    },
+    {
+      "name": "Sin Man Yin",
+      "bulbCount": 1
+    },
+    {
+      "name": "SNOUPI",
+      "bulbCount": 1
+    },
+    {
+      "name": "Spencer Rauch",
+      "bulbCount": 1
+    },
+    {
+      "name": "Stephen Chou",
+      "bulbCount": 1
+    },
+    {
+      "name": "Steve Vella",
+      "bulbCount": 1
+    },
+    {
+      "name": "Steve Wood",
+      "bulbCount": 1
+    },
+    {
+      "name": "Suzette Gruel",
+      "bulbCount": 1
+    },
+    {
+      "name": "SYLVIA ANTONIO",
+      "bulbCount": 1
+    },
+    {
+      "name": "Sys Banana",
+      "bulbCount": 12
+    },
+    {
+      "name": "T Todaro",
+      "bulbCount": 2
+    },
+    {
+      "name": "Tami Hofacker",
+      "bulbCount": 1
+    },
+    {
+      "name": "Tami Pannone",
+      "bulbCount": 1
+    },
+    {
+      "name": "Tammy Qualls",
+      "bulbCount": 8
+    },
+    {
+      "name": "Tanner",
+      "bulbCount": 1
+    },
+    {
+      "name": "Teddi E. Nowalski",
+      "bulbCount": 1
+    },
+    {
+      "name": "teresa godeaux",
+      "bulbCount": 8
+    },
+    {
+      "name": "Terry Woodard",
+      "bulbCount": 14
+    },
+    {
+      "name": "The Anderson Family",
+      "bulbCount": 2
+    },
+    {
+      "name": "The Quells",
+      "bulbCount": 1
+    },
+    {
+      "name": "Theresa Bail",
+      "bulbCount": 7
+    },
+    {
+      "name": "Thomas Craven",
+      "bulbCount": 1
+    },
+    {
+      "name": "Thomas Mauro",
+      "bulbCount": 1
+    },
+    {
+      "name": "ThreePts",
+      "bulbCount": 2
+    },
+    {
+      "name": "Tiger Technologies",
+      "bulbCount": 36
+    },
+    {
+      "name": "Tim Traas",
+      "bulbCount": 2
+    },
+    {
+      "name": "Todd & Cindy Qualls",
+      "bulbCount": 1
+    },
+    {
+      "name": "Todd G. Christopher",
+      "bulbCount": 1
+    },
+    {
+      "name": "Tom Wiley",
+      "bulbCount": 1
+    },
+    {
+      "name": "Tommy Parsons",
+      "bulbCount": 2
+    },
+    {
+      "name": "Tony Helms Jr",
+      "bulbCount": 2
+    },
+    {
+      "name": "TONYA BEADER",
+      "bulbCount": 3
+    },
+    {
+      "name": "Tracy A Chambers",
+      "bulbCount": 2
+    },
+    {
+      "name": "Trishia Hicks",
+      "bulbCount": 1
+    },
+    {
+      "name": "Troy Hulen",
+      "bulbCount": 1
+    },
+    {
+      "name": "Tyeise Green",
+      "bulbCount": 1
+    },
+    {
+      "name": "Tyler Canning",
+      "bulbCount": 1
+    },
+    {
+      "name": "Tyler Harden",
+      "bulbCount": 2
+    },
+    {
+      "name": "unlockss",
+      "bulbCount": 1
+    },
+    {
+      "name": "valryan",
+      "bulbCount": 1
+    },
+    {
+      "name": "Vaughn Drinen",
+      "bulbCount": 2
+    },
+    {
+      "name": "Vera Baker",
+      "bulbCount": 2
+    },
+    {
+      "name": "Victor V.Noort",
+      "bulbCount": 1
+    },
+    {
+      "name": "Ward Watson",
+      "bulbCount": 5
+    },
+    {
+      "name": "Wendy Gibson",
+      "bulbCount": 1
+    },
+    {
+      "name": "Wes Baker",
+      "bulbCount": 1
+    },
+    {
+      "name": "Willa Amacher",
+      "bulbCount": 5
+    },
+    {
+      "name": "With love & prayers for ALL but especially Courtney & Phillip",
+      "bulbCount": 1
+    },
+    {
+      "name": "Wm. H. Pratt",
+      "bulbCount": 1
+    },
+    {
+      "name": "Yuko Washizu",
+      "bulbCount": 5
+    },
+    {
+      "name": "Yvonne Franco",
+      "bulbCount": 1
+    },
+    {
+      "name": "Zak Austin (age 7)",
+      "bulbCount": 1
+    },
+    {
+      "name": "Zazzybob",
+      "bulbCount": 1
+    },
+    {
+      "name": "桜井 達也",
+      "bulbCount": 1
+    },
+    {
+      "name": "김의수",
+      "bulbCount": 1
+    }
+  ],
+  "music": [
+    {
+      "arranger": "Dean Burris, 1999",
+      "songs": [
+        "Auld Lang Syne (Swing)",
+        "Deck the Halls (Reggae)",
+        "Hava Nagilah",
+        "Jingle Bells (Reggae)",
+        "O Christmas Tree (Swing)",
+        "We Wish You a Merry Christmas (Reggae)"
+      ]
+    },
+    {
+      "arranger": "Michael Kosacki, 1994",
+      "songs": [
+        "Auld Lang Syne",
+        "Chanukah Song",
+        "Dreidle",
+        "Greensleeves",
+        "Joy of Man's Desire"
+      ]
+    },
+    {
+      "arranger": "George Larson, 1993",
+      "songs": [
+        "A Very Merry Christmas",
+        "Almost Time for Christmas",
+        "Angels We Have Heard On High",
+        "Deck the Halls",
+        "First Noel",
+        "God Rest Ye Merry Gentlemen",
+        "God Rest Ye Merry Gentlemen (Reggae)",
+        "Good Christian Men",
+        "Good King Wenceslaus",
+        "Hark the Herald Angels Sing",
+        "Here We Come A-Caroling",
+        "In a Manger",
+        "It Came Upon A Midnight",
+        "Jingle Bells",
+        "Jolly Old St. Nick",
+        "Joy to the World",
+        "O Christmas Tree",
+        "O Come, All Ye Faithful",
+        "O Little Town of Bethlehem",
+        "Silent Night",
+        "Twelve Days of Christmas",
+        "We Three Kings",
+        "We Wish You a Merry Christmas",
+        "What Child Is This"
+      ]
+    },
+    {
+      "arranger": "Bill Basham and Diversified Software Research, 1996",
+      "songs": [
+        "Bicycle Built for Two",
+        "Clementine",
+        "Yankee Doodle Dandy"
+      ]
+    },
+    {
+      "arranger": "Thomas Thurston, 1999",
+      "songs": [
+        "Danny Boy"
+      ]
+    },
+    {
+      "arranger": "Night Gallery Halloween Web site, 1995",
+      "songs": [
+        "Halloween - Eerie",
+        "Halloween - Funeral March",
+        "Halloween - Haunted House",
+        "Halloween - Marionette",
+        "Halloween - Scary"
+      ]
+    }
+  ],
+  "screenSaverArt": "The background pictures are licensed from ArtToday. The Dancing Demon, Gingerbread Man and Singing Tree animations are licensed from web-ready.com; the Angel, Santa and Skeleton animations from XOOM, Inc.",
+  "software": [
+    {
+      "name": "MMPX pixel-art magnification",
+      "copyright": "Copyright (c) 2021 Morgan McGuire and Mara Gagiu",
+      "license": "MIT",
+      "licenseText": "MIT License\n\nCopyright (c) 2021 Morgan McGuire and Mara Gagiu\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+    },
+    {
+      "name": "Vortice.Windows",
+      "copyright": "Copyright (c) Amer Koleci and Contributors",
+      "license": "MIT",
+      "licenseText": "MIT License\n\nCopyright (c) Amer Koleci and Contributors\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+    },
+    {
+      "name": "NAudio",
+      "copyright": "Copyright (c) Mark Heath and Contributors",
+      "license": "MIT",
+      "licenseText": "MIT License\n\nCopyright (c) Mark Heath and Contributors\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+    },
+    {
+      "name": "H.NotifyIcon",
+      "copyright": "Copyright (c) havendv and Contributors",
+      "license": "MIT",
+      "licenseText": "MIT License\n\nCopyright (c) havendv and Contributors\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+    },
+    {
+      "name": "VirtualizingWrapPanel",
+      "copyright": "Copyright (c) sbaeumlisberger",
+      "license": "MIT",
+      "licenseText": "MIT License\n\nCopyright (c) sbaeumlisberger\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+    },
+    {
+      "name": ".NET and WPF",
+      "copyright": "Copyright (c) .NET Foundation and Contributors",
+      "license": "MIT",
+      "licenseText": "MIT License\n\nCopyright (c) .NET Foundation and Contributors\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+    }
+  ],
+  "artworkNotice": "All artwork and music are copyrighted by their authors and may not be used for other purposes without their permission.",
+  "privacyNotice": "Holiday Lights works completely offline and never collects information about you."
+}

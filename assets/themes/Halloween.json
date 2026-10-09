@@ -1,0 +1,56 @@
+{
+  "schema": "holidaylights.theme/1",
+  "name": "Halloween",
+  "shipped": "classic",
+  "arrangement": {
+    "top": [
+      "builtin:jack-o-lanterns",
+      "builtin:ghosts"
+    ],
+    "right": [
+      "builtin:jack-o-lanterns",
+      "builtin:the-grim-reaper"
+    ],
+    "bottom": [
+      "builtin:jack-o-lanterns",
+      "builtin:zombie-tombstones"
+    ],
+    "left": [
+      "builtin:jack-o-lanterns",
+      "builtin:the-grim-reaper"
+    ],
+    "topLeft": "builtin:autumn-leaves",
+    "topRight": "builtin:autumn-leaves",
+    "bottomLeft": null,
+    "bottomRight": null
+  },
+  "flash": {
+    "pattern": "flashTogether",
+    "interval": 5
+  },
+  "music": {
+    "enabledSongs": [
+      "bundled:Halloween - Eerie.mid",
+      "bundled:Halloween - Funeral March.mid",
+      "bundled:Halloween - Haunted House.mid",
+      "bundled:Halloween - Marionette.mid",
+      "bundled:Halloween - Scary.mid"
+    ],
+    "mode": "intermittently"
+  },
+  "saver": {
+    "animation": "Halloween",
+    "message": "Happy Halloween!",
+    "font": {
+      "family": "Creepy",
+      "sizePt": 60,
+      "bold": true,
+      "italic": false,
+      "underline": false,
+      "strikeout": false
+    },
+    "color": "#FF0000",
+    "picture": "bundled:Pumpkin.BMP",
+    "placement": "center"
+  }
+}

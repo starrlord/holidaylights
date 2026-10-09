@@ -1,0 +1,230 @@
+<!--
+  Holiday Lights Settings (owner: settings-ui; PRODUCT-SPEC 2.3): the string of lights band, the left navigation (Home,
+  Bulb Factory, Music Box, Screen Saver, Themes, General; footer Help, About Holiday Lights; a 48 DIP rail below 1200 DIP),
+  the page header with Undo and Redo, the page host with its snackbar, and the bottom bar
+  ("Changes take effect right away." OK / Cancel / Help).
+-->
+<Window x:Class="HolidayLights.App.Settings.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:HolidayLights.App.Controls"
+        xmlns:preview="clr-namespace:HolidayLights.App.Preview"
+        xmlns:core="clr-namespace:HolidayLights.Core.Abstractions;assembly=HolidayLights.Core"
+        Title="Holiday Lights Settings"
+        Icon="/HolidayLights;component/Assets/HolidayLights.ico"
+        Width="1240" Height="800" MinWidth="760" MinHeight="560"
+        UseLayoutRounding="True">
+    <Window.Resources>
+        <Style x:Key="NavItemStyle" TargetType="ListBoxItem">
+            <Setter Property="Foreground" Value="{DynamicResource NavigationViewItemForeground}" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="Chrome" Height="36" Margin="4,1" CornerRadius="4" Background="Transparent">
+                            <Grid>
+                                <Rectangle x:Name="Pill" Width="3" Height="16" RadiusX="1.5" RadiusY="1.5" HorizontalAlignment="Left"
+                                           Fill="{DynamicResource NavigationViewSelectionIndicatorForeground}" Visibility="Collapsed" />
+                                <ContentPresenter Margin="12,0,8,0" VerticalAlignment="Center" />
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Chrome" Property="Background" Value="{DynamicResource NavigationViewItemBackgroundPointerOver}" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Chrome" Property="Background" Value="{DynamicResource NavigationViewItemBackgroundSelected}" />
+                                <Setter TargetName="Pill" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="NavButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="{DynamicResource NavigationViewItemForeground}" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Chrome" Height="36" Margin="4,1" CornerRadius="4" Background="Transparent">
+                            <ContentPresenter Margin="12,0,8,0" VerticalAlignment="Center" RecognizesAccessKey="True" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Chrome" Property="Background" Value="{DynamicResource NavigationViewItemBackgroundPointerOver}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Chrome" Property="Background" Value="{DynamicResource NavigationViewItemBackgroundPressed}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="NavGlyph" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe Fluent Icons, Segoe MDL2 Assets" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Width" Value="24" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,0,12,0" />
+        </Style>
+    </Window.Resources>
+
+    <Grid x:Name="Root">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="PaneColumn" Width="220" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- The string of lights (PRODUCT-SPEC 4.3.1): decoration only, hidden from screen readers. -->
+        <preview:LightStrip x:Name="StringOfLights" Grid.ColumnSpan="2" Height="24" BulbHeight="20" Side="Top" IncludeCorners="True"
+                            SmoothAnimation="True" Glow="Auto" Focusable="False" />
+
+        <!-- Navigation pane. -->
+        <Border x:Name="PaneBorder" Grid.Row="1" Grid.RowSpan="2" Panel.ZIndex="2" HorizontalAlignment="Left" Width="220"
+                Background="Transparent" BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" BorderThickness="0">
+            <DockPanel LastChildFill="True" ClipToBounds="True">
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="4,4,4,8">
+                    <Button x:Name="PaneToggle" Style="{DynamicResource HL.Style.Button.Subtle}" Width="40" Height="36" Padding="0"
+                            Click="OnPaneToggleClick" AutomationProperties.Name="Open Navigation" ToolTip="Open Navigation" Visibility="Collapsed">
+                        <TextBlock Text="&#xE700;" Style="{DynamicResource HL.Style.Text.Glyph}" />
+                    </Button>
+                    <StackPanel x:Name="PaneTitle" Orientation="Horizontal" Margin="12,6,0,0" VerticalAlignment="Center">
+                        <Image Source="/HolidayLights;component/Assets/HolidayLights.ico" Width="20" Height="20" Margin="0,0,10,0"
+                               RenderOptions.BitmapScalingMode="HighQuality" />
+                        <TextBlock Text="Holiday Lights" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"
+                                   Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel DockPanel.Dock="Bottom" Margin="0,8,0,12">
+                    <Button x:Name="HelpNavButton" Style="{StaticResource NavButtonStyle}" Click="OnHelpNavClick"
+                            AutomationProperties.Name="Help" ToolTipService.IsEnabled="False" ToolTip="Help">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE897;" Style="{StaticResource NavGlyph}" />
+                            <TextBlock Text="Help" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="AboutNavButton" Style="{StaticResource NavButtonStyle}" Click="OnAboutNavClick"
+                            AutomationProperties.Name="About Holiday Lights" ToolTipService.IsEnabled="False" ToolTip="About Holiday Lights">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE946;" Style="{StaticResource NavGlyph}" />
+                            <TextBlock Text="About Holiday Lights" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <!-- Arrow keys move the focus only; Enter, Space or a click opens the page (PRODUCT-SPEC 3.0.1). -->
+                <ListBox x:Name="Navigation" BorderThickness="0" Background="Transparent" Padding="0"
+                         ItemContainerStyle="{StaticResource NavItemStyle}" SelectionChanged="OnNavigationSelectionChanged"
+                         PreviewKeyDown="OnNavigationPreviewKeyDown"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" KeyboardNavigation.TabNavigation="Once"
+                         AutomationProperties.Name="Pages">
+                    <ListBoxItem Tag="{x:Static core:SettingsPageId.Home}" AutomationProperties.Name="Home" ToolTipService.IsEnabled="False" ToolTip="Home">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE80F;" Style="{StaticResource NavGlyph}" />
+                            <TextBlock Text="Home" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem Tag="{x:Static core:SettingsPageId.BulbFactory}" AutomationProperties.Name="Bulb Factory" ToolTipService.IsEnabled="False" ToolTip="Bulb Factory">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE82F;" Style="{StaticResource NavGlyph}" />
+                            <TextBlock Text="Bulb Factory" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem Tag="{x:Static core:SettingsPageId.MusicBox}" AutomationProperties.Name="Music Box" ToolTipService.IsEnabled="False" ToolTip="Music Box">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xEC4F;" Style="{StaticResource NavGlyph}" />
+                            <TextBlock Text="Music Box" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem Tag="{x:Static core:SettingsPageId.ScreenSaver}" AutomationProperties.Name="Screen Saver" ToolTipService.IsEnabled="False" ToolTip="Screen Saver">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE7F4;" Style="{StaticResource NavGlyph}" />
+                            <TextBlock Text="Screen Saver" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem Tag="{x:Static core:SettingsPageId.Themes}" AutomationProperties.Name="Themes" ToolTipService.IsEnabled="False" ToolTip="Themes">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE790;" Style="{StaticResource NavGlyph}" />
+                            <TextBlock Text="Themes" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem Tag="{x:Static core:SettingsPageId.General}" AutomationProperties.Name="General" ToolTipService.IsEnabled="False" ToolTip="General">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE713;" Style="{StaticResource NavGlyph}" />
+                            <TextBlock Text="General" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ListBoxItem>
+                </ListBox>
+            </DockPanel>
+        </Border>
+
+        <!-- Page area: a content layer with the page header, the page and its snackbar. -->
+        <Border x:Name="ContentLayer" Grid.Row="1" Grid.Column="1" CornerRadius="8,0,0,0" BorderThickness="1,1,0,0"
+                Background="{DynamicResource LayerFillColorDefaultBrush}" BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <controls:PageHeader x:Name="Header" Margin="24,18,24,14" SizeChanged="OnHeaderSizeChanged">
+                    <controls:PageHeader.Commands>
+                        <StackPanel Orientation="Horizontal">
+                            <controls:SplitButton x:Name="UndoButton" AutomationProperties.Name="Undo" MenuButtonName="More undo options">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="&#xE7A7;" Style="{DynamicResource HL.Style.Text.Glyph}" FontSize="14" Margin="0,0,6,0" />
+                                    <TextBlock Text="Undo" VerticalAlignment="Center" />
+                                </StackPanel>
+                                <controls:SplitButton.Menu>
+                                    <ContextMenu>
+                                        <MenuItem x:Name="UndoAllMenuItem" Header="Undo All Changes Since This Window Opened" Click="OnUndoAllClick"
+                                                  ToolTip="{DynamicResource HL.Tip.Window.UndoAll}" />
+                                    </ContextMenu>
+                                </controls:SplitButton.Menu>
+                            </controls:SplitButton>
+                            <Button x:Name="RedoButton" Margin="8,0,0,0" Padding="10,4" Click="OnRedoClick" AutomationProperties.Name="Redo"
+                                    Content="Redo" controls:ButtonContent.Glyph="&#xE7A6;" ContentTemplate="{DynamicResource HL.Template.GlyphLabel}" />
+                        </StackPanel>
+                    </controls:PageHeader.Commands>
+                </controls:PageHeader>
+                <!-- The page's actions when the header row is too narrow for them and a readable title. -->
+                <ContentControl x:Name="HeaderActionsBelow" Grid.Row="1" Margin="24,-4,24,14" HorizontalAlignment="Left" Focusable="False"
+                                IsTabStop="False" Visibility="Collapsed" />
+                <controls:InfoBar x:Name="WindowInfoBar" Grid.Row="2" IsOpen="False" Severity="Warning" Margin="24,0,24,12" />
+                <ContentControl x:Name="PageHost" Grid.Row="3" Focusable="False" IsTabStop="False" />
+                <controls:Snackbar x:Name="Snackbar" Grid.Row="3" Panel.ZIndex="5" />
+            </Grid>
+        </Border>
+
+        <!-- Bottom bar (PRODUCT-SPEC 2.3): the 5.4 buttons in the 5.4 order; Cancel has no access key. -->
+        <Grid x:Name="BottomBar" Grid.Row="2" Grid.Column="1" Margin="24,12,24,14">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Changes take effect right away." VerticalAlignment="Center" FontSize="12" TextTrimming="CharacterEllipsis"
+                       Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Button x:Name="OkButton" MinWidth="96" Content="OK" Click="OnOkClick" Style="{DynamicResource AccentButtonStyle}"
+                        ToolTip="{DynamicResource HL.Tip.Window.OK}" />
+                <Button x:Name="CancelButton" MinWidth="96" Margin="8,0,0,0" Click="OnCancelClick" ToolTip="{DynamicResource HL.Tip.Window.Cancel}">
+                    <TextBlock Text="Cancel" />
+                </Button>
+                <Button x:Name="HelpButton" MinWidth="96" Margin="8,0,0,0" Content="Help" Click="OnHelpClick" ToolTip="{DynamicResource HL.Tip.Window.Help}" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

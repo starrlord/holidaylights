@@ -1,0 +1,53 @@
+<!--
+  The tray menu's own looks (owner: app-shell; PRODUCT-SPEC 2.2). WPF's Fluent theme draws every checkable menu item
+  with a check box, so the radio items ("Bulbs On Desktop", "Bulbs On Top of All Windows", the themes) use this copy of
+  the Fluent submenu item template whose first column is a radio mark: a circle, with a dot for the current choice. The
+  columns and their shared size groups are the Fluent template's, so the labels line up with the other items.
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTemplate x:Key="HL.Tray.RadioMenuItemTemplate" TargetType="MenuItem">
+        <Border x:Name="Border" Margin="4,1,4,1" CornerRadius="4"
+                Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid Margin="8,6,8,6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="MenuItemCheckBoxIconColumnGroup" />
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="MenuItemIconColumnGroup" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="Shortcut" />
+                </Grid.ColumnDefinitions>
+                <Grid x:Name="RadioMark" Grid.Column="0" Width="20" Height="20" Margin="0,0,6,0" VerticalAlignment="Center">
+                    <Ellipse Stroke="{DynamicResource CheckBoxBorderBrush}" StrokeThickness="1" Fill="{DynamicResource CheckBoxBackground}" />
+                    <Ellipse x:Name="RadioDot" Width="8" Height="8" Fill="{TemplateBinding Foreground}" Visibility="Collapsed" />
+                </Grid>
+                <ContentPresenter x:Name="Icon" Grid.Column="1" Margin="0,0,6,0" VerticalAlignment="Center"
+                                  Content="{TemplateBinding Icon}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                <ContentPresenter Grid.Column="2" ContentSource="Header" RecognizesAccessKey="True" Margin="{TemplateBinding Padding}"
+                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" TextElement.Foreground="{TemplateBinding Foreground}" />
+                <TextBlock x:Name="InputGestureText" Grid.Column="3" Margin="25,0,0,0" VerticalAlignment="Bottom" FontSize="11"
+                           Foreground="{DynamicResource TextFillColorDisabledBrush}" Text="{TemplateBinding InputGestureText}" />
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter TargetName="Border" Property="Background" Value="{DynamicResource MenuBarItemBackgroundSelected}" />
+            </Trigger>
+            <Trigger Property="Icon" Value="{x:Null}">
+                <Setter TargetName="Icon" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="RadioDot" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{DynamicResource TextFillColorDisabled}" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="InputGestureText" Value="">
+                <Setter TargetName="InputGestureText" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+</ResourceDictionary>

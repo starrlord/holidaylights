@@ -1,0 +1,62 @@
+{
+  "schema": "holidaylights.theme/1",
+  "name": "Chanukah",
+  "shipped": "classic",
+  "arrangement": {
+    "top": [
+      "builtin:dreidels",
+      "builtin:16-pixel-spacer",
+      "builtin:menorahs",
+      "builtin:16-pixel-spacer"
+    ],
+    "right": [
+      "builtin:16-pixel-spacer",
+      "builtin:dreidels",
+      "builtin:16-pixel-spacer",
+      "builtin:menorahs"
+    ],
+    "bottom": [
+      "builtin:dreidels",
+      "builtin:16-pixel-spacer",
+      "builtin:menorahs",
+      "builtin:16-pixel-spacer"
+    ],
+    "left": [
+      "builtin:16-pixel-spacer",
+      "builtin:menorahs",
+      "builtin:16-pixel-spacer",
+      "builtin:dreidels"
+    ],
+    "topLeft": null,
+    "topRight": null,
+    "bottomLeft": null,
+    "bottomRight": null
+  },
+  "flash": {
+    "pattern": "bulbChase",
+    "interval": 5
+  },
+  "music": {
+    "enabledSongs": [
+      "bundled:Chanukah Song.mid",
+      "bundled:Dreidle.mid",
+      "bundled:Hava Nagilah.mid"
+    ],
+    "mode": "intermittently"
+  },
+  "saver": {
+    "animation": "Dreidels",
+    "message": "Happy Chanukah!",
+    "font": {
+      "family": "Footlight MT Light",
+      "sizePt": 48,
+      "bold": true,
+      "italic": false,
+      "underline": false,
+      "strikeout": false
+    },
+    "color": "#00FF00",
+    "picture": "(None)",
+    "placement": "center"
+  }
+}

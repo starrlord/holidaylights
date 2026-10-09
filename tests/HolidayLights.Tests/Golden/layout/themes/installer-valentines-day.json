@@ -1,0 +1,7 @@
+{
+ "_comment": "Translated from golden default-themes.json, theme \"Valentine's Day\", value 'Bulb Settings' (32 x int32: per side 6 bulb ids + 2 corner ids; ids are legacy built-in bulb ids).",
+ "top": {"bulbs": [15, 16, 17, -1, -1, -1], "corners": [-1, -1]},
+ "right": {"bulbs": [16, 17, 15, -1, -1, -1], "corners": [-1, -1]},
+ "bottom": {"bulbs": [15, 16, 17, -1, -1, -1], "corners": [-1, -1]},
+ "left": {"bulbs": [16, 17, 15, -1, -1, -1], "corners": [-1, -1]}
+}

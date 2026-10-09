@@ -1,0 +1,42 @@
+<!--
+  The per-user installer and uninstaller window (owner: app-shell; PRODUCT-SPEC 6.10): one page to choose, one while it
+  works, one with the result ("Start Holiday Lights" checked after installing).
+-->
+<Window x:Class="HolidayLights.App.Install.SetupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Holiday Lights Setup"
+        Width="520" SizeToContent="Height"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <StackPanel Margin="24,20,24,20">
+        <TextBlock x:Name="Heading" Style="{DynamicResource HL.Style.Text.Subtitle}" AutomationProperties.HeadingLevel="Level1" />
+
+        <StackPanel x:Name="ChoicePage" Margin="0,12,0,0">
+            <TextBlock x:Name="Intro" TextWrapping="Wrap" />
+            <StackPanel x:Name="LegacyRunning" Margin="0,12,0,0" Visibility="Collapsed">
+                <TextBlock TextWrapping="Wrap" Text="Holiday Lights 5.4 is still running." />
+                <Button x:Name="CloseLegacy" Margin="0,6,0,0" HorizontalAlignment="Left" Content="Close It" Click="OnCloseLegacy" />
+            </StackPanel>
+            <CheckBox x:Name="RemoveDocuments" Margin="0,12,0,0" Visibility="Collapsed">
+                <TextBlock TextWrapping="Wrap" Text="Also remove your bulbs, songs and pictures in Documents\Holiday Lights" />
+            </CheckBox>
+            <CheckBox x:Name="RemoveSettings" Margin="0,8,0,0" Visibility="Collapsed" Content="Also remove my settings and themes" />
+        </StackPanel>
+
+        <StackPanel x:Name="WorkingPage" Margin="0,12,0,0" Visibility="Collapsed">
+            <ProgressBar IsIndeterminate="True" Height="4" />
+            <TextBlock x:Name="Status" Margin="0,8,0,0" TextWrapping="Wrap" AutomationProperties.LiveSetting="Polite" />
+        </StackPanel>
+
+        <StackPanel x:Name="DonePage" Margin="0,12,0,0" Visibility="Collapsed">
+            <TextBlock x:Name="DoneText" TextWrapping="Wrap" AutomationProperties.LiveSetting="Polite" />
+            <CheckBox x:Name="StartProgram" Margin="0,12,0,0" Content="Start Holiday Lights" IsChecked="True" Visibility="Collapsed" />
+        </StackPanel>
+
+        <StackPanel Margin="0,24,0,0" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="Primary" MinWidth="96" IsDefault="True" Click="OnPrimary" />
+            <Button x:Name="Cancel" MinWidth="96" Margin="8,0,0,0" Content="Cancel" IsCancel="True" Click="OnCancel" />
+        </StackPanel>
+    </StackPanel>
+</Window>

@@ -1,0 +1,38 @@
+{
+  "schema": "holidaylights.theme/1",
+  "name": "Blank Slate",
+  "shipped": "classic",
+  "arrangement": {
+    "top": [],
+    "right": [],
+    "bottom": [],
+    "left": [],
+    "topLeft": null,
+    "topRight": null,
+    "bottomLeft": null,
+    "bottomRight": null
+  },
+  "flash": {
+    "pattern": "flashTogether",
+    "interval": 5
+  },
+  "music": {
+    "enabledSongs": [],
+    "mode": "always"
+  },
+  "saver": {
+    "animation": "(None)",
+    "message": "",
+    "font": {
+      "family": "Arial",
+      "sizePt": 36,
+      "bold": true,
+      "italic": false,
+      "underline": false,
+      "strikeout": false
+    },
+    "color": "#FF0000",
+    "picture": "(None)",
+    "placement": "center"
+  }
+}

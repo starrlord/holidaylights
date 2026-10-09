@@ -1,0 +1,59 @@
+{
+  "schema": "holidaylights.theme/1",
+  "name": "July 4th",
+  "shipped": "classic",
+  "arrangement": {
+    "top": [
+      "builtin:32-pixel-spacer",
+      "builtin:sun",
+      "builtin:32-pixel-spacer",
+      "builtin:old-glory-bulbs"
+    ],
+    "right": [
+      "builtin:32-pixel-spacer",
+      "builtin:old-glory-bulbs",
+      "builtin:32-pixel-spacer",
+      "builtin:chili-peppers"
+    ],
+    "bottom": [
+      "builtin:32-pixel-spacer",
+      "builtin:old-glory-bulbs"
+    ],
+    "left": [
+      "builtin:32-pixel-spacer",
+      "builtin:old-glory-bulbs",
+      "builtin:32-pixel-spacer",
+      "builtin:chili-peppers"
+    ],
+    "topLeft": "builtin:chili-peppers",
+    "topRight": "builtin:chili-peppers",
+    "bottomLeft": "builtin:chili-peppers",
+    "bottomRight": "builtin:chili-peppers"
+  },
+  "flash": {
+    "pattern": "flashTogether",
+    "interval": 5
+  },
+  "music": {
+    "enabledSongs": [
+      "bundled:Star Spangled Banner.mid",
+      "bundled:Yankee Doodle Dandy.mid"
+    ],
+    "mode": "intermittently"
+  },
+  "saver": {
+    "animation": "Happy Faces",
+    "message": "Happy July 4th!",
+    "font": {
+      "family": "Arial Black",
+      "sizePt": 48,
+      "bold": true,
+      "italic": false,
+      "underline": false,
+      "strikeout": false
+    },
+    "color": "#FF0000",
+    "picture": "bundled:Flag.BMP",
+    "placement": "center"
+  }
+}

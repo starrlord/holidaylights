@@ -1,0 +1,87 @@
+<!--
+  The Welcome card (owner: app-shell; PRODUCT-SPEC 3.11): 560 x 640 DIP, not resizable, Mica (ThemeMode=System), centred
+  on the main display so the screen edges and their lights stay visible. Content that depends on the variant (theme
+  cards, the Holiday Lights 5.4 lines, the screen saver button) is built in code.
+  Everything the card exists for fits without scrolling (the wireframe of 3.11): the banner is drawn at 70 %, the
+  taskbar picture sits beside the tray text, the four theme cards share one row, and the 5.4 lines follow the choices.
+  The scroll viewer only matters for a 5.4 import with several leftovers.
+-->
+<Window x:Class="HolidayLights.App.FirstRun.WelcomeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Welcome to Holiday Lights"
+        Width="560" Height="640"
+        ResizeMode="NoResize"
+        WindowStartupLocation="Manual"
+        ShowInTaskbar="True">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ScrollViewer x:Name="Scroller" Grid.Row="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Focusable="False">
+            <StackPanel Margin="24,12,24,4">
+                <ContentPresenter x:Name="BannerHost" Margin="0,0,0,8" HorizontalAlignment="Center">
+                    <ContentPresenter.LayoutTransform>
+                        <ScaleTransform ScaleX="0.7" ScaleY="0.7" />
+                    </ContentPresenter.LayoutTransform>
+                </ContentPresenter>
+
+                <TextBlock x:Name="Heading" Style="{DynamicResource HL.Style.Text.Subtitle}" TextWrapping="Wrap"
+                           AutomationProperties.HeadingLevel="Level1" />
+                <Grid Margin="0,4,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <TextBlock TextWrapping="Wrap"
+                                   Text="Holiday Lights lives in the notification area next to the clock: look for the red bulb. Click it any time to change your lights." />
+                        <TextBlock Margin="0,4,0,0" TextWrapping="Wrap" Style="{DynamicResource HL.Style.Text.Caption}"
+                                   Text="Don't see it? Select the ^ next to the clock. You can drag the bulb onto the taskbar to keep it in view." />
+                    </StackPanel>
+                    <Image x:Name="TaskbarCorner" Grid.Column="1" Margin="12,2,0,0" Width="176" Height="66" VerticalAlignment="Top" Stretch="Uniform"
+                           AutomationProperties.Name="The notification area, with the red bulb in the flyout above the ^ button" />
+                </Grid>
+
+                <Grid Margin="0,12,0,6">
+                    <TextBlock Text="Choose a Theme" Style="{DynamicResource HL.Style.Text.BodyStrong}" VerticalAlignment="Bottom"
+                               AutomationProperties.HeadingLevel="Level2" />
+                    <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                        <Hyperlink x:Name="MoreThemes" Click="OnMoreThemes">More Themes&#x2026;</Hyperlink>
+                    </TextBlock>
+                </Grid>
+                <UniformGrid x:Name="ThemeCards" Rows="1" Columns="4" Margin="-3,0,-3,0"
+                             KeyboardNavigation.DirectionalNavigation="Contained" KeyboardNavigation.TabNavigation="Once" />
+
+                <Grid Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="MusicLabel" VerticalAlignment="Center" Text="Play Holiday Music" />
+                    <CheckBox x:Name="MusicSwitch" Grid.Column="1" Style="{DynamicResource HL.Style.ToggleSwitch}"
+                              AutomationProperties.LabeledBy="{Binding ElementName=MusicLabel}" Click="OnMusicSwitch" Checked="OnMusicSwitch" Unchecked="OnMusicSwitch" />
+                </Grid>
+                <Grid Margin="0,4,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="StartupLabel" VerticalAlignment="Center" Text="Automatically Start Holiday Lights When I Sign In" TextWrapping="Wrap" />
+                    <CheckBox x:Name="StartupSwitch" Grid.Column="1" Style="{DynamicResource HL.Style.ToggleSwitch}"
+                              AutomationProperties.LabeledBy="{Binding ElementName=StartupLabel}" Click="OnStartupSwitch" Checked="OnStartupSwitch" Unchecked="OnStartupSwitch" />
+                </Grid>
+
+                <ContentPresenter x:Name="ScreenSaverHost" Margin="0,10,0,0" />
+                <StackPanel x:Name="LegacyLines" Margin="0,10,0,0" />
+            </StackPanel>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="24,8,24,20">
+            <Button Content="Open Settings" MinWidth="120" Click="OnOpenSettings" />
+            <Button Content="Done" MinWidth="96" Margin="8,0,0,0" IsDefault="True" IsCancel="True" Click="OnDone" />
+        </StackPanel>
+    </Grid>
+</Window>

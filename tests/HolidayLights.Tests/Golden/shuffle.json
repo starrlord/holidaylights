@@ -1,0 +1,60 @@
+{
+ "schema": "holidaylights.golden.shuffle/1",
+ "generator": "reference tools of the Holiday Lights 5.4 analysis (not part of this repository; see Golden/README.md)",
+ "spec": "the Holiday Lights 5.4 shuffle bag (see Golden/README.md)",
+ "conventions": {
+  "start": "fresh song list (every record unplayed = 1, all enabled and playable), lastIndex = -1, srand(seed) on a private MSVC rand() (see msvc-rand.json)",
+  "pick": "eligible = enabled && playable; remaining = eligible && unplayed; if eligible == 0 -> null and no rand() call; if remaining == 0 -> new round: set unplayed for every eligible song except lastIndex (unless eligible == 1); r = rand() % remaining; pick the r-th (list order) eligible unplayed song; clear its unplayed flag; lastIndex = it.  Exactly one rand() per non-null pick",
+  "rescan": "rescanBeforePick[k] = a rescan (fresh records: every unplayed = 1) happens just before pick k (0-based); lastIndex survives, so the song played just before a rescan can repeat",
+  "indices": "0-based song indices in list order (the original sorts songs by upper-cased name)"
+ },
+ "picks": 100,
+ "sequences": [
+  {"songCount": 1, "seed": 1, "indices": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+  {"songCount": 2, "seed": 1, "indices": [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0]},
+  {"songCount": 3, "seed": 1, "indices": [2, 1, 0, 1, 2, 0, 1, 0, 2, 0, 1, 2, 0, 2, 1, 2, 0, 1, 2, 0, 1, 0, 2, 1, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 0, 2, 1, 0, 1, 2, 1, 0, 2, 1, 0, 2, 1, 0, 1, 2, 0, 1, 2, 0, 2, 1, 2, 0, 1, 2, 1, 0, 1, 2, 0, 1, 0, 2, 0, 1, 2, 0, 2, 1, 0, 2, 1, 0, 1, 2, 1, 0, 1, 2, 0, 1, 0, 2, 0, 1, 2, 0, 2, 1, 0, 2, 0, 1, 2]},
+  {"songCount": 15, "seed": 1, "indices": [11, 1, 4, 6, 10, 7, 5, 13, 12, 3, 0, 8, 9, 14, 2, 1, 7, 4, 13, 10, 0, 9, 8, 11, 6, 12, 3, 5, 14, 1, 0, 8, 12, 11, 9, 2, 10, 4, 3, 7, 13, 6, 5, 10, 7, 11, 6, 1, 3, 9, 12, 4, 8, 2, 0, 14, 13, 11, 8, 12, 7, 5, 6, 2, 1, 10, 0, 9, 4, 3, 14, 5, 4, 11, 7, 0, 6, 10, 12, 3, 13, 9, 1, 2, 8, 11, 0, 10, 6, 13, 9, 14, 1, 3, 5, 7, 12, 2, 4, 8]},
+  {
+   "songCount": 46,
+   "seed": 1,
+   "indices": [41, 17, 44, 12, 19, 24, 43, 34, 23, 7, 21, 5, 33, 40, 11, 37, 36, 32, 15, 13, 35, 4, 26, 28, 9, 27, 1, 2, 20, 14, 22, 18, 3, 30, 39, 8, 38, 6, 25, 29, 45, 10, 31, 0, 42, 16, 22, 11, 2, 26, 5, 6, 25, 1, 29, 12, 14, 28, 13, 19, 18, 9, 10, 40, 36, 44, 33, 32, 31, 24, 45, 15, 20, 41, 30, 21, 23, 34, 17, 38, 27, 7, 0, 8, 37, 35, 4, 3, 43, 39, 42, 39, 30, 14, 37, 13, 44, 17, 18, 2]
+  },
+  {"songCount": 1, "seed": 42, "indices": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+  {"songCount": 2, "seed": 42, "indices": [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0]},
+  {"songCount": 3, "seed": 42, "indices": [1, 0, 2, 0, 1, 2, 0, 1, 2, 1, 0, 1, 2, 1, 0, 2, 1, 0, 2, 0, 1, 0, 2, 1, 0, 1, 2, 1, 0, 2, 1, 2, 0, 2, 1, 2, 0, 1, 2, 1, 0, 2, 1, 0, 2, 1, 0, 2, 1, 0, 2, 1, 0, 1, 2, 0, 1, 0, 2, 1, 0, 2, 1, 2, 0, 1, 2, 1, 0, 2, 1, 0, 2, 1, 0, 2, 1, 2, 0, 2, 1, 2, 0, 1, 2, 0, 1, 0, 2, 1, 0, 2, 1, 2, 0, 1, 2, 0, 1, 0]},
+  {"songCount": 15, "seed": 42, "indices": [10, 8, 7, 11, 1, 14, 9, 5, 4, 13, 12, 3, 2, 6, 0, 14, 12, 9, 8, 7, 10, 3, 13, 11, 1, 2, 4, 6, 5, 6, 11, 12, 2, 8, 7, 4, 1, 13, 9, 14, 3, 10, 0, 3, 14, 5, 2, 13, 8, 1, 6, 12, 11, 9, 4, 7, 10, 13, 3, 1, 5, 8, 7, 6, 4, 12, 0, 9, 2, 14, 11, 2, 13, 8, 0, 7, 1, 10, 4, 5, 14, 12, 9, 3, 6, 0, 13, 5, 8, 4, 1, 14, 10, 9, 7, 11, 12, 2, 3, 5]},
+  {
+   "songCount": 46,
+   "seed": 42,
+   "indices": [37, 41, 5, 45, 42, 6, 18, 0, 2, 35, 13, 31, 11, 8, 1, 14, 17, 38, 26, 33, 27, 12, 43, 20, 32, 15, 36, 25, 21, 24, 19, 39, 22, 44, 34, 23, 40, 10, 30, 16, 4, 28, 29, 3, 7, 9, 42, 22, 29, 39, 14, 26, 34, 23, 12, 2, 0, 6, 32, 31, 38, 8, 7, 45, 5, 36, 27, 18, 11, 41, 21, 37, 1, 19, 16, 17, 30, 25, 4, 33, 40, 15, 44, 3, 10, 24, 20, 13, 35, 43, 28, 17, 14, 31, 37, 4, 39, 25, 26, 1]
+  }
+ ],
+ "scenarios": [
+  {
+   "name": "rescan",
+   "songCount": 15,
+   "seed": 1,
+   "rescanBeforePick": [7, 30],
+   "disabled": [],
+   "indices": [11, 1, 4, 6, 10, 7, 5, 3, 13, 12, 6, 9, 1, 10, 2, 4, 5, 8, 14, 0, 11, 7, 11, 12, 4, 9, 1, 8, 13, 2, 2, 13, 4, 8, 14, 3, 12, 6, 9, 0, 10, 11, 7, 5, 1, 3, 11, 9, 7, 13, 8, 6, 0, 10, 5, 14, 12, 4, 2, 9, 6, 14, 4, 3, 0, 7, 10, 8, 13, 1, 12, 11, 5, 10, 9, 2, 3, 1, 7, 11, 4, 14, 13, 8, 0, 6, 12, 13, 8, 4, 5, 14, 2, 6, 0, 10, 9, 7, 1, 11]
+  },
+  {"name": "rescan-small", "songCount": 3, "seed": 42, "rescanBeforePick": [1, 2, 5], "disabled": [], "indices": [1, 1, 1, 0, 2, 0, 1, 2, 1, 0, 2, 1, 2, 0, 1, 2, 0, 1, 2, 0, 2, 1, 0, 2, 0, 1, 0, 2, 1, 0, 1, 2, 0, 1, 0, 2, 1, 0, 2, 1, 2, 0, 2, 1, 0, 2, 1, 0, 2, 1, 0, 2, 1, 0, 2, 1, 2, 0, 2, 1, 0, 2, 0, 1, 0, 2, 1, 0, 2, 1, 0, 2, 1, 0, 2, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 1, 0, 1, 2, 0, 1, 0, 2, 1, 0, 2, 1, 0, 2]},
+  {
+   "name": "disabled",
+   "songCount": 15,
+   "seed": 42,
+   "rescanBeforePick": [],
+   "disabled": [0, 3, 7, 8, 14],
+   "indices": [9, 6, 11, 12, 5, 13, 1, 2, 10, 4, 1, 12, 9, 5, 6, 10, 13, 2, 11, 4, 6, 10, 12, 5, 9, 13, 1, 2, 12, 6, 11, 9, 10, 4, 5, 13, 1, 9, 13, 10, 4, 11, 12, 2, 5, 6, 10, 11, 4, 1, 9, 13, 12, 2, 5, 4, 2, 12, 6, 13, 1, 11, 9, 10, 5, 4, 13, 9, 2, 6, 11, 1, 12, 11, 2, 6, 9, 10, 5, 4, 1, 13, 12, 1, 2, 6, 5, 4, 10, 11, 9, 13, 4, 5, 10, 12, 2, 6, 1, 11]
+  },
+  {"name": "single-eligible", "songCount": 3, "seed": 1, "rescanBeforePick": [], "disabled": [0, 2], "indices": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]},
+  {
+   "name": "none-eligible",
+   "songCount": 2,
+   "seed": 1,
+   "rescanBeforePick": [],
+   "disabled": [0, 1],
+   "indices": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
+  }
+ ]
+}

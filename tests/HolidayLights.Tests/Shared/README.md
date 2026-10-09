@@ -11,5 +11,6 @@ Owner: contracts (read-only for builders). Namespace `HolidayLights.Tests.Shared
 | `InMemorySettingsStore` | `ISettingsStore` without a file (records every `SettingsChange`) |
 | `RecordingLog` | `IAppLog` that keeps entries for assertions |
 | `TestHoldingFolder` | `IHoldingFolder` without the Recycle Bin |
+| `PerformanceBudget` | the time budget of a performance test on this machine: the reference PC's, three times longer on GitHub Actions |
 
 Tests that set process environment variables use `[Collection(nameof(EnvironmentCollection))]` (no parallelism).

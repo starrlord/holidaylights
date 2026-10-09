@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using HolidayLights.Tests.Layout;
+using HolidayLights.Tests.Shared;
 
 namespace HolidayLights.Tests.Flash;
 
@@ -9,7 +10,7 @@ namespace HolidayLights.Tests.Flash;
 /// </summary>
 public sealed class PerformanceTests
 {
-    private const double BudgetMilliseconds = 0.2;
+    private static readonly double BudgetMilliseconds = PerformanceBudget.Milliseconds(0.2);
     private const int Bulbs = 2000;
 
     private static (LightsLayout Layout, IBulbResolver Bulbs) BigLayout()

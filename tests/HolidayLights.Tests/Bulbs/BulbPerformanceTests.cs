@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using HolidayLights.Core.Bulbs;
 using HolidayLights.Core.Imaging;
+using HolidayLights.Tests.Shared;
 
 namespace HolidayLights.Tests.Bulbs;
 
@@ -25,8 +26,8 @@ public sealed class BulbPerformanceTests
         TimeSpan warm = clock.Elapsed;
 
         Assert.Equal(1550, harness.Catalog.All.Count);
-        Assert.True(cold < TimeSpan.FromSeconds(1.5), $"Indexing without a cache took {cold.TotalMilliseconds:F0} ms.");
-        Assert.True(warm < TimeSpan.FromSeconds(1), $"Indexing from the cache took {warm.TotalMilliseconds:F0} ms.");
+        Assert.True(cold < PerformanceBudget.Of(TimeSpan.FromSeconds(1.5)), $"Indexing without a cache took {cold.TotalMilliseconds:F0} ms.");
+        Assert.True(warm < PerformanceBudget.Of(TimeSpan.FromSeconds(1)), $"Indexing from the cache took {warm.TotalMilliseconds:F0} ms.");
     }
 
     [Fact]
@@ -53,6 +54,6 @@ public sealed class BulbPerformanceTests
         }
 
         double median = times.Order().ElementAt(times.Count / 2);
-        Assert.True(median < 20, $"Decoding every animation of a typical bulb took {median:F1} ms.");
+        Assert.True(median < PerformanceBudget.Milliseconds(20), $"Decoding every animation of a typical bulb took {median:F1} ms.");
     }
 }

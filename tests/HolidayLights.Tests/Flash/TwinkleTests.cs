@@ -1,5 +1,6 @@
 using HolidayLights.Core.Flash;
 using HolidayLights.Tests.Layout;
+using HolidayLights.Tests.Shared;
 
 namespace HolidayLights.Tests.Flash;
 
@@ -225,7 +226,7 @@ public sealed class TwinkleTests
         sequencer.MoveTo(2_000_000_000, 0); // about 19 years at the default speed
         sequencer.MoveTo(1_999_999_000, 0);
         watch.Stop();
-        Assert.True(watch.ElapsedMilliseconds < 500, $"{watch.ElapsedMilliseconds} ms");
+        Assert.True(watch.ElapsedMilliseconds < PerformanceBudget.Milliseconds(500), $"{watch.ElapsedMilliseconds} ms");
     }
 
     [Fact]

@@ -31,7 +31,9 @@ with the filter `Category!=Live&Category!=Desktop&Category!=Audio` (in `tools/ci
 | `Audio` | a sound output or a MIDI synthesizer that opens | the other three tests in `Audio/AudioHardwareTests` |
 
 Everything else runs on GitHub, including the WPF window tests (off-screen, rendered at 150 %) and the performance
-budgets, which pass on this project's reference PC with at least five times the margin they need.
+budgets, which pass on this project's reference PC with at least five times the margin they need. GitHub's shared
+runners are slower and vary from run to run, so there every budget is three times longer (`PerformanceBudget` in
+`tests/HolidayLights.Tests/Shared`); give a new timing test its budget through it.
 
 Give a new test `[Trait("Category", "Desktop")]` or `[Trait("Category", "Audio")]` when it reads this PC's displays,
 desktop or devices, or needs a window larger than 1024 x 768.

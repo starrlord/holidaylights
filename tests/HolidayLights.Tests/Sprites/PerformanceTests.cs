@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using HolidayLights.Core.Sprites;
+using HolidayLights.Tests.Shared;
 using Xunit.Abstractions;
 
 namespace HolidayLights.Tests.Sprites;
@@ -12,7 +13,7 @@ public sealed class SpritePerformanceCollection;
 [Collection(nameof(SpritePerformanceCollection))]
 public sealed class PerformanceTests(ITestOutputHelper output)
 {
-    private const double BudgetMilliseconds = 300;
+    private static readonly double BudgetMilliseconds = PerformanceBudget.Milliseconds(300);
 
     [Theory]
     [InlineData(SpriteStyle.Smooth)]
